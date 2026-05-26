@@ -1,8 +1,8 @@
 # urbAn
 
-## 
+## Team members
 
-- Saigita Goossens
-- Mar Dorta Garcia
-- Isabella Nunes de Freitas
-- Kjell Elslander
+- **Saigita Goossens**: Implementer
+- **Mar Dorta Garcia**: Plant, Coordinator
+- **Isabella Nunes de Freitas**: Completer-Finisher, Shaper
+- **Kjell Elslander**: Teamworker, Implementer
