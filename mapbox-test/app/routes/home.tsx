@@ -1,6 +1,6 @@
 import type { Route } from "./+types/home";
 import { Welcome } from "../welcome/welcome";
-import { Map } from "../components/map"
+import { Map } from "../components/map";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -10,5 +10,9 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  return <Map />;
+  return (
+    <div className="map-container">
+      <Map />
+    </div>
+  );
 }
