@@ -1,6 +1,6 @@
 .map-container {
-  width: 24rem;
-  height: 52rem;
+  width: 100dvw;
+  height: 100dvh;
   border-radius: 16px;
   margin: auto;
 }

@@ -3,7 +3,7 @@ import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 mapboxgl.accessToken =
-  "pk.eyJ1IjoiZWxzbGFuZGVyIiwiYSI6ImNtcHFsOGUyNDBmZ2gycnNhOWMyajBvemMifQ.8uKbpU9LWO32-4NxRD0w_A";
+  "pk.eyJ1IjoiYW50d2VycHVyYmFudGVhbSIsImEiOiJjbXB0aTVwcnIwOXhkMnpzZWR6dzl6MHRsIn0.6oxgIvb_wD5lre3xUm_5mA";
 
 export function Map() {
   const mapContainer = useRef(null);
@@ -27,7 +27,6 @@ export function Map() {
         const { latitude, longitude } = position.coords;
 
         console.log(latitude, longitude);
-        console.log("fff");
 
         setUserLocation({
           latitude,
@@ -37,6 +36,10 @@ export function Map() {
       (error) => {
         console.log("ERROR");
         console.log(error);
+        setLocation({
+          latitude: 51.0,
+          longitude: 3.0,
+        });
       },
       {
         enableHighAccuracy: true,
@@ -47,11 +50,10 @@ export function Map() {
   }, []);
 
   useEffect(() => {
-    console.log("1");
     if (!userLocation) return;
-    console.log("2");
+    const end = [userLocation.longitude + 0.02, userLocation.latitude + 0.02];
+
     if (map.current) return;
-    console.log("3");
 
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
@@ -60,25 +62,110 @@ export function Map() {
       // lng first, then lat
       center: [userLocation.longitude, userLocation.latitude],
 
-      zoom: 12,
+      zoom: 10,
       antialias: true,
     });
 
-    new mapboxgl.Marker()
-      .setLngLat([userLocation.longitude, userLocation.latitude])
-      .addTo(map.current);
+    // new mapboxgl.Marker()
+    //   .setLngLat([userLocation.longitude, userLocation.latitude])
+    //   .addTo(map.current);
 
-    map.current.addControl(
-      new mapboxgl.GeolocateControl({
-        positionOptions: {
-          enableHighAccuracy: true,
+    const geolocate = new mapboxgl.GeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: true,
+      },
+      trackUserLocation: true,
+      showUserHeading: true,
+      showAccuracyCircle: false,
+    });
+
+    const getRoute = async (start, end) => {
+      const query = await fetch(
+        `https://api.mapbox.com/directions/v5/mapbox/walking/` +
+          `${start[0]},${start[1]};${end[0]},${end[1]}` +
+          `?geometries=geojson&access_token=${mapboxgl.accessToken}`,
+      );
+
+      const json = await query.json();
+      return json.routes[0].geometry;
+    };
+
+    map.current.addControl(geolocate);
+
+    map.current.on("load", () => {
+      geolocate.trigger(); // 👈 THIS is what starts the blue dot
+
+      geolocate.on("geolocate", (e) => {
+        map.current.flyTo({
+          center: [e.coords.longitude, e.coords.latitude],
+          zoom: 16,
+        });
+      });
+
+      const layers = map.current.getStyle().layers;
+
+      const labelLayerId = layers.find(
+        (layer) => layer.type === "symbol" && layer.layout?.["text-field"],
+      )?.id;
+
+      map.current.addLayer(
+        {
+          id: "3d-buildings",
+          source: "composite",
+          "source-layer": "building",
+          filter: ["==", "extrude", "true"],
+          type: "fill-extrusion",
+          minzoom: 14,
+          paint: {
+            "fill-extrusion-color": "#DED7D3",
+            "fill-extrusion-height": ["get", "height"],
+            "fill-extrusion-base": ["get", "min_height"],
+            "fill-extrusion-opacity": 0.8,
+          },
         },
-        // When active the map will receive updates to the device's location as it changes.
-        trackUserLocation: true,
-        // Draw an arrow next to the location dot to indicate which direction the device is heading.
-        showUserHeading: true,
-      }),
-    );
+        labelLayerId,
+      );
+
+      layers.forEach((layer) => {
+        if (layer.type === "symbol") {
+          map.current.setLayoutProperty(layer.id, "visibility", "none");
+        }
+      });
+
+      const addRoute = async () => {
+        const start = [userLocation.longitude, userLocation.latitude];
+        const route = await getRoute(start, end);
+
+        // remove old route if it exists
+        if (map.current.getSource("route")) {
+          map.current.getSource("route").setData({
+            type: "Feature",
+            geometry: route,
+          });
+          return;
+        }
+
+        map.current.addSource("route", {
+          type: "geojson",
+          data: {
+            type: "Feature",
+            geometry: route,
+          },
+        });
+
+        map.current.addLayer({
+          id: "route-line",
+          type: "line",
+          source: "route",
+          paint: {
+            "line-color": "#3b82f6",
+            "line-width": 8,
+          },
+        });
+      };
+
+      addRoute();
+    });
 
     return () => {
       map.current.remove();
