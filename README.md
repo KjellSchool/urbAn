@@ -1,5 +1,7 @@
 # urbAn
 
+_insert intro here_
+
 ## Team members
 
 - **Saigita Goossens**: Implementer
@@ -10,6 +12,26 @@
 ## Agreements
 
 ...
+
+## Technology
+
+...
+
+## Features
+
+...
+
+## Process
+
+...
+
+## Installation / Usage Guide
+
+...
+
+## Demo
+
+_insert video here_
 
 ## Links
 
