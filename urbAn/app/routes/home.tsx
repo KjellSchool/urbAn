@@ -1,3 +1,6 @@
+import { useState, useEffect } from "react";
+import { getProfiles } from "../database/profiles.js";
+
 import type { Route } from "./+types/home";
 import { Welcome } from "../welcome/welcome";
 
@@ -9,5 +12,23 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
+  const [profiles, setProfiles] = useState([]);
+
+  const loadProfiles = async () => {
+    const { data, error } = await getProfiles();
+
+    if (error) {
+      console.error("Failed to load profiles:", error);
+      return;
+    }
+
+    setProfiles(data);
+    console.log(data);
+  };
+
+  useEffect(() => {
+    loadProfiles();
+  }, []);
+
   return <Welcome />;
 }
