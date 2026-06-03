@@ -90,7 +90,7 @@ export function Map({ route }) {
           type: "fill-extrusion",
           minzoom: 14,
           paint: {
-            "fill-extrusion-color": "#DED7D3",
+            "fill-extrusion-color": "#ff0000",
             "fill-extrusion-height": ["get", "height"],
             "fill-extrusion-base": ["get", "min_height"],
             "fill-extrusion-opacity": 0.8,
