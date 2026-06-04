@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getProfiles } from "../database/profiles.js";
+import { getArchetypes } from "../database/archetypes.js"
 
 import type { Route } from "./+types/home";
 import { Welcome } from "../welcome/welcome";
@@ -13,6 +14,7 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
   const [profiles, setProfiles] = useState([]);
+  const [archetypes, setArchetypes] = useState([]);
 
   const loadProfiles = async () => {
     const { data, error } = await getProfiles();
@@ -25,9 +27,22 @@ export default function Home() {
     setProfiles(data);
     console.log(data);
   };
+  
+  const loadArchetypes = async () => {
+    const { data, error } = await getArchetypes();
+
+    if (error) {
+      console.error("Failed to load archetypes:", error);
+      return;
+    }
+
+    setArchetypes(data);
+    console.log(data);
+  };
 
   useEffect(() => {
     loadProfiles();
+    loadArchetypes();
   }, []);
 
   return <Welcome />;
