@@ -10,5 +10,8 @@ export const getArchetype = async (archetypeId) => {
   const { data, error } = await supabase
     .from("archetypes")
     .select("*")
-    .eq("archetype_id", archetypeId);
+    .eq("archetype_id", archetypeId)
+    .single();
+
+  return { data, error };
 };

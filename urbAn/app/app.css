@@ -13,6 +13,10 @@
 
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .button--social, .button--navigation {
   background-color: lightgray;
   border-radius: 100%;
@@ -22,7 +26,7 @@
   padding: var(--space-s);
 }
 
-/* ===== home ===== */
+/*! ===== home ===== */
 .game {
   height: 100dvh;
 
@@ -75,4 +79,56 @@
 
 .mapboxgl-ctrl-top-right, .mapboxgl-ctrl-bottom-left, .mapboxgl-ctrl-bottom-right {
   display: none;
+}
+
+/*! ===== profile ===== */
+.profile {
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  gap: var(--space-m);
+}
+
+.profile * {
+  width: 100%;
+}
+
+.profile__navigation {
+  padding: var(--space-xs) var(--space-s);
+  
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.button--profile {
+  width: fit-content;
+}
+
+.profile__info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-s);
+}
+
+.profile__info * {
+  width: fit-content;
+}
+
+.pfp {
+  background-color: lightgray;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info__personal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
