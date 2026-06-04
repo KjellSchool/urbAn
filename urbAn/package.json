@@ -13,6 +13,7 @@
     "@react-router/serve": "7.16.0",
     "@supabase/supabase-js": "^2.107.0",
     "isbot": "^5.1.36",
+    "mapbox-gl": "^3.24.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "react-router": "7.16.0"
@@ -23,6 +24,7 @@
     "@types/node": "^22",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-basic-ssl": "^2.3.0",
     "tailwindcss": "^4.2.2",
     "typescript": "^5.9.3",
     "vite": "^8.0.3"

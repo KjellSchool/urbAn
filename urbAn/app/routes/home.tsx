@@ -1,49 +1,23 @@
-import { useState, useEffect } from "react";
-import { getProfiles } from "../database/profiles.js";
-import { getArchetypes } from "../database/archetypes.js"
+import { Link } from "react-router";
+import { Map } from "../components/map";
 
-import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
+const Home = () => {
+  return (
+    <>
+    <div className="game">
+      <div className="game__map">
+        <Map />
+      </div>
+      <div className="game__social">
+        <Link className="social__nearby button--social">👤</Link>
+        <Link className="social__profile button--social" to={`/profile`}>👋🏼</Link>
+      </div>
+      <div className="game__navigation">
+        <Link className="navigation__routes button--navigation">🚏</Link>
+      </div>
+    </div>
+    </>
+  )
+};
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
-}
-
-export default function Home() {
-  const [profiles, setProfiles] = useState([]);
-  const [archetypes, setArchetypes] = useState([]);
-
-  const loadProfiles = async () => {
-    const { data, error } = await getProfiles();
-
-    if (error) {
-      console.error("Failed to load profiles:", error);
-      return;
-    }
-
-    setProfiles(data);
-    console.log(data);
-  };
-  
-  const loadArchetypes = async () => {
-    const { data, error } = await getArchetypes();
-
-    if (error) {
-      console.error("Failed to load archetypes:", error);
-      return;
-    }
-
-    setArchetypes(data);
-    console.log(data);
-  };
-
-  useEffect(() => {
-    loadProfiles();
-    loadArchetypes();
-  }, []);
-
-  return <Welcome />;
-}
+export default Home;

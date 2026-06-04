@@ -1,15 +1,78 @@
-@import "tailwindcss";
+:root {
+  /*! COLOUR */
 
-@theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  /*! FONTSIZE */
+
+  /*! SPACING */
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-s: 1rem;
+  --space-m: 1.5rem;
+  --space-l: 2rem;
+  --space-xl: 3rem;
+
 }
 
-html,
-body {
-  @apply bg-white dark:bg-gray-950;
+.button--social, .button--navigation {
+  background-color: lightgray;
+  border-radius: 100%;
+}
 
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
-  }
+.button--social {
+  padding: var(--space-s);
+}
+
+/* ===== home ===== */
+.game {
+  height: 100dvh;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 8fr 1fr;
+}
+
+.game__social, .game__navigation {
+  z-index: +1;
+}
+
+.game__social {
+  grid-column: 1;
+  grid-row: 1;
+
+  padding: 0 var(--space-s);
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.game__navigation {
+  grid-column: 1;
+  grid-row: 3;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navigation__routes {
+  /* width: 4rem;
+  height: 4rem; */
+  padding: var(--space-s);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game__map {
+  grid-column: 1;
+  grid-row: 1/4;
+
+  width: 100%;
+  height: 100%;
+}
+
+.mapboxgl-ctrl-top-right, .mapboxgl-ctrl-bottom-left, .mapboxgl-ctrl-bottom-right {
+  display: none;
 }
