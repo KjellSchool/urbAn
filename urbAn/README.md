@@ -14,3 +14,11 @@
 
 - Set up home page structure + working map that follows user location.
 - Profile page contains all info about the currently active user. Just missing the secondary archetypes and detailed cards for the completed routes.
+
+## 05/06
+
+### Kjell
+
+- Added slide-in tabs for the nearby users and the routes. No content in these tabs yet.
+- Added colours to the variables in the css-file.
+- Organised the css file.

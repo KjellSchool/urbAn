@@ -1,9 +1,22 @@
 :root {
-  /*! COLOUR */
+  /* COLOUR */
+  /* primary colour */
+  --colour-orange: #FF8029;
+  
+  /* secondary colours */
+  --colour-blue: #46A2FF;
+  --colour-green: #00E081;
+  --colour-yellow: #CDFF10;
+  --colour-pink: #FF85E4;
+  --colour-beige: #D8D7C3;
 
-  /*! FONTSIZE */
+  /* neutral colours */
+  --colour-black: #000;
+  --colour-white: #fff;
 
-  /*! SPACING */
+  /* FONTSIZE */
+
+  /* SPACING */
   --space-2xs: 0.25rem;
   --space-xs: 0.5rem;
   --space-s: 1rem;
@@ -13,10 +26,23 @@
 
 }
 
+/*! ===== universal ===== */
 * {
   box-sizing: border-box;
+  color: black;
 }
 
+/*! ===== elements ===== */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  border: none;
+}
+
+/*! ===== recurring classes ===== */
 .button--social, .button--navigation {
   background-color: lightgray;
   border-radius: 100%;
@@ -26,7 +52,13 @@
   padding: var(--space-s);
 }
 
-/*! ===== home ===== */
+/*! ===== landing page ===== */
+/* ... */
+
+/*! ===== onboarding ===== */
+/* ... */
+
+/*! ===== game ===== */
 .game {
   height: 100dvh;
 
@@ -81,7 +113,27 @@
   display: none;
 }
 
-/*! ===== profile ===== */
+/* nearby users */
+.social__section {
+  background-color: white;
+  
+  width: 80dvw;
+  height: 100%;
+  padding: var(--space-l) var(--space-m);
+  border-radius: 0 1rem 1rem 0;
+  
+  position: absolute;
+  left: -80dvw;
+  
+  transition: all 200ms ease;
+}
+
+.social__section--active {
+  left: 0dvh;
+}
+
+
+/* profile */
 .profile {
   display: flex;
   flex-direction: column; 
@@ -131,4 +183,23 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* routes */
+.navigation__section {
+  background-color: white;
+
+  width: 100%;
+  height: 80dvh;
+  padding: var(--space-l) var(--space-m);
+  border-radius: 1rem 1rem 0 0;
+
+  position: absolute;
+  top: 100dvh;
+
+  transition: all 200ms ease;
+}
+
+.navigation__section--active {
+  top: 20dvh;
 }
