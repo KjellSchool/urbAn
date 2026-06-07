@@ -10,7 +10,8 @@ export const getLocation = async (locationId) => {
   const { data, error } = await supabase
     .from("locations")
     .select("*")
-    .eq("location_id", locationId);
+    .eq("location_id", locationId)
+    .single();
 
-  return { date, error };
+  return { data, error };
 };

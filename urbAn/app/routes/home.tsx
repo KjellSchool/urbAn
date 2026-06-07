@@ -77,7 +77,7 @@ const Home = () => {
         <div className="navigation__section">
           <ul>
             {routes?.map((route) => (
-              <Link to={`?route=${route?.route_id}`}><li key={route?.route_id}>{route?.title}</li></Link>
+              <Link to={`?route=${route?.route_id}`} key={route?.route_id}><li>{route?.title}</li></Link>
             ))}
           </ul>
         </div>

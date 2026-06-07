@@ -10,7 +10,8 @@ export const getRoute = async (routeId) => {
   const { data, error } = await supabase
     .from("routes")
     .select("*")
-    .eq("route_id", routeId);
+    .eq("route_id", routeId)
+    .single();
 
   return { data, error };
 };
