@@ -1,7 +1,12 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { Map } from "../components/map";
 
+import { getRoutes } from "../database/routes.js";
+
 const Home = () => {
+  const [routes, setRoutes] = useState([]);
+
   const revealRoutes = () => {
     const $section = document.querySelector(".navigation__section");
 
@@ -33,6 +38,15 @@ const Home = () => {
     $routesSection?.classList.remove("navigation__section--active");
   };
 
+  const loadRoutes = async () => {
+    const { data: routes, error } = await getRoutes();
+    setRoutes(routes);
+  };
+
+  useEffect(() => {
+    loadRoutes();
+  }, []);
+
   return (
     <>
       <div className="game">
@@ -45,7 +59,10 @@ const Home = () => {
             onClick={revealNearbyUsers}>
             👤
           </button>
-          <Link className="social__profile button--social" to={`/profile`} onClick={closeAllTabs}>
+          <Link
+            className="social__profile button--social"
+            to={`/profile`}
+            onClick={closeAllTabs}>
             👋🏼
           </Link>
         </div>
@@ -57,7 +74,13 @@ const Home = () => {
           </button>
         </div>
         <div className="social__section">tadaa left</div>
-        <div className="navigation__section">tadaa bottom</div>
+        <div className="navigation__section">
+          <ul>
+            {routes?.map((route) => (
+              <Link to={`?route=${route?.route_id}`}><li key={route?.route_id}>{route?.title}</li></Link>
+            ))}
+          </ul>
+        </div>
       </div>
     </>
   );
