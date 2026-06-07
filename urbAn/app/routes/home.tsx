@@ -1,49 +1,89 @@
-import { useState, useEffect } from "react";
-import { getProfiles } from "../database/profiles.js";
-import { getArchetypes } from "../database/archetypes.js"
+import { useEffect, useState } from "react";
+import { Link } from "react-router";
+import { Map } from "../components/map";
 
-import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
+import { getRoutes } from "../database/routes.js";
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
-}
+const Home = () => {
+  const [routes, setRoutes] = useState([]);
 
-export default function Home() {
-  const [profiles, setProfiles] = useState([]);
-  const [archetypes, setArchetypes] = useState([]);
+  const revealRoutes = () => {
+    const $section = document.querySelector(".navigation__section");
 
-  const loadProfiles = async () => {
-    const { data, error } = await getProfiles();
+    const $otherSection = document.querySelector(".social__section");
 
-    if (error) {
-      console.error("Failed to load profiles:", error);
-      return;
+    if ($otherSection?.classList.contains("social__section--active")) {
+      $otherSection.classList.remove("social__section--active");
     }
 
-    setProfiles(data);
-    console.log(data);
+    $section?.classList.toggle("navigation__section--active");
   };
-  
-  const loadArchetypes = async () => {
-    const { data, error } = await getArchetypes();
 
-    if (error) {
-      console.error("Failed to load archetypes:", error);
-      return;
+  const revealNearbyUsers = () => {
+    const $section = document.querySelector(".social__section");
+
+    const $otherSection = document.querySelector(".navigation__section");
+
+    if ($otherSection?.classList.contains("navigation__section--active")) {
+      $otherSection.classList.remove("navigation__section--active");
     }
+    $section?.classList.toggle("social__section--active");
+  };
 
-    setArchetypes(data);
-    console.log(data);
+  const closeAllTabs = () => {
+    const $nearbySection = document.querySelector(".social__section");
+    const $routesSection = document.querySelector(".navigation__section");
+
+    $nearbySection?.classList.remove("social__section--active");
+    $routesSection?.classList.remove("navigation__section--active");
+  };
+
+  const loadRoutes = async () => {
+    const { data: routes, error } = await getRoutes();
+    setRoutes(routes);
   };
 
   useEffect(() => {
-    loadProfiles();
-    loadArchetypes();
+    loadRoutes();
   }, []);
 
-  return <Welcome />;
-}
+  return (
+    <>
+      <div className="game">
+        <div className="game__map">
+          <Map />
+        </div>
+        <div className="game__social">
+          <button
+            className="social__nearby button--social"
+            onClick={revealNearbyUsers}>
+            👤
+          </button>
+          <Link
+            className="social__profile button--social"
+            to={`/profile`}
+            onClick={closeAllTabs}>
+            👋🏼
+          </Link>
+        </div>
+        <div className="game__navigation">
+          <button
+            className="navigation__routes button--navigation"
+            onClick={revealRoutes}>
+            🚏
+          </button>
+        </div>
+        <div className="social__section">tadaa left</div>
+        <div className="navigation__section">
+          <ul>
+            {routes?.map((route) => (
+              <Link to={`?route=${route?.route_id}`} key={route?.route_id}><li>{route?.title}</li></Link>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Home;

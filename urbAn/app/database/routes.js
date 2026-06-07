@@ -10,7 +10,26 @@ export const getRoute = async (routeId) => {
   const { data, error } = await supabase
     .from("routes")
     .select("*")
-    .eq("route_id", routeId);
+    .eq("route_id", routeId)
+    .single();
+
+  return { data, error };
+};
+
+export const getCompletedRoutesForUser = async (userId) => {
+  const { data, error } = await supabase
+    .from("route_progress")
+    .select(
+      `
+      route_progress_id,
+      created_at,
+      route_id,
+      completed,
+      routes (*)
+    `,
+    )
+    .eq("profile_id", userId)
+    .eq("completed", true);
 
   return { data, error };
 };
