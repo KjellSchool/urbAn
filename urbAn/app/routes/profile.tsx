@@ -26,7 +26,7 @@ const Profile = () => {
 
     const today = new Date();
 
-    const age = today.getFullYear() - year;
+    let age = today.getFullYear() - year;
 
     if (
       today.getMonth() < month ||
