@@ -173,19 +173,13 @@ export function Map() {
   // CREATING ROUTES
   useEffect(() => {
     const getRoute = async (coordinates) => {
-      console.log(coordinates);
-
       const query = await fetch(
         `https://api.mapbox.com/directions/v5/mapbox/walking/` +
           `${coordinates}` +
           `?geometries=geojson&steps=true&overview=full&access_token=${mapboxgl.accessToken}`,
       );
 
-      console.log(query);
-
       const json = await query.json();
-      console.log("JSON: ", json);
-      console.log("JSON ROUTES: ", json.routes);
       return json.routes[0].geometry;
     };
 

@@ -26,6 +26,37 @@
 
 }
 
+/*! ===== fonts ===== */
+@font-face {
+  font-family: "Antwerpen Regular";
+  src: url('./assets/fonts/Antwerpen-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "Antwerpen Small Caps";
+  src: url('./assets/fonts/AntwerpenSmallCaps-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "Antwerpen Tall";
+  src: url('./assets/fonts/AntwerpenTall-Tall.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "Sun Antwerpen";
+  src: url('./assets/fonts/SunAntwerpen_500.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "Sun Antwerpen CD";
+  src: url('./assets/fonts/SunAntwerpenCd_500.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "Pixelify Sans";
+  src: url('./assets/fonts/PixelifySans-VariableFont_wght.ttf') format('truetype');
+}
+
 /*! ===== universal ===== */
 * {
   box-sizing: border-box;
