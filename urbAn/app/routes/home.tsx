@@ -5,8 +5,8 @@ import { Map } from "../components/map";
 import { useUser } from "../contexts/userContext.tsx";
 
 import { getProfiles } from "../database/profiles.js";
-
 import { getRoutes } from "../database/routes.js";
+import { getArchetype } from "../database/archetypes.js";
 
 const Home = () => {
   const { currentUser } = useUser();
@@ -17,7 +17,7 @@ const Home = () => {
   const loadProfiles = async () => {
     const { data: profiles, error } = await getProfiles();
     setProfiles(profiles);
-  }
+  };
 
   const revealRoutes = () => {
     const $section = document.querySelector(".navigation__section");
@@ -55,6 +55,12 @@ const Home = () => {
     setRoutes(routes);
   };
 
+  const loadArchetype = async (archetypeId) => {
+    const { data: archetype, error } = await getArchetype(archetypeId);
+    const archetypeTag = archetype?.title;
+    return archetypeTag;
+  };
+
   useEffect(() => {
     loadProfiles();
     loadRoutes();
@@ -88,28 +94,30 @@ const Home = () => {
         </div>
         <div className="social__section">
           <ul className="social__nearby">
-            {
-              profiles?.map((profile) => {
-                if (profile?.profile_id !== currentUser?.profile_id) {
-                  return (
-                    <Link to={``}>
-                      <li className="nearby__user" key={profile?.profile_id}>
-                        <div className="nearby__info">
-                          <div className="nearby__avater">pfp</div>
-                          <div>
-                            <p className="nearby__name">{profile?.name}</p>
-                            <p>archetype</p>
-                          </div>
-                        </div>
-                        <p>{profile?.description}</p>
-                        <p className="nearby__routes">Has completed <span>X</span> routes</p>
-                        <button className="nearby__meet">Ask to meet up</button>
-                      </li>
-                    </Link>
-                  )
-                }
-              })
-            }
+            {profiles?.map((profile) => {
+              if (profile?.profile_id !== currentUser?.profile_id) {
+                return (
+                  <li className="nearby__user" key={profile?.profile_id}>
+                    <div className="nearby__info">
+                      <div className="nearby__avater">pfp</div>
+                      <div>
+                        <p className="nearby__name">{profile?.name}</p>
+                        <p>
+                          {async () => {
+                            loadArchetype(profile?.primary_archetype);
+                          }}
+                        </p>
+                      </div>
+                    </div>
+                    <p>{profile?.description}</p>
+                    <p className="nearby__routes">
+                      Has completed <span>X</span> routes
+                    </p>
+                    <button className="nearby__meet">Ask to meet up</button>
+                  </li>
+                );
+              }
+            })}
           </ul>
         </div>
         <div className="navigation__section">
@@ -118,7 +126,10 @@ const Home = () => {
               <Link to={`?route=${route?.route_id}`} key={route?.route_id}>
                 <li className="routes__item">
                   <h2 className="route__title">{route?.title}</h2>
-                  <div className="route__info">Archetype <p className="route__distance">{route?.distance}</p></div>
+                  <div className="route__info">
+                    Archetype{" "}
+                    <p className="route__distance">{route?.distance}</p>
+                  </div>
                   <p className="route__description">{route?.description}</p>
                 </li>
               </Link>

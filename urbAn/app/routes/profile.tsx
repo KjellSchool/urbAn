@@ -73,8 +73,10 @@ const Profile = () => {
   };
 
   useEffect(() => {
+    if (!currentUser) return;
+    
     loadProfiles();
-  }, []);
+  }, [currentUser]);
 
   return (
     <>
@@ -84,7 +86,7 @@ const Profile = () => {
             back
           </Link>
           <Link to={`/settings`} className="button--profile">
-            forward
+            Settings
           </Link>
         </div>
         <div className="profile__info">
@@ -107,7 +109,15 @@ const Profile = () => {
           <p>Completed routes</p>
           <ul>
             {completedRoutes.map((completedRoute) => (
-              <li key={completedRoute.route_id}>{completedRoute.title}</li>
+              <li className="routes__item" key={completedRoute?.route_id}>
+                  <h2 className="route__title">{completedRoute?.title}</h2>
+                  <div className="route__info">
+                    Archetype
+                    <p className="route__distance">{completedRoute?.distance}</p>
+                  </div>
+                  <p className="route__description">{completedRoute?.description}</p>
+                </li>
+              // <li key={completedRoute.route_id}>{completedRoute.title}</li>
             ))}
           </ul>
         </div>
