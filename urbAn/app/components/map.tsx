@@ -38,8 +38,8 @@ export function Map() {
       route.locations.map(async (location) => {
         const { data: locationData, error } = await getLocation(location);
         return locationData;
-      })
-    )
+      }),
+    );
 
     setActiveRouteLocation(allLocations);
 
@@ -57,8 +57,11 @@ export function Map() {
   };
 
   useEffect(() => {
+    if (!userLocation) return;
+    if (!routeId) return;
+
     loadRoute(routeId);
-  }, [routeId]);
+  }, [routeId, userLocation]);
 
   useEffect(() => {
     if (!navigator.geolocation) {
