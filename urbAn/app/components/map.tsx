@@ -69,16 +69,9 @@ export function Map() {
       return;
     }
 
-    console.log("hello");
-
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        console.log("SUCCESS");
-        console.log(position);
-
         const { latitude, longitude } = position.coords;
-
-        console.log(latitude, longitude);
 
         setUserLocation({
           latitude,
@@ -176,6 +169,7 @@ export function Map() {
   // CREATING ROUTES
   useEffect(() => {
     const getRoute = async (coordinates) => {
+      if (!coordinates) return;
       const query = await fetch(
         `https://api.mapbox.com/directions/v5/mapbox/walking/` +
           `${coordinates}` +
@@ -240,6 +234,16 @@ export function Map() {
 
       markersRef.current.push(marker);
     });
+  };
+
+  const cancelRoute = () => {
+    if (map.current.getSource("route")) {
+      map.current.getSource("route").setData({
+        type: "Feature",
+        geometry: route,
+      });
+      return;
+    }
   };
 
   useEffect(() => {
