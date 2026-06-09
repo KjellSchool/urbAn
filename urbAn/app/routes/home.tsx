@@ -2,10 +2,22 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { Map } from "../components/map";
 
+import { useUser } from "../contexts/userContext.tsx";
+
+import { getProfiles } from "../database/profiles.js";
+
 import { getRoutes } from "../database/routes.js";
 
 const Home = () => {
+  const { currentUser } = useUser();
+
+  const [profiles, setProfiles] = useState([]);
   const [routes, setRoutes] = useState([]);
+
+  const loadProfiles = async () => {
+    const { data: profiles, error } = await getProfiles();
+    setProfiles(profiles);
+  }
 
   const revealRoutes = () => {
     const $section = document.querySelector(".navigation__section");
@@ -44,6 +56,7 @@ const Home = () => {
   };
 
   useEffect(() => {
+    loadProfiles();
     loadRoutes();
   }, []);
 
@@ -73,11 +86,42 @@ const Home = () => {
             🚏
           </button>
         </div>
-        <div className="social__section">tadaa left</div>
+        <div className="social__section">
+          <ul className="social__nearby">
+            {
+              profiles?.map((profile) => {
+                if (profile?.profile_id !== currentUser?.profile_id) {
+                  return (
+                    <Link to={``}>
+                      <li className="nearby__user" key={profile?.profile_id}>
+                        <div className="nearby__info">
+                          <div className="nearby__avater">pfp</div>
+                          <div>
+                            <p className="nearby__name">{profile?.name}</p>
+                            <p>archetype</p>
+                          </div>
+                        </div>
+                        <p>{profile?.description}</p>
+                        <p className="nearby__routes">Has completed <span>X</span> routes</p>
+                        <button className="nearby__meet">Ask to meet up</button>
+                      </li>
+                    </Link>
+                  )
+                }
+              })
+            }
+          </ul>
+        </div>
         <div className="navigation__section">
-          <ul>
+          <ul className="routes__list">
             {routes?.map((route) => (
-              <Link to={`?route=${route?.route_id}`} key={route?.route_id}><li>{route?.title}</li></Link>
+              <Link to={`?route=${route?.route_id}`} key={route?.route_id}>
+                <li className="routes__item">
+                  <h2 className="route__title">{route?.title}</h2>
+                  <div className="route__info">Archetype <p className="route__distance">{route?.distance}</p></div>
+                  <p className="route__description">{route?.description}</p>
+                </li>
+              </Link>
             ))}
           </ul>
         </div>

@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 
 import { Link } from "react-router";
+
+import { useUser } from "../contexts/userContext.tsx";
+
 import { getProfiles } from "../database/profiles.js";
 import { getArchetype } from "../database/archetypes.js";
 import { getCompletedRoutesForUser } from "../database/routes.js";
@@ -11,6 +14,8 @@ const Profile = () => {
   const [user, setUser] = useState(null);
   const [userId, setUserId] = useState(null);
   const [userAge, setUserAge] = useState(0);
+
+  const { currentUser } = useUser();
 
   const [primaryArchetypeId, setPrimaryArchetypeId] = useState();
   const [primaryArchetype, setPrimaryArchetype] = useState();
@@ -39,17 +44,17 @@ const Profile = () => {
   };
 
   const loadProfiles = async () => {
-    const { data, error } = await getProfiles();
+    // const { data, error } = await getProfiles();
 
-    const user = data?.[1];
-    setProfiles(data);
-    setUser(user);
+    // const user = data?.[1];
+    // setProfiles(data);
+    // setUser(user);
 
-    if (user?.profile_id) {
-      setUserId(user.profile_id);
+    if (currentUser?.profile_id) {
+      setUserId(currentUser.profile_id);
 
       const { data: routesData, error } = await getCompletedRoutesForUser(
-        user.profile_id,
+        currentUser.profile_id,
       );
 
       let routes = routesData.map((routeData) => routeData.routes);
@@ -57,11 +62,11 @@ const Profile = () => {
       setCompletedRoutes(routes);
     }
 
-    calculateAge(user?.date_of_birth);
+    calculateAge(currentUser?.date_of_birth);
 
-    if (user?.primary_archetype) {
+    if (currentUser?.primary_archetype) {
       const { data: primaryArchetype, error } = await getArchetype(
-        user.primary_archetype,
+        currentUser.primary_archetype,
       );
       setPrimaryArchetype(primaryArchetype);
     }
@@ -75,7 +80,7 @@ const Profile = () => {
     <>
       <div className="profile">
         <div className="profile__navigation">
-          <Link to={`/`} className="button--profile">
+          <Link to={`/home`} className="button--profile">
             back
           </Link>
           <Link to={`/settings`} className="button--profile">
@@ -87,7 +92,7 @@ const Profile = () => {
             <div className="pfp">pfp</div>
           </div>
           <div className="info__personal">
-            <p className="info__name">{user?.name}</p>
+            <p className="info__name">{currentUser?.name}</p>
             <p className="info__age">{userAge}</p>
           </div>
           <div>
@@ -96,7 +101,7 @@ const Profile = () => {
             </div>
             <div className="info__archetype--secondary">{}</div>
           </div>
-          <div>{user?.description}</div>
+          <div>{currentUser?.description}</div>
         </div>
         <div className="profile__routes">
           <p>Completed routes</p>

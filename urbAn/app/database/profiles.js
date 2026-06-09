@@ -10,7 +10,8 @@ export const getProfile = async (profileId) => {
   const { data, error } = await supabase
     .from("profiles")
     .select("*")
-    .eq("id", profileId);
+    .eq("profile_id", profileId)
+    .single();
 
   return { data, error };
 };

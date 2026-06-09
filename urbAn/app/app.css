@@ -45,6 +45,19 @@
 @font-face {
   font-family: "Sun Antwerpen";
   src: url('./assets/fonts/SunAntwerpen_500.ttf') format('truetype');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Sun Antwerpen";
+  src: url('./assets/fonts/SunAntwerpen_700.ttf') format('truetype');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Sun Antwerpen";
+  src: url('./assets/fonts/SunAntwerpen_800.ttf') format('truetype');
+  font-weight: 800;
 }
 
 @font-face {
@@ -63,6 +76,10 @@
   color: black;
 }
 
+html {
+  font-family: "Sun Antwerpen";
+}
+
 /*! ===== elements ===== */
 body {
   max-height: 100dvh;
@@ -75,7 +92,14 @@ a {
 }
 
 button {
+  font-family: inherit;
+  font-size: inherit;
+  background: none;
+  color: inherit;
+  
+  padding: 0;
   border: none;
+  margin: 0;
 }
 
 /*! ===== recurring classes ===== */
@@ -92,7 +116,53 @@ button {
 /* ... */
 
 /*! ===== onboarding ===== */
-/* ... */
+.selector {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
+
+.selector__title {
+  font-family: "Antwerpen Regular";
+  font-size: 140%;
+}
+
+.selector__question {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.users__list {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.users__item {
+  flex-grow: 1;
+
+  background-color: lightgray;
+
+  width: 6rem;
+  height: 6rem;
+  border-radius: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.selector__onboarding {
+  align-self: center;
+
+  background-color: lightgray;
+
+  width: fit-content;
+  padding: var(--space-2xs) var(--space-xs);
+  border-radius: 4px;
+}
 
 /*! ===== game ===== */
 .game {
@@ -157,6 +227,7 @@ button {
   width: 80dvw;
   height: 100%;
   padding: var(--space-l) var(--space-m);
+  padding-top: 6rem;
   border-radius: 0 1rem 1rem 0;
   
   position: absolute;
@@ -169,6 +240,60 @@ button {
   left: 0dvh;
 }
 
+.social__nearby {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-m);
+}
+
+.nearby__user {
+  background-color: lightgray;
+
+  padding: var(--space-xs) var(--space-s);
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.nearby__info {
+  display: flex;
+  gap: var(--space-s);
+  align-items: center;
+}
+
+.nearby__avater {
+  background-color: white;
+
+  width: 4rem;
+  height: 4rem;
+  border-radius: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nearby__name {
+  font-family: "Antwerpen Regular";
+  font-size: 120%;
+}
+
+.nearby__routes {
+  font-size: 110%;
+  font-weight: 700;
+}
+
+.nearby__meet {
+  align-self: center;
+
+  background-color: white;
+
+  width: fit-content;
+  padding: var(--space-2xs) var(--space-xs);
+  border-radius: 4px;
+}
 
 /* profile */
 .profile {
@@ -239,4 +364,31 @@ button {
 
 .navigation__section--active {
   top: 20dvh;
+}
+
+.routes__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
+
+.routes__item {
+  background-color: lightgray;
+
+  padding: var(--space-s) var(--space-m);
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.route__title {
+  font-family: "Antwerpen Regular";
+  font-size: 140%;
+}
+
+.route__info {
+  display: flex;
+  gap: var(--space-s);
 }

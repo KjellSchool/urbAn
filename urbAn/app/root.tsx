@@ -11,6 +11,8 @@ import type { Route } from "./+types/root";
 import "./reset.css";
 import "./app.css";
 
+import { UserProvider } from "./contexts/userContext.tsx";
+
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
@@ -34,7 +36,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <UserProvider>{children}</UserProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
