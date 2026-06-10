@@ -120,7 +120,7 @@ export function Map() {
     map.current.addControl(geolocate);
 
     map.current.on("load", () => {
-      geolocate.trigger(); // 👈 THIS is what starts the blue dot
+      geolocate.trigger();
 
       geolocate.on("geolocate", (e) => {
         map.current.flyTo({
@@ -181,10 +181,24 @@ export function Map() {
     };
 
     const addRoute = async () => {
+      if (!coordinateString) return;
+
       const start = [userLocation?.longitude, userLocation?.latitude];
       const route = await getRoute(coordinateString);
 
-      // remove old route if it exists
+      const randomPoint = Math.floor(Math.random() * route.coordinates?.length);
+
+      const randomCoordinate = route.coordinates[randomPoint];
+      console.log([userLocation.longitude, userLocation.latitude]);
+
+      new mapboxgl.Popup()
+        .setLngLat([userLocation.longitude, userLocation.latitude])
+        .setHTML(`<h2>HELLOO</h2>`)
+        .addTo(map.current);
+
+      console.log(route);
+
+      // this line gives an error everytime the map is loaded
       if (map.current.getSource("route")) {
         map.current.getSource("route").setData({
           type: "Feature",
