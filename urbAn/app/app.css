@@ -45,6 +45,11 @@
 }
 
 @font-face {
+  font-family: "Antwerpen Pixel";
+  src: url("./assets/fonts/Antwerpen-Pixel.ttf") format("truetype");
+}
+
+@font-face {
   font-family: "Sun Antwerpen";
   src: url("./assets/fonts/SunAntwerpen_500.ttf") format("truetype");
   font-weight: 500;
