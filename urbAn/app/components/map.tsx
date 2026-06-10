@@ -116,7 +116,7 @@ export function Map() {
 
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: "mapbox://styles/mapbox/streets-v12",
+      style: "mapbox://styles/antwerpurbanteam/cmq7z64tc000d01s53xpofty6",
       zoom: 10,
       antialias: true,
       center: [userLocation.longitude, userLocation.latitude],
@@ -170,29 +170,29 @@ export function Map() {
         (layer) => layer.type === "symbol" && layer.layout?.["text-field"],
       )?.id;
 
-      map.current.addLayer(
-        {
-          id: "3d-buildings",
-          source: "composite",
-          "source-layer": "building",
-          filter: ["==", "extrude", "true"],
-          type: "fill-extrusion",
-          minzoom: 14,
-          paint: {
-            "fill-extrusion-color": "#DED7D3",
-            "fill-extrusion-height": ["get", "height"],
-            "fill-extrusion-base": ["get", "min_height"],
-            "fill-extrusion-opacity": 0.8,
-          },
-        },
-        labelLayerId,
-      );
+      // map.current.addLayer(
+      //   {
+      //     id: "3d-buildings",
+      //     source: "composite",
+      //     "source-layer": "building",
+      //     filter: ["==", "extrude", "true"],
+      //     type: "fill-extrusion",
+      //     minzoom: 14,
+      //     paint: {
+      //       "fill-extrusion-color": "#DED7D3",
+      //       "fill-extrusion-height": ["get", "height"],
+      //       "fill-extrusion-base": ["get", "min_height"],
+      //       "fill-extrusion-opacity": 0.8,
+      //     },
+      //   },
+      //   labelLayerId,
+      // );
 
-      layers.forEach((layer) => {
-        if (layer.type === "symbol") {
-          map.current.setLayoutProperty(layer.id, "visibility", "none");
-        }
-      });
+      // layers.forEach((layer) => {
+      //   if (layer.type === "symbol") {
+      //     map.current.setLayoutProperty(layer.id, "visibility", "none");
+      //   }
+      // });
     });
 
     return () => {
