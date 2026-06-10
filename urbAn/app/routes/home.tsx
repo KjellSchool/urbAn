@@ -280,7 +280,7 @@ const Home = () => {
               </Link>
             ))}
           </ul>
-          <Link to={``}>Cancel routes</Link>
+          <Link to={`/home`}>Cancel routes</Link>
         </div>
       </div>
     </>
