@@ -6,8 +6,9 @@ import {
 } from "@react-router/dev/routes";
 
 export default [
+  index("routes/landing.tsx"),
   layout("layouts/onboarding.tsx", [
-    index("components/user.tsx"),
+    route("user", "components/user.tsx"),
     layout("layouts/archetype-quiz.tsx", [
       route("firstQuestion", "components/quiz-question-1.tsx")
     ]),

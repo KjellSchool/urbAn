@@ -37,7 +37,7 @@ const User = () => {
           <div className="selector__users">
             <ul className="users__list">
               {profiles.map((profile) => (
-                <Link to={`home`} key={profile.profile_id}>
+                <Link to={`/home`} key={profile.profile_id}>
                   <li className="users__item">
                     <button onClick={() => selectUser(profile.profile_id)}>
                       {profile.name} pfp
@@ -52,7 +52,7 @@ const User = () => {
           <p>
             If you don't have a profile yet, take the Archetype quiz.
           </p>
-          <Link className="selector__onboarding" to={`firstQuestion`}>My Side of Antwerp</Link>
+          <Link className="selector__onboarding" to={`/firstQuestion`}>My Side of Antwerp</Link>
         </div>
       </div>
     </>
