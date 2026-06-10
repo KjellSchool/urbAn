@@ -6,6 +6,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 
 import { getRoute } from "../database/routes.js";
 import { getLocation } from "../database/locations.js";
+import { getChallenges } from "../database/challenges.js";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiYW50d2VycHVyYmFudGVhbSIsImEiOiJjbXB0aTVwcnIwOXhkMnpzZWR6dzl6MHRsIn0.6oxgIvb_wD5lre3xUm_5mA";
@@ -14,6 +15,7 @@ export function Map() {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const markersRef = useRef([]);
+  const popupRef = useRef([]);
 
   const [userLocation, setUserLocation] = useState(null);
 
@@ -24,6 +26,8 @@ export function Map() {
   const [activeRouteLocations, setActiveRouteLocation] = useState([]);
   const [fullCoordinateList, setFullCoordinateList] = useState([]);
   const [coordinateString, setCoordinateString] = useState("");
+
+  const [challenges, setChallenges] = useState([]);
 
   const loadRoute = async (routeId) => {
     if (!routeId) return;
@@ -55,6 +59,15 @@ export function Map() {
       .join(";");
     setCoordinateString(result);
   };
+
+  const loadChallenges = async () => {
+    const { data: challenges, error } = await getChallenges();
+    setChallenges(challenges);
+  };
+
+  useEffect(() => {
+    loadChallenges();
+  }, []);
 
   useEffect(() => {
     if (!userLocation) return;
@@ -182,21 +195,32 @@ export function Map() {
 
     const addRoute = async () => {
       if (!coordinateString) return;
+      popupRef.current.forEach((p) => p.remove());
+      popupRef.current = [];
 
       const start = [userLocation?.longitude, userLocation?.latitude];
       const route = await getRoute(coordinateString);
 
-      const randomPoint = Math.floor(Math.random() * route.coordinates?.length);
+      challenges.map((challenge) => {
+        if (challenge.route_id === routeId) {
+          const randomPoint = Math.floor(Math.random() * route.coordinates?.length);
+          const randomCoordinate = route.coordinates[randomPoint];
+          console.log(challenge.title);
+  
+          const popup = new mapboxgl.Popup()
+            .setLngLat(randomCoordinate)
+            .setHTML(`<h2>${challenge.title}</h2>`)
+            .addTo(map.current);
 
-      const randomCoordinate = route.coordinates[randomPoint];
-      console.log([userLocation.longitude, userLocation.latitude]);
+          popupRef.current.push(popup);
+    
+          console.log(route);
+        } else {
+          console.log ("not you");
+        }
+      })
 
-      new mapboxgl.Popup()
-        .setLngLat([userLocation.longitude, userLocation.latitude])
-        .setHTML(`<h2>HELLOO</h2>`)
-        .addTo(map.current);
 
-      console.log(route);
 
       // this line gives an error everytime the map is loaded
       if (map.current.getSource("route")) {
