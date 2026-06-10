@@ -15,6 +15,7 @@ export function Map() {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const markersRef = useRef([]);
+  const challengesRef = useRef([]);
   const popupRef = useRef([]);
 
   const [userLocation, setUserLocation] = useState(null);
@@ -136,9 +137,30 @@ export function Map() {
       geolocate.trigger();
 
       geolocate.on("geolocate", (e) => {
+        const userPos = [e.coords.longitude, e.coords.latitude];
+
         map.current.flyTo({
-          center: [e.coords.longitude, e.coords.latitude],
+          center: userPos,
           zoom: 16,
+        });
+
+        challengesRef.current.map((challengeData) => {
+          if (challengeData.discovered) return;
+
+          const distance = mapboxgl.LngLat.convert(userPos).distanceTo(
+            mapboxgl.LngLat.convert(challengeData.coordinate),
+          );
+
+          if (distance < 50) {
+            challengeData.discovered = true;
+
+            const popup = new mapboxgl.Popup()
+              .setLngLat(challengeData.coordinate)
+              .setHTML(`${challengeData.challenge.title}`)
+              .addTo(map.current);
+
+            popupRef.current.push(popup);
+          }
         });
       });
 
@@ -198,29 +220,28 @@ export function Map() {
       popupRef.current.forEach((p) => p.remove());
       popupRef.current = [];
 
+      challengesRef.current = [];
+
       const start = [userLocation?.longitude, userLocation?.latitude];
       const route = await getRoute(coordinateString);
 
       challenges.map((challenge) => {
         if (challenge.route_id === routeId) {
-          const randomPoint = Math.floor(Math.random() * route.coordinates?.length);
+          const randomPoint = Math.floor(
+            Math.random() * route.coordinates?.length,
+          );
           const randomCoordinate = route.coordinates[randomPoint];
-          console.log(challenge.title);
-  
-          const popup = new mapboxgl.Popup()
-            .setLngLat(randomCoordinate)
-            .setHTML(`<h2>${challenge.title}</h2>`)
-            .addTo(map.current);
+          console.log("added: ", challenge.title, randomCoordinate);
 
-          popupRef.current.push(popup);
-    
-          console.log(route);
+          challengesRef.current.push({
+            challenge,
+            coordinate: randomCoordinate,
+            discovered: false,
+          });
         } else {
-          console.log ("not you");
+          console.log("not you");
         }
-      })
-
-
+      });
 
       // this line gives an error everytime the map is loaded
       if (map.current.getSource("route")) {
