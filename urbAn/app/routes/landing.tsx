@@ -1,5 +1,10 @@
 import { Link } from "react-router";
 
+import image1 from "../assets/images/image-1.png";
+import image2 from "../assets/images/image-2.png";
+import image3 from "../assets/images/image-3.png";
+import image4 from "../assets/images/image-4.png";
+
 const Landing = () => {
   return (
     <>
@@ -504,7 +509,7 @@ const Landing = () => {
               </defs>
             </svg>
           </div>
-          <h1>
+          <h1 className="header__title">
             <div className="header__title--tabs">
               There is
               <br />a version
@@ -1339,7 +1344,8 @@ const Landing = () => {
                 </filter>
               </defs>
             </svg>
-            <svg id="camera-sticker"
+            <svg
+              id="camera-sticker"
               width="148"
               height="100"
               viewBox="0 0 148 100"
@@ -1933,13 +1939,116 @@ const Landing = () => {
             </svg>
           </div>
         </header>
-        <main>
-          <p>hello</p>
-          <p>hello</p>
-          <p>hello</p>
-          <p>hello</p>
-          <p>hello</p>
-          <p>hello</p>
+        <main className="landing__main">
+          <div className="main__intro">
+            <div className="intro__window intro__window--1">
+              <div className="window__header">
+                <div className="header__close">
+                  <svg
+                    width="10"
+                    height="9"
+                    viewBox="0 0 10 9"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M0 8.58822V6.7293H1.76474V5.03768H3.51009V3.53195H1.76474V1.85892H0V0H1.95867V1.69162H3.70402V3.34606H5.29422V1.69162H7.03957V0H9.01763V1.85892H7.2335V3.53195H5.48815V5.03768H7.2335V6.7293H9.01763V8.58822H7.03957V6.91519H5.29422V5.22357H3.70402V6.91519H1.95867V8.58822H0Z"
+                      fill="white"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div className="window__content">
+                <img
+                  className="window__image"
+                  src={image1}
+                  alt="statue throwing a hand"
+                />
+              </div>
+            </div>
+            <div className="intro__window intro__window--2">
+              <div className="window__header">
+                <div className="header__close">
+                  <svg
+                    width="10"
+                    height="9"
+                    viewBox="0 0 10 9"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M0 8.58822V6.7293H1.76474V5.03768H3.51009V3.53195H1.76474V1.85892H0V0H1.95867V1.69162H3.70402V3.34606H5.29422V1.69162H7.03957V0H9.01763V1.85892H7.2335V3.53195H5.48815V5.03768H7.2335V6.7293H9.01763V8.58822H7.03957V6.91519H5.29422V5.22357H3.70402V6.91519H1.95867V8.58822H0Z"
+                      fill="white"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div className="window__content">
+                <img
+                  className="window__image"
+                  src={image2}
+                  alt="statue throwing a hand"
+                />
+              </div>
+            </div>
+            <div className="intro__window intro__window--3">
+              <div className="window__header">
+                <div className="header__close">
+                  <svg
+                    width="10"
+                    height="9"
+                    viewBox="0 0 10 9"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M0 8.58822V6.7293H1.76474V5.03768H3.51009V3.53195H1.76474V1.85892H0V0H1.95867V1.69162H3.70402V3.34606H5.29422V1.69162H7.03957V0H9.01763V1.85892H7.2335V3.53195H5.48815V5.03768H7.2335V6.7293H9.01763V8.58822H7.03957V6.91519H5.29422V5.22357H3.70402V6.91519H1.95867V8.58822H0Z"
+                      fill="white"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div className="window__content">
+                <img className="window__image" src={image3} alt="statue throwing a hand" />
+              </div>
+            </div>
+            <div className="intro__window intro__window--4">
+              <div className="window__header">
+                <div className="header__close">
+                  <svg
+                    width="10"
+                    height="9"
+                    viewBox="0 0 10 9"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M0 8.58822V6.7293H1.76474V5.03768H3.51009V3.53195H1.76474V1.85892H0V0H1.95867V1.69162H3.70402V3.34606H5.29422V1.69162H7.03957V0H9.01763V1.85892H7.2335V3.53195H5.48815V5.03768H7.2335V6.7293H9.01763V8.58822H7.03957V6.91519H5.29422V5.22357H3.70402V6.91519H1.95867V8.58822H0Z"
+                      fill="white"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div className="window__content">
+                <img className="window__image" src={image4} alt="statue throwing a hand" />
+              </div>
+            </div>
+            <div className="intro__window intro__window--5">
+              <div className="window__header">
+                <div className="header__close">
+                  <svg
+                    width="10"
+                    height="9"
+                    viewBox="0 0 10 9"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M0 8.58822V6.7293H1.76474V5.03768H3.51009V3.53195H1.76474V1.85892H0V0H1.95867V1.69162H3.70402V3.34606H5.29422V1.69162H7.03957V0H9.01763V1.85892H7.2335V3.53195H5.48815V5.03768H7.2335V6.7293H9.01763V8.58822H7.03957V6.91519H5.29422V5.22357H3.70402V6.91519H1.95867V8.58822H0Z"
+                      fill="white"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div className="window__content">
+              </div>
+            </div>
+          </div>
         </main>
       </div>
     </>
