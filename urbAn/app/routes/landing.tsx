@@ -3878,7 +3878,702 @@ const Landing = () => {
               </defs>
             </svg>
           </div>
+          <div className="main__instructions">
+            <h2 className="instructions__title">How it works</h2>
+            <div className="instructions__section">
+              <div className="instruction__title">
+                <svg
+                  className="title__locator"
+                  width="25"
+                  height="28"
+                  viewBox="0 0 25 28"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M17.5 1.75H7V3.5H5.25V5.25H3.5V7H1.75V15.75H3.5V19.25H5.25V21H7V22.75H8.75V24.5H10.5V26.25H14V24.399H15.75V22.649H17.5V20.899H19.25V19.149H21V15.649H22.75V6.89904H21V5.14904H19.25V3.39904H17.5V1.75Z"
+                    fill="#FF85E4"
+                  />
+                  <path
+                    d="M14 8.64453H10.5V10.3945H8.75V12.1445H10.5V13.8945H14V12.1445H15.75V10.3945H14V8.64453Z"
+                    fill="white"
+                  />
+                  <path d="M14 26.25H12.25V28H14V26.25Z" fill="black" />
+                  <path d="M12.25 26.25H10.5V28H12.25V26.25Z" fill="black" />
+                  <path d="M10.5 24.5H8.75V26.25H10.5V24.5Z" fill="black" />
+                  <path
+                    d="M14 24.3945H15.75V26.1445H14V24.3945Z"
+                    fill="black"
+                  />
+                  <path d="M8.75 22.75H7V24.5H8.75V22.75Z" fill="black" />
+                  <path
+                    d="M15.75 22.6445H17.5V24.3945H15.75V22.6445Z"
+                    fill="black"
+                  />
+                  <path d="M7 21H5.25V22.75H7V21Z" fill="black" />
+                  <path
+                    d="M17.5 20.8945H19.25V22.6445H17.5V20.8945Z"
+                    fill="black"
+                  />
+                  <path d="M5.25 19.25H3.5V21H5.25V19.25Z" fill="black" />
+                  <path
+                    d="M19.25 19.1445H21V20.8945H19.25V19.1445Z"
+                    fill="black"
+                  />
+                  <path d="M3.5 17.5H1.75V19.25H3.5V17.5Z" fill="black" />
+                  <path
+                    d="M21 17.3945H22.75V19.1445H21V17.3945Z"
+                    fill="black"
+                  />
+                  <path d="M3.5 15.75H1.75V17.5H3.5V15.75Z" fill="black" />
+                  <path
+                    d="M21 15.6445H22.75V17.3945H21V15.6445Z"
+                    fill="black"
+                  />
+                  <path d="M1.75 14H0V15.75H1.75V14Z" fill="black" />
+                  <path
+                    d="M22.75 13.8945H24.5V15.6445H22.75V13.8945Z"
+                    fill="black"
+                  />
+                  <path d="M1.75 12.25H0V14H1.75V12.25Z" fill="black" />
+                  <path
+                    d="M22.75 12.1445H24.5V13.8945H22.75V12.1445Z"
+                    fill="black"
+                  />
+                  <path d="M1.75 10.5H0V12.25H1.75V10.5Z" fill="black" />
+                  <path
+                    d="M22.75 10.3945H24.5V12.1445H22.75V10.3945Z"
+                    fill="black"
+                  />
+                  <path d="M1.75 8.75H0V10.5H1.75V8.75Z" fill="black" />
+                  <path
+                    d="M22.75 8.64453H24.5V10.3945H22.75V8.64453Z"
+                    fill="black"
+                  />
+                  <path d="M1.75 7H0V8.75H1.75V7Z" fill="black" />
+                  <path
+                    d="M22.75 6.89453H24.5V8.64453H22.75V6.89453Z"
+                    fill="black"
+                  />
+                  <path d="M3.5 5.25H1.75V7H3.5V5.25Z" fill="black" />
+                  <path
+                    d="M21 5.14453H22.75V6.89453H21V5.14453Z"
+                    fill="black"
+                  />
+                  <path d="M5.25 3.5H3.5V5.25H5.25V3.5Z" fill="black" />
+                  <path
+                    d="M19.25 3.39453H21V5.14453H19.25V3.39453Z"
+                    fill="black"
+                  />
+                  <path d="M7 1.75H5.25V3.5H7V1.75Z" fill="black" />
+                  <path
+                    d="M17.5 1.64453H19.25V3.39453H17.5V1.64453Z"
+                    fill="black"
+                  />
+                  <path d="M8.75 0H7V1.75H8.75V0Z" fill="black" />
+                  <path d="M10.5 0H8.75V1.75H10.5V0Z" fill="black" />
+                  <path d="M12.25 0H10.5V1.75H12.25V0Z" fill="black" />
+                  <path d="M15.75 0H14V1.75H15.75V0Z" fill="black" />
+                  <path d="M17.5 0H15.75V1.75H17.5V0Z" fill="black" />
+                  <path
+                    d="M12.25 6.89453H10.5V8.64453H12.25V6.89453Z"
+                    fill="black"
+                  />
+                  <path
+                    d="M12.25 13.8945H10.5V15.6445H12.25V13.8945Z"
+                    fill="black"
+                  />
+                  <path
+                    d="M15.75 10.3945V8.64453H14V10.3945H15.75Z"
+                    fill="black"
+                  />
+                  <path
+                    d="M10.5 10.3945V8.64453H8.75V10.3945H10.5Z"
+                    fill="black"
+                  />
+                  <path
+                    d="M14 6.89453H12.25V8.64453H14V6.89453Z"
+                    fill="black"
+                  />
+                  <path
+                    d="M14 13.8945H12.25V15.6445H14V13.8945Z"
+                    fill="black"
+                  />
+                  <path
+                    d="M17.5 12.1445V10.3945H15.75V12.1445H17.5Z"
+                    fill="black"
+                  />
+                  <path
+                    d="M8.75 12.1445V10.3945H7V12.1445H8.75Z"
+                    fill="black"
+                  />
+                  <path
+                    d="M15.75 13.8945V12.1445H14V13.8945H15.75Z"
+                    fill="black"
+                  />
+                  <path
+                    d="M10.5 13.8945V12.1445H8.75V13.8945H10.5Z"
+                    fill="black"
+                  />
+                  <path d="M14 0H12.25V1.75H14V0Z" fill="black" />
+                </svg>
+                <h3 className="title__text">Discover Your Archetype</h3>
+              </div>
+              <p className="instructions__description">
+                Answer a playful quiz and unlock your exploration profile.
+              </p>
+            </div>
+            <div className="instructions__section">
+              <div className="instruction__title">
+                <svg
+                  width="25"
+                  height="28"
+                  viewBox="0 0 25 28"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M17.5 1.75H7V3.5H5.25V5.25H3.5V7H1.75V15.75H3.5V19.25H5.25V21H7V22.75H8.75V24.5H10.5V26.25H14V24.399H15.75V22.649H17.5V20.899H19.25V19.149H21V15.649H22.75V6.89904H21V5.14904H19.25V3.39904H17.5V1.75Z"
+                    fill="#FF85E4"
+                  />
+                  <path
+                    d="M14 8.64453H10.5V10.3945H8.75V12.1445H10.5V13.8945H14V12.1445H15.75V10.3945H14V8.64453Z"
+                    fill="white"
+                  />
+                  <path d="M14 26.25H12.25V28H14V26.25Z" fill="black" />
+                  <path d="M12.25 26.25H10.5V28H12.25V26.25Z" fill="black" />
+                  <path d="M10.5 24.5H8.75V26.25H10.5V24.5Z" fill="black" />
+                  <path
+                    d="M14 24.3945H15.75V26.1445H14V24.3945Z"
+                    fill="black"
+                  />
+                  <path d="M8.75 22.75H7V24.5H8.75V22.75Z" fill="black" />
+                  <path
+                    d="M15.75 22.6445H17.5V24.3945H15.75V22.6445Z"
+                    fill="black"
+                  />
+                  <path d="M7 21H5.25V22.75H7V21Z" fill="black" />
+                  <path
+                    d="M17.5 20.8945H19.25V22.6445H17.5V20.8945Z"
+                    fill="black"
+                  />
+                  <path d="M5.25 19.25H3.5V21H5.25V19.25Z" fill="black" />
+                  <path
+                    d="M19.25 19.1445H21V20.8945H19.25V19.1445Z"
+                    fill="black"
+                  />
+                  <path d="M3.5 17.5H1.75V19.25H3.5V17.5Z" fill="black" />
+                  <path
+                    d="M21 17.3945H22.75V19.1445H21V17.3945Z"
+                    fill="black"
+                  />
+                  <path d="M3.5 15.75H1.75V17.5H3.5V15.75Z" fill="black" />
+                  <path
+                    d="M21 15.6445H22.75V17.3945H21V15.6445Z"
+                    fill="black"
+                  />
+                  <path d="M1.75 14H0V15.75H1.75V14Z" fill="black" />
+                  <path
+                    d="M22.75 13.8945H24.5V15.6445H22.75V13.8945Z"
+                    fill="black"
+                  />
+                  <path d="M1.75 12.25H0V14H1.75V12.25Z" fill="black" />
+                  <path
+                    d="M22.75 12.1445H24.5V13.8945H22.75V12.1445Z"
+                    fill="black"
+                  />
+                  <path d="M1.75 10.5H0V12.25H1.75V10.5Z" fill="black" />
+                  <path
+                    d="M22.75 10.3945H24.5V12.1445H22.75V10.3945Z"
+                    fill="black"
+                  />
+                  <path d="M1.75 8.75H0V10.5H1.75V8.75Z" fill="black" />
+                  <path
+                    d="M22.75 8.64453H24.5V10.3945H22.75V8.64453Z"
+                    fill="black"
+                  />
+                  <path d="M1.75 7H0V8.75H1.75V7Z" fill="black" />
+                  <path
+                    d="M22.75 6.89453H24.5V8.64453H22.75V6.89453Z"
+                    fill="black"
+                  />
+                  <path d="M3.5 5.25H1.75V7H3.5V5.25Z" fill="black" />
+                  <path
+                    d="M21 5.14453H22.75V6.89453H21V5.14453Z"
+                    fill="black"
+                  />
+                  <path d="M5.25 3.5H3.5V5.25H5.25V3.5Z" fill="black" />
+                  <path
+                    d="M19.25 3.39453H21V5.14453H19.25V3.39453Z"
+                    fill="black"
+                  />
+                  <path d="M7 1.75H5.25V3.5H7V1.75Z" fill="black" />
+                  <path
+                    d="M17.5 1.64453H19.25V3.39453H17.5V1.64453Z"
+                    fill="black"
+                  />
+                  <path d="M8.75 0H7V1.75H8.75V0Z" fill="black" />
+                  <path d="M10.5 0H8.75V1.75H10.5V0Z" fill="black" />
+                  <path d="M12.25 0H10.5V1.75H12.25V0Z" fill="black" />
+                  <path d="M15.75 0H14V1.75H15.75V0Z" fill="black" />
+                  <path d="M17.5 0H15.75V1.75H17.5V0Z" fill="black" />
+                  <path
+                    d="M12.25 6.89453H10.5V8.64453H12.25V6.89453Z"
+                    fill="black"
+                  />
+                  <path
+                    d="M12.25 13.8945H10.5V15.6445H12.25V13.8945Z"
+                    fill="black"
+                  />
+                  <path
+                    d="M15.75 10.3945V8.64453H14V10.3945H15.75Z"
+                    fill="black"
+                  />
+                  <path
+                    d="M10.5 10.3945V8.64453H8.75V10.3945H10.5Z"
+                    fill="black"
+                  />
+                  <path
+                    d="M14 6.89453H12.25V8.64453H14V6.89453Z"
+                    fill="black"
+                  />
+                  <path
+                    d="M14 13.8945H12.25V15.6445H14V13.8945Z"
+                    fill="black"
+                  />
+                  <path
+                    d="M17.5 12.1445V10.3945H15.75V12.1445H17.5Z"
+                    fill="black"
+                  />
+                  <path
+                    d="M8.75 12.1445V10.3945H7V12.1445H8.75Z"
+                    fill="black"
+                  />
+                  <path
+                    d="M15.75 13.8945V12.1445H14V13.8945H15.75Z"
+                    fill="black"
+                  />
+                  <path
+                    d="M10.5 13.8945V12.1445H8.75V13.8945H10.5Z"
+                    fill="black"
+                  />
+                  <path d="M14 0H12.25V1.75H14V0Z" fill="black" />
+                </svg>
+                <h3 className="title__text">Explore Your Antwerp</h3>
+              </div>
+              <p className="instructions__description">
+                Receive personalised routes based on your interests.
+              </p>
+            </div>
+            <div className="instructions__section">
+              <div className="instruction__title">
+                <svg
+                  width="25"
+                  height="28"
+                  viewBox="0 0 25 28"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M17.5 1.75H7V3.5H5.25V5.25H3.5V7H1.75V15.75H3.5V19.25H5.25V21H7V22.75H8.75V24.5H10.5V26.25H14V24.399H15.75V22.649H17.5V20.899H19.25V19.149H21V15.649H22.75V6.89904H21V5.14904H19.25V3.39904H17.5V1.75Z"
+                    fill="#FF85E4"
+                  />
+                  <path
+                    d="M14 8.64453H10.5V10.3945H8.75V12.1445H10.5V13.8945H14V12.1445H15.75V10.3945H14V8.64453Z"
+                    fill="white"
+                  />
+                  <path d="M14 26.25H12.25V28H14V26.25Z" fill="black" />
+                  <path d="M12.25 26.25H10.5V28H12.25V26.25Z" fill="black" />
+                  <path d="M10.5 24.5H8.75V26.25H10.5V24.5Z" fill="black" />
+                  <path
+                    d="M14 24.3945H15.75V26.1445H14V24.3945Z"
+                    fill="black"
+                  />
+                  <path d="M8.75 22.75H7V24.5H8.75V22.75Z" fill="black" />
+                  <path
+                    d="M15.75 22.6445H17.5V24.3945H15.75V22.6445Z"
+                    fill="black"
+                  />
+                  <path d="M7 21H5.25V22.75H7V21Z" fill="black" />
+                  <path
+                    d="M17.5 20.8945H19.25V22.6445H17.5V20.8945Z"
+                    fill="black"
+                  />
+                  <path d="M5.25 19.25H3.5V21H5.25V19.25Z" fill="black" />
+                  <path
+                    d="M19.25 19.1445H21V20.8945H19.25V19.1445Z"
+                    fill="black"
+                  />
+                  <path d="M3.5 17.5H1.75V19.25H3.5V17.5Z" fill="black" />
+                  <path
+                    d="M21 17.3945H22.75V19.1445H21V17.3945Z"
+                    fill="black"
+                  />
+                  <path d="M3.5 15.75H1.75V17.5H3.5V15.75Z" fill="black" />
+                  <path
+                    d="M21 15.6445H22.75V17.3945H21V15.6445Z"
+                    fill="black"
+                  />
+                  <path d="M1.75 14H0V15.75H1.75V14Z" fill="black" />
+                  <path
+                    d="M22.75 13.8945H24.5V15.6445H22.75V13.8945Z"
+                    fill="black"
+                  />
+                  <path d="M1.75 12.25H0V14H1.75V12.25Z" fill="black" />
+                  <path
+                    d="M22.75 12.1445H24.5V13.8945H22.75V12.1445Z"
+                    fill="black"
+                  />
+                  <path d="M1.75 10.5H0V12.25H1.75V10.5Z" fill="black" />
+                  <path
+                    d="M22.75 10.3945H24.5V12.1445H22.75V10.3945Z"
+                    fill="black"
+                  />
+                  <path d="M1.75 8.75H0V10.5H1.75V8.75Z" fill="black" />
+                  <path
+                    d="M22.75 8.64453H24.5V10.3945H22.75V8.64453Z"
+                    fill="black"
+                  />
+                  <path d="M1.75 7H0V8.75H1.75V7Z" fill="black" />
+                  <path
+                    d="M22.75 6.89453H24.5V8.64453H22.75V6.89453Z"
+                    fill="black"
+                  />
+                  <path d="M3.5 5.25H1.75V7H3.5V5.25Z" fill="black" />
+                  <path
+                    d="M21 5.14453H22.75V6.89453H21V5.14453Z"
+                    fill="black"
+                  />
+                  <path d="M5.25 3.5H3.5V5.25H5.25V3.5Z" fill="black" />
+                  <path
+                    d="M19.25 3.39453H21V5.14453H19.25V3.39453Z"
+                    fill="black"
+                  />
+                  <path d="M7 1.75H5.25V3.5H7V1.75Z" fill="black" />
+                  <path
+                    d="M17.5 1.64453H19.25V3.39453H17.5V1.64453Z"
+                    fill="black"
+                  />
+                  <path d="M8.75 0H7V1.75H8.75V0Z" fill="black" />
+                  <path d="M10.5 0H8.75V1.75H10.5V0Z" fill="black" />
+                  <path d="M12.25 0H10.5V1.75H12.25V0Z" fill="black" />
+                  <path d="M15.75 0H14V1.75H15.75V0Z" fill="black" />
+                  <path d="M17.5 0H15.75V1.75H17.5V0Z" fill="black" />
+                  <path
+                    d="M12.25 6.89453H10.5V8.64453H12.25V6.89453Z"
+                    fill="black"
+                  />
+                  <path
+                    d="M12.25 13.8945H10.5V15.6445H12.25V13.8945Z"
+                    fill="black"
+                  />
+                  <path
+                    d="M15.75 10.3945V8.64453H14V10.3945H15.75Z"
+                    fill="black"
+                  />
+                  <path
+                    d="M10.5 10.3945V8.64453H8.75V10.3945H10.5Z"
+                    fill="black"
+                  />
+                  <path
+                    d="M14 6.89453H12.25V8.64453H14V6.89453Z"
+                    fill="black"
+                  />
+                  <path
+                    d="M14 13.8945H12.25V15.6445H14V13.8945Z"
+                    fill="black"
+                  />
+                  <path
+                    d="M17.5 12.1445V10.3945H15.75V12.1445H17.5Z"
+                    fill="black"
+                  />
+                  <path
+                    d="M8.75 12.1445V10.3945H7V12.1445H8.75Z"
+                    fill="black"
+                  />
+                  <path
+                    d="M15.75 13.8945V12.1445H14V13.8945H15.75Z"
+                    fill="black"
+                  />
+                  <path
+                    d="M10.5 13.8945V12.1445H8.75V13.8945H10.5Z"
+                    fill="black"
+                  />
+                  <path d="M14 0H12.25V1.75H14V0Z" fill="black" />
+                </svg>
+                <h3 className="title__text">Leave Your Layer</h3>
+              </div>
+              <p className="instructions__description">
+                Share discoveries and help reveal Antwerp for the next explorer.
+              </p>
+            </div>
+          </div>
         </main>
+        <footer className="landing__footer">
+          <svg
+            width="393"
+            height="216"
+            viewBox="0 0 393 216"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip0_986_9365)">
+              <mask
+                id="mask0_986_9365"
+                style={{ maskType: "alpha" }}
+                maskUnits="userSpaceOnUse"
+                x="0"
+                y="0"
+                width="651"
+                height="705">
+                <path
+                  d="M0.000244141 189.656V216.75H27.0836V189.656H0.000244141Z"
+                  fill="black"
+                />
+                <path
+                  d="M0.000244141 162.562V189.656H27.0836V162.562H0.000244141Z"
+                  fill="black"
+                />
+                <path
+                  d="M27.0835 189.656V216.75H54.1668V189.656H27.0835Z"
+                  fill="black"
+                />
+                <path
+                  d="M27.0835 162.562V189.656H54.1668V162.562H27.0835Z"
+                  fill="black"
+                />
+                <path
+                  d="M54.167 189.656V216.75H81.2503V189.656H54.167Z"
+                  fill="black"
+                />
+                <path
+                  d="M54.167 162.562V189.656H81.2503V162.562H54.167Z"
+                  fill="black"
+                />
+                <path
+                  d="M81.2502 189.656V216.75H108.334V189.656H81.2502Z"
+                  fill="black"
+                />
+                <path
+                  d="M81.2502 162.562V189.656H108.334V162.562H81.2502Z"
+                  fill="black"
+                />
+                <path
+                  d="M0.000244141 135.469V162.562H27.0836V135.469H0.000244141Z"
+                  fill="black"
+                />
+                <path
+                  d="M27.0835 135.469V162.562H54.1668V135.469H27.0835Z"
+                  fill="black"
+                />
+                <path
+                  d="M27.0835 108.375V135.469H54.1668V108.375H27.0835Z"
+                  fill="black"
+                />
+                <path
+                  d="M54.167 135.469V162.562H81.2503V135.469H54.167Z"
+                  fill="black"
+                />
+                <path
+                  d="M54.167 81.2812V108.375H81.2503V81.2812H54.167Z"
+                  fill="black"
+                />
+                <path
+                  d="M81.2502 135.469V162.562H108.334V135.469H81.2502Z"
+                  fill="black"
+                />
+                <path
+                  d="M81.2502 54.1875V81.2812H108.334V54.1875H81.2502Z"
+                  fill="black"
+                />
+                <path
+                  d="M27.0835 27.0937V54.1875H54.1668V27.0937H27.0835Z"
+                  fill="black"
+                />
+                <path
+                  d="M81.2502 -4.19617e-05V27.0938H108.334V-4.19617e-05H81.2502Z"
+                  fill="black"
+                />
+                <path
+                  d="M108.333 189.656V216.75H135.417V189.656H108.333Z"
+                  fill="black"
+                />
+                <path
+                  d="M135.417 189.656V216.75H162.5V189.656H135.417Z"
+                  fill="black"
+                />
+                <path
+                  d="M135.417 162.562V189.656H162.5V162.562H135.417Z"
+                  fill="black"
+                />
+                <path
+                  d="M162.5 189.656V216.75H189.584V189.656H162.5Z"
+                  fill="black"
+                />
+                <path
+                  d="M162.5 162.562V189.656H189.584V162.562H162.5Z"
+                  fill="black"
+                />
+                <path
+                  d="M189.583 189.656V216.75H216.667V189.656H189.583Z"
+                  fill="black"
+                />
+                <path
+                  d="M189.583 162.562V189.656H216.667V162.562H189.583Z"
+                  fill="black"
+                />
+                <path
+                  d="M108.333 135.469V162.562H135.417V135.469H108.333Z"
+                  fill="black"
+                />
+                <path
+                  d="M108.333 108.375V135.469H135.417V108.375H108.333Z"
+                  fill="black"
+                />
+                <path
+                  d="M135.417 135.469V162.562H162.5V135.469H135.417Z"
+                  fill="black"
+                />
+                <path
+                  d="M135.417 81.2812V108.375H162.5V81.2812H135.417Z"
+                  fill="black"
+                />
+                <path
+                  d="M162.5 135.469V162.562H189.584V135.469H162.5Z"
+                  fill="black"
+                />
+                <path
+                  d="M162.5 108.375V135.469H189.584V108.375H162.5Z"
+                  fill="black"
+                />
+                <path
+                  d="M162.5 81.2812V108.375H189.584V81.2812H162.5Z"
+                  fill="black"
+                />
+                <path
+                  d="M189.583 135.469V162.562H216.667V135.469H189.583Z"
+                  fill="black"
+                />
+                <path
+                  d="M189.583 54.1875V81.2812H216.667V54.1875H189.583Z"
+                  fill="black"
+                />
+                <path
+                  d="M216.667 189.656V216.75H243.75V189.656H216.667Z"
+                  fill="black"
+                />
+                <path
+                  d="M216.667 162.562V189.656H243.75V162.562H216.667Z"
+                  fill="black"
+                />
+                <path
+                  d="M243.75 189.656V216.75H270.834V189.656H243.75Z"
+                  fill="black"
+                />
+                <path
+                  d="M243.75 162.562V189.656H270.834V162.562H243.75Z"
+                  fill="black"
+                />
+                <path
+                  d="M270.833 189.656V216.75H297.917V189.656H270.833Z"
+                  fill="black"
+                />
+                <path
+                  d="M270.833 162.562V189.656H297.917V162.562H270.833Z"
+                  fill="black"
+                />
+                <path
+                  d="M297.917 189.656V216.75H325V189.656H297.917Z"
+                  fill="black"
+                />
+                <path
+                  d="M297.917 162.562V189.656H325V162.562H297.917Z"
+                  fill="black"
+                />
+                <path
+                  d="M243.75 135.469V162.562H270.834V135.469H243.75Z"
+                  fill="black"
+                />
+                <path
+                  d="M243.75 108.375V135.469H270.834V108.375H243.75Z"
+                  fill="black"
+                />
+                <path
+                  d="M243.75 81.2812V108.375H270.834V81.2812H243.75Z"
+                  fill="black"
+                />
+                <path
+                  d="M270.833 135.469V162.562H297.917V135.469H270.833Z"
+                  fill="black"
+                />
+                <path
+                  d="M325 189.656V216.75H352.084V189.656H325Z"
+                  fill="black"
+                />
+                <path
+                  d="M325 162.562V189.656H352.084V162.562H325Z"
+                  fill="black"
+                />
+                <path
+                  d="M352.083 189.656V216.75H379.167V189.656H352.083Z"
+                  fill="black"
+                />
+                <path
+                  d="M352.083 162.562V189.656H379.167V162.562H352.083Z"
+                  fill="black"
+                />
+                <path
+                  d="M379.167 189.656V216.75H406.25V189.656H379.167Z"
+                  fill="black"
+                />
+                <path
+                  d="M379.167 162.562V189.656H406.25V162.562H379.167Z"
+                  fill="black"
+                />
+                <path
+                  d="M325 135.469V162.562H352.084V135.469H325Z"
+                  fill="black"
+                />
+                <path
+                  d="M352.083 135.469V162.562H379.167V135.469H352.083Z"
+                  fill="black"
+                />
+                <path
+                  d="M352.083 108.375V135.469H379.167V108.375H352.083Z"
+                  fill="black"
+                />
+              </mask>
+              <g mask="url(#mask0_986_9365)">
+                <rect
+                  x="0.000244141"
+                  y="0.4375"
+                  width="393"
+                  height="216"
+                  fill="black"
+                />
+              </g>
+            </g>
+            <defs>
+              <clipPath id="clip0_986_9365">
+                <rect width="393" height="216" fill="white" />
+              </clipPath>
+            </defs>
+          </svg>
+          <div className="footer__content">
+            <h2 className="footer__content">Visit Antwerp</h2>
+            <p>Central station, Queen Astrid Square 2018 Antwerp</p>
+            <p>Steenplein 1 2000 Antwerp</p>
+            <ul>
+              <li>visit.antwerpem.be</li>
+              <li>info@visitantwerp.be</li>
+              <li>+32 (0)3 221 13 33</li>
+            </ul>
+            <div>
+              <h2>Share your Layer!</h2>
+              <div>
+                <Link>in</Link>
+                <Link>fb</Link>
+                <Link>yt</Link>
+              </div>
+            </div>
+          </div>
+        </footer>
       </div>
     </>
   );

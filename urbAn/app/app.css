@@ -149,7 +149,7 @@ button {
   background: var(--colour-blue-400)
     url("./assets/background/sky-color-halftone.png");
   background-blend-mode: color-dodge;
-  background-size: cover;
+  background-size: 200%;
   background-repeat: repeat-y;
   max-width: 100dvw;
   height: fit-content;
@@ -522,12 +522,12 @@ button {
 }
 
 .app__info {
-  background-image: url('./assets/background/break-yellow.svg');
+  background: var(--colour-yellow);
   background-size: cover;
   background-position: center;
   background-repeat: repeat-y;
 
-  padding: 0 var(--space-s);
+  padding: var(--space-xs) var(--space-s);
 }
 
 .app__title {
@@ -552,6 +552,60 @@ button {
 
 .app__cta {
   margin: auto;
+}
+
+.main__instructions {
+  padding: 0 var(--space-l);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.instructions__title {
+  font-family: "Antwerpen Pixel";
+  font-size: 54px;
+  text-align: center;
+
+  paint-order: stroke fill;
+  -webkit-text-stroke: 6px var(--colour-pink-200);
+}
+
+.instructions__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.instruction__title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.title__text {
+  background-color: var(--colour-pink-200);
+
+  font-family: "Antwerpen Regular";
+  font-size: 24px;
+}
+
+.instructions__description {
+  font-size: 22px;
+
+  paint-order: stroke fill;
+  -webkit-text-stroke: 0.5px var(--colour-black-light);
+}
+
+.landing__footer {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer__content {
+  background-color: var(--colour-black);
+
+  color: var(--colour-white);
 }
 
 /*! ===== onboarding ===== */
