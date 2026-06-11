@@ -52,7 +52,7 @@ const User = () => {
           <p>
             If you don't have a profile yet, take the Archetype quiz.
           </p>
-          <Link className="selector__onboarding" to={`/firstQuestion`}>My Side of Antwerp</Link>
+          <Link className="selector__onboarding" to={`/question-1`}>My Side of Antwerp</Link>
         </div>
       </div>
     </>
