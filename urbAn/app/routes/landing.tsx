@@ -594,7 +594,7 @@ const Landing = () => {
               </svg>
             </div>
           </h1>
-          <Link className="header__cta" to={`user`}>
+          <Link className="header__cta cta" to={`user`}>
             <span>Find your Antwerp</span>
             <svg
               width="16"
@@ -2757,7 +2757,8 @@ const Landing = () => {
               </div>
             </div>
             <div className="chat__receiver">
-              <svg className="receiver__emoji"
+              <svg
+                className="receiver__emoji"
                 width="54"
                 height="50"
                 viewBox="0 0 54 50"
@@ -2913,7 +2914,8 @@ const Landing = () => {
                   fill="white"
                 />
               </svg>
-              <svg className="receiver__emoji"
+              <svg
+                className="receiver__emoji"
                 width="38"
                 height="50"
                 viewBox="0 0 38 50"
@@ -3014,7 +3016,8 @@ const Landing = () => {
                 />
                 <path d="M18.75 46.875H15.625V50H18.75V46.875Z" fill="black" />
               </svg>
-              <svg className="receiver__emoji"
+              <svg
+                className="receiver__emoji"
                 width="50"
                 height="50"
                 viewBox="0 0 50 50"
@@ -3200,6 +3203,680 @@ const Landing = () => {
                 />
               </svg>
             </div>
+          </div>
+          <div className="main__app">
+            <svg
+              className="app__top"
+              width="393"
+              height="217"
+              viewBox="0 0 393 217"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_967_4119)">
+                <mask
+                  id="mask0_967_4119"
+                  style={{ maskType: "alpha" }}
+                  maskUnits="userSpaceOnUse"
+                  x="-257"
+                  y="0"
+                  width="907"
+                  height="1167">
+                  <path
+                    d="M-0.00195312 216.754L-0.00195312 243.848H27.0814V216.754H-0.00195312Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M-0.00195312 189.66L-0.00195312 216.754H27.0814V189.66H-0.00195312Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M-0.00195312 162.566L-0.00195312 189.66H27.0814V162.566H-0.00195312Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M27.082 216.754V243.848H54.1654V216.754H27.082Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M27.082 189.66V216.754H54.1654V189.66H27.082Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M27.082 162.566V189.66H54.1654V162.566H27.082Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M54.1641 216.754V243.848H81.2474V216.754H54.1641Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M54.1641 189.66V216.754H81.2474V189.66H54.1641Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M54.1641 162.566V189.66H81.2474V162.566H54.1641Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M81.248 216.754V243.848H108.331V216.754H81.248Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M81.248 189.66V216.754H108.331V189.66H81.248Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M81.248 162.566V189.66H108.331V162.566H81.248Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M-0.00195312 135.473L-0.00195312 162.566H27.0814V135.473H-0.00195312Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M27.082 135.473V162.566H54.1654V135.473H27.082Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M27.082 108.379V135.473H54.1654V108.379H27.082Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M54.1641 135.473V162.566H81.2474V135.473H54.1641Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M54.1641 81.2851V108.379H81.2474V81.2851H54.1641Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M81.248 135.473V162.566H108.331V135.473H81.248Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M81.248 54.1914V81.2852H108.331V54.1914H81.248Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M27.082 27.0976V54.1914H54.1654V27.0976H27.082Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M81.248 -4.19617e-05V27.0938H108.331V-4.19617e-05H81.248Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M108.332 216.754V243.848H135.415V216.754H108.332Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M108.332 189.66V216.754H135.415V189.66H108.332Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M135.414 216.754V243.848H162.497V216.754H135.414Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M135.414 189.66V216.754H162.497V189.66H135.414Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M135.414 162.566V189.66H162.497V162.566H135.414Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M162.498 216.754V243.848H189.581V216.754H162.498Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M162.498 189.66V216.754H189.581V189.66H162.498Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M162.498 162.566V189.66H189.581V162.566H162.498Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M189.582 216.754V243.848H216.665V216.754H189.582Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M189.582 189.66V216.754H216.665V189.66H189.582Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M189.582 162.566V189.66H216.665V162.566H189.582Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M108.332 135.473V162.566H135.415V135.473H108.332Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M108.332 108.379V135.473H135.415V108.379H108.332Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M135.414 135.473V162.566H162.497V135.473H135.414Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M135.414 81.2851V108.379H162.497V81.2851H135.414Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M162.498 135.473V162.566H189.581V135.473H162.498Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M162.498 108.379V135.473H189.581V108.379H162.498Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M162.498 81.2851V108.379H189.581V81.2851H162.498Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M189.582 135.473V162.566H216.665V135.473H189.582Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M189.582 54.1914V81.2852H216.665V54.1914H189.582Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M216.664 216.754V243.848H243.747V216.754H216.664Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M216.664 189.66V216.754H243.747V189.66H216.664Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M216.664 162.566V189.66H243.747V162.566H216.664Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M243.748 216.754V243.848H270.831V216.754H243.748Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M243.748 189.66V216.754H270.831V189.66H243.748Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M243.748 162.566V189.66H270.831V162.566H243.748Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M270.832 216.754V243.848H297.915V216.754H270.832Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M270.832 189.66V216.754H297.915V189.66H270.832Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M270.832 162.566V189.66H297.915V162.566H270.832Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M297.914 216.754V243.848H324.997V216.754H297.914Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M297.914 189.66V216.754H324.997V189.66H297.914Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M297.914 162.566V189.66H324.997V162.566H297.914Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M243.748 135.473V162.566H270.831V135.473H243.748Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M243.748 108.379V135.473H270.831V108.379H243.748Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M243.748 81.2851V108.379H270.831V81.2851H243.748Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M270.832 135.473V162.566H297.915V135.473H270.832Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M324.998 216.754V243.848H352.081V216.754H324.998Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M324.998 189.66V216.754H352.081V189.66H324.998Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M324.998 162.566V189.66H352.081V162.566H324.998Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M352.082 216.754V243.848H379.165V216.754H352.082Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M352.082 189.66V216.754H379.165V189.66H352.082Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M352.082 162.566V189.66H379.165V162.566H352.082Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M379.164 216.754V243.848H406.247V216.754H379.164Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M379.164 189.66V216.754H406.247V189.66H379.164Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M379.164 162.566V189.66H406.247V162.566H379.164Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M324.998 135.473V162.566H352.081V135.473H324.998Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M352.082 135.473V162.566H379.165V135.473H352.082Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M352.082 108.379V135.473H379.165V108.379H352.082Z"
+                    fill="#CDFF10"
+                  />
+                </mask>
+                <g mask="url(#mask0_967_4119)">
+                  <rect y="-134" width="393" height="1525" fill="#CDFF10" />
+                </g>
+              </g>
+              <defs>
+                <clipPath id="clip0_967_4119">
+                  <rect width="393" height="217" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+            <div className="app__info">
+              <h2 className="app__title">meet urbAn!</h2>
+              <p className="app__description">
+                <span className="bold">urbAn</span> is a web app built for{" "}
+                <span className="bold">solo travellers</span> who want to
+                explore beyond algorithms, connect with people, and uncover the
+                many layers of <span className="bold">Anwerp</span>.
+              </p>
+              <div className="app__showcase">images will go here</div>
+              <Link className="app__cta cta" to={`user`}>
+                Join urbAn now
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect y="12" width="4.00005" height="4.00006" fill="white" />
+                  <rect
+                    x="4"
+                    y="10"
+                    width="4.00005"
+                    height="4.00006"
+                    fill="white"
+                  />
+                  <rect
+                    x="8"
+                    y="8"
+                    width="4.00005"
+                    height="4.00006"
+                    fill="white"
+                  />
+                  <rect
+                    x="12"
+                    y="6"
+                    width="4.00005"
+                    height="4.00006"
+                    fill="white"
+                  />
+                  <rect y="8" width="4.00005" height="4.00006" fill="white" />
+                  <rect
+                    x="4"
+                    y="6"
+                    width="4.00005"
+                    height="4.00006"
+                    fill="white"
+                  />
+                  <rect
+                    x="8"
+                    y="4"
+                    width="4.00005"
+                    height="4.00006"
+                    fill="white"
+                  />
+                  <rect y="4" width="4.00005" height="4.00006" fill="white" />
+                  <rect
+                    x="4"
+                    y="2"
+                    width="4.00005"
+                    height="4.00006"
+                    fill="white"
+                  />
+                  <rect width="4.00005" height="4.00006" fill="white" />
+                </svg>
+              </Link>
+            </div>
+            <svg
+              className="app__bottom"
+              width="393"
+              height="217"
+              viewBox="0 0 393 217"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_967_4120)">
+                <mask
+                  id="mask0_967_4120"
+                  style={{ maskType: "alpha" }}
+                  maskUnits="userSpaceOnUse"
+                  x="-257"
+                  y="-950"
+                  width="907"
+                  height="1167">
+                  <path
+                    d="M393 0.128948V-26.9648H365.917V0.128948H393Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M393 27.2227V0.128906H365.917V27.2227H393Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M393 54.3164V27.2227H365.917V54.3164H393Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M365.916 0.128948V-26.9648H338.833V0.128948H365.916Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M365.916 27.2227V0.128906H338.833V27.2227H365.916Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M365.916 54.3164V27.2227H338.833V54.3164H365.916Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M338.834 0.128948V-26.9648H311.751V0.128948H338.834Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M338.834 27.2227V0.128906H311.751V27.2227H338.834Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M338.834 54.3164V27.2227H311.751V54.3164H338.834Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M311.75 0.128948V-26.9648H284.667V0.128948H311.75Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M311.75 27.2227V0.128906H284.667V27.2227H311.75Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M311.75 54.3164V27.2227H284.667V54.3164H311.75Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M393 81.4102V54.3164H365.917V81.4102H393Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M365.916 81.4102V54.3164H338.833V81.4102H365.916Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M365.916 108.504V81.4102H338.833V108.504H365.916Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M338.834 81.4102V54.3164H311.751V81.4102H338.834Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M338.834 135.598V108.504H311.751V135.598H338.834Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M311.75 81.4102V54.3164H284.667V81.4102H311.75Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M311.75 162.691V135.598H284.667V162.691H311.75Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M365.916 189.785V162.691H338.833V189.785H365.916Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M311.75 216.883V189.789H284.667V216.883H311.75Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M284.666 0.128948V-26.9648H257.583V0.128948H284.666Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M284.666 27.2227V0.128906H257.583V27.2227H284.666Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M257.584 0.128948V-26.9648H230.501V0.128948H257.584Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M257.584 27.2227V0.128906H230.501V27.2227H257.584Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M257.584 54.3164V27.2227H230.501V54.3164H257.584Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M230.5 0.128948V-26.9648H203.417V0.128948H230.5Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M230.5 27.2227V0.128906H203.417V27.2227H230.5Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M230.5 54.3164V27.2227H203.417V54.3164H230.5Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M203.416 0.128948V-26.9648H176.333V0.128948H203.416Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M203.416 27.2227V0.128906H176.333V27.2227H203.416Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M203.416 54.3164V27.2227H176.333V54.3164H203.416Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M284.666 81.4102V54.3164H257.583V81.4102H284.666Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M284.666 108.504V81.4102H257.583V108.504H284.666Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M257.584 81.4102V54.3164H230.501V81.4102H257.584Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M257.584 135.598V108.504H230.501V135.598H257.584Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M230.5 81.4102V54.3164H203.417V81.4102H230.5Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M230.5 108.504V81.4102H203.417V108.504H230.5Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M230.5 135.598V108.504H203.417V135.598H230.5Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M203.416 81.4102V54.3164H176.333V81.4102H203.416Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M203.416 162.691V135.598H176.333V162.691H203.416Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M176.334 0.128948V-26.9648H149.251V0.128948H176.334Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M176.334 27.2227V0.128906H149.251V27.2227H176.334Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M176.334 54.3164V27.2227H149.251V54.3164H176.334Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M149.25 0.128948V-26.9648H122.167V0.128948H149.25Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M149.25 27.2227V0.128906H122.167V27.2227H149.25Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M149.25 54.3164V27.2227H122.167V54.3164H149.25Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M122.166 0.128948V-26.9648H95.0827V0.128948H122.166Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M122.166 27.2227V0.128906H95.0827V27.2227H122.166Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M122.166 54.3164V27.2227H95.0827V54.3164H122.166Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M95.084 0.128948V-26.9648H68.0007V0.128948H95.084Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M95.084 27.2227V0.128906H68.0007V27.2227H95.084Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M95.084 54.3164V27.2227H68.0007V54.3164H95.084Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M149.25 81.4102V54.3164H122.167V81.4102H149.25Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M149.25 108.504V81.4102H122.167V108.504H149.25Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M149.25 135.598V108.504H122.167V135.598H149.25Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M122.166 81.4102V54.3164H95.0827V81.4102H122.166Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M68 0.128948V-26.9648H40.9167V0.128948H68Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M68 27.2227V0.128906H40.9167V27.2227H68Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M68 54.3164V27.2227H40.9167V54.3164H68Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M40.916 0.128948V-26.9648H13.8327V0.128948H40.916Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M40.916 27.2227V0.128906H13.8327V27.2227H40.916Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M40.916 54.3164V27.2227H13.8327V54.3164H40.916Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M13.834 0.128948L13.834 -26.9648H-13.2493V0.128948H13.834Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M13.834 27.2227L13.834 0.128906H-13.2493V27.2227H13.834Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M13.834 54.3164L13.834 27.2227H-13.2493V54.3164H13.834Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M68 81.4102V54.3164H40.9167V81.4102H68Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M40.916 81.4102V54.3164H13.8327V81.4102H40.916Z"
+                    fill="#CDFF10"
+                  />
+                  <path
+                    d="M40.916 108.504V81.4102H13.8327V108.504H40.916Z"
+                    fill="#CDFF10"
+                  />
+                </mask>
+                <g mask="url(#mask0_967_4120)">
+                  <rect y="-1084" width="393" height="1525" fill="#CDFF10" />
+                </g>
+              </g>
+              <defs>
+                <clipPath id="clip0_967_4120">
+                  <rect width="393" height="217" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
           </div>
         </main>
       </div>

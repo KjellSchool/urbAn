@@ -126,6 +126,23 @@ button {
   padding: var(--space-s);
 }
 
+.cta {
+  background-color: var(--colour-black);
+
+  color: var(--colour-white);
+  font-family: "Antwerpen Small Caps";
+  font-size: 20px;
+
+  width: fit-content;
+  padding: var(--space-s) var(--space-s);
+  border-radius: 32px;
+  box-shadow: 0 4px 0 0 var(--colour-white);
+
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
 /*! ===== landing page ===== */
 .landing {
   /* background-color: var(--colour-blue-300); */
@@ -245,21 +262,6 @@ button {
 
 .header__cta {
   align-self: center;
-
-  background-color: var(--colour-black);
-
-  color: var(--colour-white);
-  font-family: "Antwerpen Small Caps";
-  font-size: 20px;
-
-  width: fit-content;
-  padding: var(--space-s) var(--space-s);
-  border-radius: 32px;
-  box-shadow: 0 4px 0 0 var(--colour-white);
-
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
 }
 
 .header__cta span {
@@ -512,6 +514,44 @@ button {
   display: flex;
   align-items: center;
   gap: var(--space-s);
+}
+
+.main__app {
+  display: flex;
+  flex-direction: column;
+}
+
+.app__info {
+  background-image: url('./assets/background/break-yellow.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat-y;
+
+  padding: 0 var(--space-s);
+}
+
+.app__title {
+  font-family: "Antwerpen Pixel";
+  font-size: 48px;
+
+  margin-bottom: var(--space-s);
+}
+
+.app__description {
+  font-size: 20px;
+  line-height: 110%;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.app__showcase {
+  margin: var(--space-s) 0;
+}
+
+.app__cta {
+  margin: auto;
 }
 
 /*! ===== onboarding ===== */
