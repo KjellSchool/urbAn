@@ -16,6 +16,28 @@ export const getProfile = async (profileId) => {
   return { data, error };
 };
 
+export const insertProfile = async (
+  username,
+  birthday,
+  description,
+  archetype,
+) => {
+  const { data, error } = await supabase
+    .from("profiles")
+    .insert([
+      {
+        name: username,
+        description: description,
+        date_of_birth: birthday,
+        primary_archetype: archetype,
+      },
+    ])
+    .select()
+    .single();
+
+  return { data, error };
+};
+
 export const setLocation = async (profileId, userLocation) => {
   const { data, error } = await supabase
     .from("profiles")
