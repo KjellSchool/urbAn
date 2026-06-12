@@ -8,6 +8,9 @@ import { getRoute } from "../database/routes.js";
 import { getLocation } from "../database/locations.js";
 import { getChallenges } from "../database/challenges.js";
 
+import { useUser } from "../contexts/userContext.js";
+import { setProfileLocation } from "../database/profiles.js";
+
 mapboxgl.accessToken =
   "pk.eyJ1IjoiYW50d2VycHVyYmFudGVhbSIsImEiOiJjbXB0aTVwcnIwOXhkMnpzZWR6dzl6MHRsIn0.6oxgIvb_wD5lre3xUm_5mA";
 
@@ -17,6 +20,8 @@ export function Map() {
   const markersRef = useRef([]);
   const challengesRef = useRef([]);
   const popupRef = useRef([]);
+
+  const { currentUser } = useUser();
 
   const [userLocation, setUserLocation] = useState(null);
 
@@ -107,6 +112,28 @@ export function Map() {
       },
     );
   }, []);
+
+  const updateUserLocation = async () => {
+    const profileLocation = [userLocation.latitude, userLocation.longitude];
+    console.log(profileLocation);
+    console.log(currentUser?.profile_id)
+    const { data: updatedUser, error } =
+      await setProfileLocation(currentUser?.profile_id, profileLocation);
+    console.log(updatedUser);
+    console.log(error);
+  };
+
+  useEffect(() => {
+    if (!userLocation || !currentUser?.profile_id) return;
+
+    updateUserLocation();
+    
+    const locationInterval = setInterval(() => {
+      updateUserLocation();
+    }, 5_000);
+
+    return () => clearInterval(locationInterval);
+  }, [userLocation]);
 
   useEffect(() => {
     if (!userLocation) return;
