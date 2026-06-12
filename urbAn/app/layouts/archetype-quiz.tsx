@@ -1,7 +1,21 @@
 import { useState } from "react";
-import { Outlet, Link, useSearchParams, useLocation } from "react-router";
+import {
+  Outlet,
+  Link,
+  useSearchParams,
+  useLocation,
+  useNavigate,
+} from "react-router";
+
+import { insertProfile } from "../database/profiles.js";
+
+import { useUser } from "../contexts/userContext.tsx";
 
 const ArchetypeQuiz = () => {
+  const { setCurrentUser } = useUser();
+
+  const navigate = useNavigate();
+
   const url = useLocation();
   const lastChar = url.pathname.substring(url.pathname.length - 1);
   const currentPage = parseInt(lastChar);
@@ -20,14 +34,21 @@ const ArchetypeQuiz = () => {
         addPoints(pendingAnswer);
         setPendingAnswer(null);
       }
+      console.log(pendingUser);
     }
 
     setQuizQuestionNumber(quizQuestionNumber + 1);
   };
 
-  const [pendingUser, setPendingUser] = useState(null);
+  const [pendingUser, setPendingUser] = useState({
+    username: "",
+    birthday: "",
+    description: "",
+    archetype: null,
+  });
 
   const [pendingAnswer, setPendingAnswer] = useState(null);
+  const [finalWinner, setFinalWinner] = useState(null);
 
   const [archetypeScores, setArchetypeScores] = useState([
     {
@@ -108,16 +129,55 @@ const ArchetypeQuiz = () => {
   };
 
   const getWinner = () => {
-    return archetypeScores.sort((a, b) => b.points - a.points)[0];
+    return [...archetypeScores].sort((a, b) => b.points - a.points)[0];
   };
 
-  const winner = getWinner();
-  console.log(winner);
+  const finalizeOnboarding = () => {
+    const winner = getWinner();
+
+    setFinalWinner(winner);
+
+    setPendingUser((prev) => ({
+      ...prev,
+      archetype: winner.id,
+    }));
+
+    return winner;
+  };
+
+  const submitOnboarding = async () => {
+    const winner = getWinner();
+
+    const finalUser = {
+      ...pendingUser,
+      archetype: winner.id,
+    };
+
+    setPendingUser(finalUser);
+
+    const { data: newProfile, error } = await insertProfile(
+      finalUser.username,
+      finalUser.birthday,
+      finalUser.description,
+      finalUser.archetype,
+    );
+
+    console.log(newProfile, error);
+    setCurrentUser(newProfile);
+
+    navigate("/home");
+  };
 
   return (
     <>
       <h2>TITLEEEEEEEEEEEE</h2>
-      <Outlet context={{ setPendingUser, pendingUser, setPendingAnswer, pendingAnswer }}></Outlet>
+      <Outlet
+        context={{
+          setPendingUser,
+          pendingUser,
+          setPendingAnswer,
+          pendingAnswer,
+        }}></Outlet>
       <div>
         {quizQuestionNumber > 1 ? (
           quizQuestionNumber > 6 ? (
@@ -125,6 +185,9 @@ const ArchetypeQuiz = () => {
               <Link to={`/question-${quizQuestionNumber - 1}`}>
                 <button onClick={pageDown}>Previous</button>
               </Link>
+              {/* <Link to={``}> */}
+              <button onClick={submitOnboarding}>Finish</button>
+              {/* </Link> */}
             </>
           ) : (
             <>
