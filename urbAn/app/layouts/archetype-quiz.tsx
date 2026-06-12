@@ -13,13 +13,19 @@ const ArchetypeQuiz = () => {
   };
 
   const pageUp = () => {
-    if (pendingAnswer) {
-      addPoints(pendingAnswer);
-      setPendingAnswer(null);
+    if (quizQuestionNumber === 1) {
+      console.log(pendingUser);
+    } else {
+      if (pendingAnswer) {
+        addPoints(pendingAnswer);
+        setPendingAnswer(null);
+      }
     }
 
     setQuizQuestionNumber(quizQuestionNumber + 1);
   };
+
+  const [pendingUser, setPendingUser] = useState(null);
 
   const [pendingAnswer, setPendingAnswer] = useState(null);
 
@@ -111,10 +117,10 @@ const ArchetypeQuiz = () => {
   return (
     <>
       <h2>TITLEEEEEEEEEEEE</h2>
-      <Outlet context={{ setPendingAnswer, pendingAnswer, addPoints }}></Outlet>
+      <Outlet context={{ setPendingUser, pendingUser, setPendingAnswer, pendingAnswer }}></Outlet>
       <div>
         {quizQuestionNumber > 1 ? (
-          quizQuestionNumber > 5 ? (
+          quizQuestionNumber > 6 ? (
             <>
               <Link to={`/question-${quizQuestionNumber - 1}`}>
                 <button onClick={pageDown}>Previous</button>
