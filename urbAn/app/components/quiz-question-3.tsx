@@ -8,9 +8,7 @@ const ThirdQuestion = () => {
   const options = [
     {
       label: "I don’t know where to go",
-      value: [
-        { archetype: "unfollows", points: 2 },
-      ],
+      value: [{ archetype: "unfollows", points: 2 }],
     },
     {
       label: "I don’t know what to do",
@@ -25,9 +23,7 @@ const ThirdQuestion = () => {
     },
     {
       label: "I can’t take any pictures",
-      value: [
-        { archetype: "pinterest", points: 2 },
-      ],
+      value: [{ archetype: "pinterest", points: 2 }],
     },
     {
       label: "I can’t tell anyone how nice it is here",
@@ -48,20 +44,30 @@ const ThirdQuestion = () => {
 
   return (
     <>
-      <p>You are exploring and it suddenly starts raining. What do you do?</p>
-      <div className="question__options">
-        {options.map((option, i) => (
-          <label key={i}>
-            <input type="radio" name="q3" onChange={() => {
-              setSelected(option.value);
-              setPendingAnswer(option.value);
-            }}/>
-            {option.label}
-          </label>
-        ))}
+      <div>
+        <p className="quiz__question">
+          Your phone battery dies.
+          <br />
+          What concerns you the most?
+        </p>
+        <div className="question__options">
+          {options.map((option, i) => (
+            <label className="question__option" key={i}>
+              <input
+                type="radio"
+                name="q3"
+                onChange={() => {
+                  setSelected(option.value);
+                  setPendingAnswer(option.value);
+                }}
+              />
+              {option.label}
+            </label>
+          ))}
+        </div>
       </div>
     </>
   );
-}
+};
 
 export default ThirdQuestion;

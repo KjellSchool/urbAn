@@ -7,7 +7,7 @@ const FifthQuestion = () => {
 
   const options = [
     {
-      label: "Everything went smooth and stress-free.",
+      label: "Everything went smooth, no stress.",
       value: [{ archetype: "planner", points: 2 }],
     },
     {
@@ -36,7 +36,7 @@ const FifthQuestion = () => {
       ],
     },
     {
-      label: "My city-trip video went viral and I almost became a influencer",
+      label: "My city-trip video went viral!",
       value: [
         { archetype: "pinterest", points: 2 },
         { archetype: "moodboard", points: 1 },
@@ -46,21 +46,27 @@ const FifthQuestion = () => {
 
   return (
     <>
-      <p>Which travel story sounds best to you?</p>
-      <div className="question__options">
-        {options.map((option, i) => (
-          <label key={i}>
-            <input
-              type="radio"
-              name="q5"
-              onChange={() => {
-                setSelected(option.value);
-                setPendingAnswer(option.value);
-              }}
-            />
-            {option.label}
-          </label>
-        ))}
+      <div>
+        <p className="quiz__question">
+          Which travel story sounds
+          <br />
+          best to you?
+        </p>
+        <div className="question__options">
+          {options.map((option, i) => (
+            <label className="question__option" key={i}>
+              <input
+                type="radio"
+                name="q5"
+                onChange={() => {
+                  setSelected(option.value);
+                  setPendingAnswer(option.value);
+                }}
+              />
+              {option.label}
+            </label>
+          ))}
+        </div>
       </div>
     </>
   );

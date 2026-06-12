@@ -26,9 +26,7 @@ const FirstQuestion = () => {
     },
     {
       label: "Ask who else hangs out there",
-      value: [
-        { archetype: "social", points: 2 },
-      ],
+      value: [{ archetype: "social", points: 2 }],
     },
     {
       label: "Can I take pictures there?",
@@ -48,17 +46,27 @@ const FirstQuestion = () => {
 
   return (
     <>
-      <p>A local gives you an unexpected recommendation. What do you do?</p>
-      <div className="question__options">
-        {options.map((option, i) => (
-          <label key={i}>
-            <input type="radio" name="q1" onChange={() => {
-              setSelected(option.value);
-              setPendingAnswer(option.value);
-            }}/>
-            {option.label}
-          </label>
-        ))}
+      <div>
+        <p className="quiz__question">
+          A local gives you an unexpected
+          <br />
+          recommendation. What do you do?
+        </p>
+        <div className="question__options">
+          {options.map((option, i) => (
+            <label className="question__option" key={i}>
+              <input
+                type="radio"
+                name="q1"
+                onChange={() => {
+                  setSelected(option.value);
+                  setPendingAnswer(option.value);
+                }}
+              />
+              {option.label}
+            </label>
+          ))}
+        </div>
       </div>
     </>
   );

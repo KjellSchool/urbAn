@@ -14,7 +14,7 @@ const FourthQuestion = () => {
       ],
     },
     {
-      label: "Turn it into a tight schedule, plan lots of things to do",
+      label: "Schedule lots of things to do",
       value: [{ archetype: "planner", points: 2 }],
     },
     {
@@ -33,28 +33,34 @@ const FourthQuestion = () => {
       value: [{ archetype: "healing", points: 2 }],
     },
     {
-      label: "I'll just find something beautiful to photograph",
+      label: "Find something cool to photograph",
       value: [{ archetype: "pinterest", points: 2 }],
     },
   ];
 
   return (
     <>
-      <p>You have a free afternoon. What do you do?</p>
-      <div className="question__options">
-        {options.map((option, i) => (
-          <label key={i}>
-            <input
-              type="radio"
-              name="q4"
-              onChange={() => {
-                setSelected(option.value);
-                setPendingAnswer(option.value);
-              }}
-            />
-            {option.label}
-          </label>
-        ))}
+      <div>
+        <p className="quiz__question">
+          You have a free afternoon.
+          <br />
+          What do you do?
+        </p>
+        <div className="question__options">
+          {options.map((option, i) => (
+            <label className="question__option" key={i}>
+              <input
+                type="radio"
+                name="q4"
+                onChange={() => {
+                  setSelected(option.value);
+                  setPendingAnswer(option.value);
+                }}
+              />
+              {option.label}
+            </label>
+          ))}
+        </div>
       </div>
     </>
   );

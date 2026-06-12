@@ -1,7 +1,7 @@
 const SixthQuestion = () => {
   return (
     <>
-      <p>Question</p>
+      <p className="quiz__question">Question</p>
       <div className="question__options">
         <label>
           <input type="radio" name="questionName" value={`answer option`} />
