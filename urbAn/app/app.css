@@ -13,6 +13,7 @@
   --colour-yellow: #cdff10;
 
   --colour-pink-200: #ffaced;
+  --colour-pink-300: #FF85E4;
   --colour-pink-400: #fb3cd0;
 
   --colour-beige: #d8d7c3;
@@ -91,15 +92,16 @@
 
 html {
   font-family: "Sun Antwerpen";
-  height: fit-content;
+  
   overflow-y: hidden;
+  overscroll-behavior: none;
 }
 
 /*! ===== elements ===== */
 body {
   /* max-height: 100dvh; */
-  /* overflow: hidden; */
-  height: fit-content;
+  overflow-y: hidden;
+  overscroll-behavior: none;
 }
 
 a {
@@ -612,6 +614,8 @@ button {
 
 /*! ===== onboarding ===== */
 .selector {
+  height: 100dvh;
+
   display: flex;
   flex-direction: column;
   gap: var(--space-s);
@@ -628,13 +632,18 @@ button {
   gap: var(--space-xs);
 }
 
-.users__list {
+
+.selector__users {
   width: 100%;
+}
+
+.users__list {
   display: flex;
-  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
 .users__item {
+  flex-shrink: 1;
   flex-grow: 1;
 
   background-color: lightgray;
@@ -659,35 +668,152 @@ button {
   border-radius: 4px;
 }
 
+
+.quiz__layout {
+  background-image: url('./assets/background/onboarding-question-bg.png');
+  background-size: cover;
+  
+  height: 100dvh;
+  padding: var(--space-m) var(--space-s);
+  padding-top: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-s);
+}
+
+.quiz__title {
+  background-image: url('./assets/background/quiz-questions-progress.svg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  color: var(--colour-green-200);
+  font-family: "Antwerpen Pixel";
+
+  padding-top: 4rem;
+  padding-right: 2rem;
+  padding-bottom: 3rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.quiz__title * {
+  position: relative;
+  top: 1.5rem;
+}
+
+.quiz__title span {
+  color: inherit;
+}
+
+.quiz__question {
+  background-image: url('./assets/background/quiz-question-bg.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  
+  font-family: "Antwerpen Regular";
+  text-align: center;
+  font-size: 18px;
+  
+  padding-top: 1.5rem;
+  padding-right: 0;
+  padding-bottom: 3.5rem;
+  padding-left: 0;
+}
+
 .question__options {
   display: flex;
   flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.question__option {
+  background-color: var(--colour-white);
+
+  font-size: 18px;
+  text-align: center;
+
+  padding: 0.5rem var(--space-s);
+  border-radius: 32px;
+  border: 1px solid var(--colour-black);
+  margin: 0 var(--space-m);
+  box-shadow: -4px 4px 1px black;
+}
+
+.question__option input {
+  display: none;
+}
+
+.quiz__buttons {
+  justify-self: flex-end;
+
+  margin: 0 var(--space-m);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.quiz__navigation {
+  background-color: var(--colour-pink-300);
+  
+  font-family: "Antwerpen Small Caps";
+  font-size: 24px;
+  
+  padding: var(--space-xs) var(--space-s);
+  border-radius: 32px;
+  border: 1px solid var(--colour-black);
+  box-shadow: -4px 4px 1px black;
 }
 
 /*! ===== game ===== */
 .game {
+  height: 100vh;
   height: 100dvh;
-  overflow-y: hidden;
+  
+  overflow: visible;
+  overscroll-behavior: none;
 
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 8fr 1fr;
 }
 
-.game__social,
 .game__navigation {
   z-index: +1;
 }
 
-.game__social {
+.game__nearby {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: flex-end;
+
+  background-color: var(--colour-yellow);
+  
+  width: fit-content;
+  height: fit-content;
+  padding: var(--space-s) var(--space-m);
+  border-radius: 0 32px 32px 0;
+
+  z-index: +1;
+}
+
+.social__profile {
   grid-column: 1;
   grid-row: 1;
+  justify-self: flex-end;
+  
+  width: fit-content;
+  height: fit-content;
 
-  padding: 0 var(--space-s);
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  z-index: +1;
 }
 
 .game__navigation {
@@ -700,14 +826,19 @@ button {
 }
 
 .navigation__routes {
-  background-color: var(--colour-pink-200);
+  background-color: var(--colour-pink-300);
+
+  font-family: "Antwerpen Small Caps";
   font-size: 1.5rem;
   font-weight: bold;
 
   width: 100%;
-  padding: var(--space-s);
-  border: 2px solid var(--colour-pink-400);
+  padding: var(--space-s) var(--space-s);
+  border: 2px solid var(--colour-black);
+  border-radius: 32px;
+  box-shadow: 2px 4px 0 var(--colour-black);
   margin: 0 var(--space-m);
+  margin-bottom: var(--space-s);
 
   display: flex;
   justify-content: center;
@@ -744,13 +875,16 @@ button {
   background-color: white;
 
   width: 80dvw;
-  height: 100%;
+  height: 100dvh;
   padding: var(--space-l) var(--space-m);
-  padding-top: 6rem;
+  padding-bottom: 12rem;
   border-radius: 0 1rem 1rem 0;
 
   position: absolute;
   left: -80dvw;
+  
+  overflow-y: scroll;
+  overscroll-behavior: none;
 
   transition: all 200ms ease;
 }
@@ -876,16 +1010,21 @@ button {
   padding-bottom: 6rem;
   border-radius: 1rem 1rem 0 0;
 
-  position: absolute;
-  top: 100dvh;
-
-  overflow: scroll;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  
+  overflow-y: auto;
   overscroll-behavior: none;
+  
+  transform: translateY(125%);
   transition: all 200ms ease;
+
+  z-index: +1;
 }
 
 .navigation__section--active {
-  top: 20dvh;
+  transform: translateY(25%);
 }
 
 .routes__list {

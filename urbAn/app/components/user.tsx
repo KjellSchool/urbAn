@@ -35,8 +35,8 @@ const User = () => {
           <div className="selector__users">
             <ul className="users__list">
               {profiles.map((profile) => (
-                <Link to={`/home`} key={profile.profile_id}>
-                  <li className="users__item">
+                <Link className="users__item" to={`/home`} key={profile.profile_id}>
+                  <li>
                     <button onClick={() => selectUser(profile.profile_id)}>
                       {profile.name} pfp
                     </button>

@@ -15,46 +15,52 @@ const SixthQuestion = () => {
       value: [{ archetype: "social", points: 2 }],
     },
     {
-      label: "Not being able to do everything i wanted",
+      label: "Having to cancel things i planned",
       value: [
         { archetype: "one_more", points: 2 },
         { archetype: "unfollows", points: 2 },
       ],
     },
     {
-      label: "Missing out on an easter egg of the city",
+      label: "Missing out on an easter egg",
       value: [
         { archetype: "lore", points: 2 },
         { archetype: "wander", points: 2 },
       ],
     },
     {
-      label: "Not being able to show people what i saw",
+      label: "Not being able to show people my trip",
       value: [{ archetype: "pinterest", points: 2 }],
     },
     {
-      label: "Coming home without a nice souvenir",
+      label: "Coming home without a souvenir",
       value: [{ archetype: "treasures", points: 2 }],
     },
   ];
 
   return (
     <>
-      <p>Which situation would disappoint you the most?</p>
-      <div className="question__options">
-        {options.map((option, i) => (
-          <label key={i}>
-            <input
-              type="radio"
-              name="q6"
-              onChange={() => {
-                setSelected(option.value);
-                setPendingAnswer(option.value);
-              }}
-            />
-            {option.label}
-          </label>
-        ))}
+      <div>
+        <p className="quiz__question">
+          Which situation would disappoint
+          <br />
+          you the most?
+        </p>
+        <div className="question__options">
+          {options.map((option, i) => (
+            <label className="question__option" key={i}>
+              <input
+                type="radio"
+                name="q6"
+                onChange={() => {
+                  setSelected(option.value);
+                  setPendingAnswer(option.value);
+                }}
+              />
+              {option.label}
+            </label>
+          ))}
+        </div>
       </div>
     </>
   );
