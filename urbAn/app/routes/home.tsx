@@ -12,7 +12,9 @@ import { getArchetype } from "../database/archetypes.js";
 
 const Home = () => {
   const { currentUser } = useUser();
-  const [profileLocation, setProfileLocation] = useState(currentUser?.coordinates);
+  const [profileLocation, setProfileLocation] = useState(
+    currentUser?.coordinates,
+  );
 
   const [profiles, setProfiles] = useState([]);
   const [closeProfiles, setCloseProfiles] = useState([]);
@@ -20,7 +22,9 @@ const Home = () => {
   const [routes, setRoutes] = useState([]);
 
   const getCurrentUserLocation = async () => {
-    const { data: location } = await getProfileLocation(currentUser?.profile_id);
+    const { data: location } = await getProfileLocation(
+      currentUser?.profile_id,
+    );
     setProfileLocation(location);
   };
 
@@ -133,7 +137,7 @@ const Home = () => {
     getCurrentUserLocation();
     loadProfiles();
     loadRoutes();
-    
+
     const loadProfilesInterval = setInterval(() => {
       getCurrentUserLocation();
       loadProfiles();
@@ -146,10 +150,14 @@ const Home = () => {
     if (profiles.length > 0) {
       loadProfileArchetype();
 
-      groupProfiles(profiles);
+      if (profiles.length > 0 && profileLocation?.coordinates) {
+        groupProfiles(profiles);
+      }
 
       const groupingInterval = setInterval(() => {
-        groupProfiles(profiles);
+        if (profiles.length > 0 && profileLocation?.coordinates) {
+          groupProfiles(profiles);
+        }
       }, 5_000);
 
       return () => clearInterval(groupingInterval);
