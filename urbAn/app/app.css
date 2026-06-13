@@ -13,7 +13,7 @@
   --colour-yellow: #cdff10;
 
   --colour-pink-200: #ffaced;
-  --colour-pink-300: #FF85E4;
+  --colour-pink-300: #ff85e4;
   --colour-pink-400: #fb3cd0;
 
   --colour-beige: #d8d7c3;
@@ -92,7 +92,7 @@
 
 html {
   font-family: "Sun Antwerpen";
-  
+
   overflow-y: hidden;
   overscroll-behavior: none;
 }
@@ -147,6 +147,65 @@ button {
   gap: var(--space-xs);
 }
 
+.drawer {
+  background: linear-gradient(
+    to bottom,
+    var(--colour-blue-400),
+    var(--colour-blue-300)
+  );
+
+  width: 100%;
+  height: 80dvh;
+  padding: var(--space-l) 0;
+  padding-bottom: 6rem;
+  border-radius: 40px 40px 0 0;
+
+  position: fixed;
+  top: 0;
+  bottom: 0;
+
+  overflow-y: auto;
+  overscroll-behavior: none;
+
+  transform: translateY(125%);
+  transition: all 200ms ease;
+
+  z-index: +1;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.drawer__title {
+  color: var(--colour-white);
+  font-family: "Antwerpen Regular";
+  font-size: 32px;
+  text-align: center;
+}
+
+.drawer__section {
+  padding: 0 var(--space-m);
+  border-top: 1px solid black;
+}
+
+.drawer__subtitle {
+  background-color: var(--colour-blue-400);
+
+  color: var(--colour-white);
+  font-family: "Antwerpen Regular";
+  font-size: 20px;
+
+  width: fit-content;
+  padding: var(--space-xs) var(--space-s);
+  border: 1px solid var(--colour-black);
+  border-radius: 32px;
+  box-shadow: -2px 2px 0 var(--colour-black);
+
+  position: relative;
+  top: -3dvh;
+}
+
 /*! ===== landing page ===== */
 .landing {
   /* background-color: var(--colour-blue-300); */
@@ -165,7 +224,7 @@ button {
   background-position: center;
   background-repeat: no-repeat;
 
-  height: 100svh; 
+  height: 100svh;
 
   /* overflow: hidden; */
 
@@ -306,7 +365,7 @@ button {
 }
 
 .main__intro {
-  background-image: url('./assets/background/intro-bg.svg');
+  background-image: url("./assets/background/intro-bg.svg");
   background-size: cover;
   background-position: center;
 
@@ -374,7 +433,7 @@ button {
 .intro__window--3 {
   grid-row: 5/7;
   grid-column: 3/5;
-  
+
   position: relative;
   left: -0.5rem;
 }
@@ -455,7 +514,7 @@ button {
 .chat__sender {
   align-self: flex-end;
 
-  background-image: url('./assets/background/chat-text-baloon.svg');
+  background-image: url("./assets/background/chat-text-baloon.svg");
   background-size: contain;
   background-repeat: no-repeat;
 
@@ -467,7 +526,6 @@ button {
   margin-right: var(--space-xs);
   margin-left: auto;
 
-
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -477,7 +535,7 @@ button {
   font-family: "Antwerpen Regular";
   font-size: 20px;
   text-align: center;
-  
+
   width: fit-content;
 
   position: relative;
@@ -506,7 +564,7 @@ button {
 }
 
 .chat__receiver {
-  background-image: url('./assets/background/chat-receiver-bg.svg');
+  background-image: url("./assets/background/chat-receiver-bg.svg");
   background-size: contain;
   background-repeat: no-repeat;
 
@@ -612,10 +670,10 @@ button {
   color: var(--colour-white);
 }
 
-#responsive-redirect { 
+#responsive-redirect {
   height: 100dvh;
   width: 100dvw;
-  
+
   display: none;
   flex-direction: column;
   justify-content: center;
@@ -661,7 +719,6 @@ button {
   gap: var(--space-xs);
 }
 
-
 .selector__users {
   width: 100%;
 }
@@ -701,11 +758,10 @@ button {
   border-radius: 4px;
 }
 
-
 .quiz__layout {
-  background-image: url('./assets/background/onboarding-question-bg.png');
+  background-image: url("./assets/background/onboarding-question-bg.png");
   background-size: cover;
-  
+
   height: 100dvh;
   padding: var(--space-m) var(--space-s);
   padding-top: 0;
@@ -717,7 +773,7 @@ button {
 }
 
 .quiz__title {
-  background-image: url('./assets/background/quiz-questions-progress.svg');
+  background-image: url("./assets/background/quiz-questions-progress.svg");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -746,15 +802,15 @@ button {
 }
 
 .quiz__question {
-  background-image: url('./assets/background/quiz-question-bg.svg');
+  background-image: url("./assets/background/quiz-question-bg.svg");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  
+
   font-family: "Antwerpen Regular";
   text-align: center;
   font-size: 18px;
-  
+
   padding-top: 1.5rem;
   padding-right: 0;
   padding-bottom: 3.5rem;
@@ -796,10 +852,10 @@ button {
 
 .quiz__navigation {
   background-color: var(--colour-pink-300);
-  
+
   font-family: "Antwerpen Small Caps";
   font-size: 24px;
-  
+
   padding: var(--space-xs) var(--space-s);
   border-radius: 32px;
   border: 1px solid var(--colour-black);
@@ -810,7 +866,7 @@ button {
 .game {
   height: 100vh;
   height: 100dvh;
-  
+
   overflow: visible;
   overscroll-behavior: none;
 
@@ -829,20 +885,27 @@ button {
   align-self: flex-end;
 
   background-color: var(--colour-yellow);
-  
+
   width: fit-content;
   height: fit-content;
   padding: var(--space-s) var(--space-m);
   border-radius: 0 32px 32px 0;
 
+  transform: translateY(-5dvh);
+  transition: all 200ms ease-in-out;
+
   z-index: +1;
+}
+
+.game__nearby--active {
+  transform: translateY(-65dvh);
 }
 
 .social__profile {
   grid-column: 1;
   grid-row: 1;
   justify-self: flex-end;
-  
+
   width: fit-content;
   height: fit-content;
 
@@ -905,25 +968,9 @@ button {
 
 /* nearby users */
 .social__section {
-  background-color: white;
-
-  width: 80dvw;
-  height: 100dvh;
-  padding: var(--space-l) var(--space-m);
-  padding-bottom: 12rem;
-  border-radius: 0 1rem 1rem 0;
-
-  position: absolute;
-  left: -80dvw;
-  
-  overflow-y: scroll;
-  overscroll-behavior: none;
-
-  transition: all 200ms ease;
 }
 
 .social__section--active {
-  left: 0dvh;
 }
 
 .social__nearby {
@@ -933,14 +980,18 @@ button {
 }
 
 .nearby__user {
-  background-color: lightgray;
-
-  padding: var(--space-xs) var(--space-s);
-  border-radius: 8px;
+  background-color: var(--colour-white);
+  
+  padding: var(--space-m);
+  padding-bottom: 0;
+  border: 1px solid var(--colour-black);
+  border-radius: 20px;
+  box-shadow: -4px 4px 0 var(--colour-black);
+  margin-bottom: var(--space-m);
 
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
+  gap: var(--space-s);
 }
 
 .nearby__info {
@@ -950,7 +1001,7 @@ button {
 }
 
 .nearby__avater {
-  background-color: white;
+  background-color: var(--colour-pink-300);
 
   width: 4rem;
   height: 4rem;
@@ -961,9 +1012,23 @@ button {
   align-items: center;
 }
 
+.info__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
 .nearby__name {
-  font-family: "Antwerpen Regular";
+  font-family: "Antwerpen Tall";
   font-size: 120%;
+}
+
+.nearby__archetype {
+  background-color: var(--colour-yellow);
+  
+  width: fit-content;
+  padding: var(--space-2xs) var(--space-s);
+  border-radius: 32px;
 }
 
 .nearby__routes {
@@ -972,13 +1037,19 @@ button {
 }
 
 .nearby__meet {
-  align-self: center;
+  align-self: flex-end;
 
-  background-color: white;
+  background-color: var(--colour-black);
+
+  color: var(--colour-white);
+  font-family: "Antwerpen Small Caps";
 
   width: fit-content;
-  padding: var(--space-2xs) var(--space-xs);
-  border-radius: 4px;
+  padding: var(--space-xs) var(--space-s);
+  border-radius: 32px;
+
+  position: relative;
+  top: 3dvh;
 }
 
 /* profile */
@@ -1034,30 +1105,9 @@ button {
 }
 
 /* routes */
-.navigation__section {
-  background-color: white;
-
-  width: 100%;
-  height: 80dvh;
-  padding: var(--space-l) var(--space-m);
-  padding-bottom: 6rem;
-  border-radius: 1rem 1rem 0 0;
-
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  
-  overflow-y: auto;
-  overscroll-behavior: none;
-  
-  transform: translateY(125%);
-  transition: all 200ms ease;
-
-  z-index: +1;
-}
-
-.navigation__section--active {
-  transform: translateY(25%);
+.navigation__section--active,
+.social__section--active {
+  transform: translateY(30%);
 }
 
 .routes__list {

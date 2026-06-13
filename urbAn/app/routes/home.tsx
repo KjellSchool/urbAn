@@ -79,25 +79,32 @@ const Home = () => {
 
   const revealRoutes = () => {
     const $section = document.querySelector(".navigation__section");
+    $section?.classList.toggle("navigation__section--active");
+
+    const $sectionButton = document.querySelector(".game__nearby");
+    if (!$sectionButton?.classList.contains("game__nearby--active")) {
+      $sectionButton?.classList.toggle("game__nearby--active");
+    }
 
     const $otherSection = document.querySelector(".social__section");
-
     if ($otherSection?.classList.contains("social__section--active")) {
       $otherSection.classList.remove("social__section--active");
     }
-
-    $section?.classList.toggle("navigation__section--active");
   };
 
   const revealNearbyUsers = () => {
     const $section = document.querySelector(".social__section");
+    $section?.classList.toggle("social__section--active");
+
+    const $sectionButton = document.querySelector(".game__nearby");
+    $sectionButton?.classList.toggle("game__nearby--active");
+    // if (!$sectionButton?.classList.contains("game__nearby--active")) {
+    // }
 
     const $otherSection = document.querySelector(".navigation__section");
-
     if ($otherSection?.classList.contains("navigation__section--active")) {
       $otherSection.classList.remove("navigation__section--active");
     }
-    $section?.classList.toggle("social__section--active");
   };
 
   const closeAllTabs = () => {
@@ -882,55 +889,73 @@ const Home = () => {
             Look for routes
           </button>
         </div>
-        <div className="social__section">
-          <p>Closer than 200m</p>
-          <ul className="social__nearby">
-            {closeProfiles?.map((profile) => {
-              if (profile?.profile_id !== currentUser?.profile_id) {
-                return (
-                  <li className="nearby__user" key={profile?.profile_id}>
-                    <div className="nearby__info">
-                      <div className="nearby__avater">pfp</div>
-                      <div>
-                        <p className="nearby__name">{profile?.name}</p>
-                        <p>{archetypes[profile?.primary_archetype]}</p>
+        <div className="social__section drawer">
+          <h2 className="drawer__title">Nearby Explorers</h2>
+          <div className="drawer__section">
+            <h3 className="drawer__subtitle">Closer than 200m</h3>
+            <ul className="social__nearby">
+              {closeProfiles?.map((profile) => {
+                if (profile?.profile_id !== currentUser?.profile_id) {
+                  return (
+                    <li className="nearby__user" key={profile?.profile_id}>
+                      <div className="nearby__info">
+                        <div className="nearby__avater">pfp</div>
+                        <div className="info__text">
+                          <p className="nearby__name">{profile?.name}, XX</p>
+                          <p className="nearby__archetype">
+                            {archetypes[profile?.primary_archetype]}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                    <p>{profile?.description}</p>
-                    <p className="nearby__routes">
-                      Has completed <span>X</span> routes
-                    </p>
-                    <button className="nearby__meet">Ask to meet up</button>
-                  </li>
-                );
-              }
-            })}
-          </ul>
-          <p>Closer than 500m</p>
-          <ul className="social__nearby">
-            {farProfiles?.map((profile) => {
-              if (profile?.profile_id !== currentUser?.profile_id) {
-                return (
-                  <li className="nearby__user" key={profile?.profile_id}>
-                    <div className="nearby__info">
-                      <div className="nearby__avater">pfp</div>
-                      <div>
-                        <p className="nearby__name">{profile?.name}</p>
-                        <p>{archetypes[profile?.primary_archetype]}</p>
+                      <p>{profile?.description}</p>
+                      <div className="nearby__stats">
+                        <div className="stats__routes">
+                          <p className="stat__number"></p>
+                          <p className="stat__label"></p>
+                        </div>
+                        <div className="stats__challenges">
+                          <p className="stat__number"></p>
+                          <p className="stat__label"></p>
+                        </div>
+                        <div className="stats__meets">
+                          <p className="stat__number"></p>
+                          <p className="stat__label"></p>
+                        </div>
                       </div>
-                    </div>
-                    <p>{profile?.description}</p>
-                    <p className="nearby__routes">
-                      Has completed <span>X</span> routes
-                    </p>
-                    <button className="nearby__meet">Ask to meet up</button>
-                  </li>
-                );
-              }
-            })}
-          </ul>
+                      <button className="nearby__meet">Ask to meet up</button>
+                    </li>
+                  );
+                }
+              })}
+            </ul>
+          </div>
+          <div className="drawer__section">
+            <h3 className="drawer__subtitle">Closer than 500m</h3>
+            <ul className="social__nearby">
+              {farProfiles?.map((profile) => {
+                if (profile?.profile_id !== currentUser?.profile_id) {
+                  return (
+                    <li className="nearby__user" key={profile?.profile_id}>
+                      <div className="nearby__info">
+                        <div className="nearby__avater">pfp</div>
+                        <div>
+                          <p className="nearby__name">{profile?.name}</p>
+                          <p>{archetypes[profile?.primary_archetype]}</p>
+                        </div>
+                      </div>
+                      <p>{profile?.description}</p>
+                      <p className="nearby__routes">
+                        Has completed <span>X</span> routes
+                      </p>
+                      <button className="nearby__meet">Ask to meet up</button>
+                    </li>
+                  );
+                }
+              })}
+            </ul>
+          </div>
         </div>
-        <div className="navigation__section">
+        <div className="navigation__section drawer">
           <ul className="routes__list">
             {routes?.map((route) => (
               <Link to={`?route=${route?.route_id}`} key={route?.route_id}>
