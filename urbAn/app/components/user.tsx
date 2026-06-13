@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useUser } from "../contexts/userContext.tsx";
 import { getProfiles, getProfile } from "../database/profiles.js";
 
 const User = () => {
+  const navigate = useNavigate();
+
   const { setCurrentUser } = useUser();
 
   const [profiles, setProfiles] = useState([]);
@@ -24,6 +26,8 @@ const User = () => {
     console.log(profile);
     setSelectedUser(profile);
     setCurrentUser(profile);
+
+    navigate("/home");
   };
 
   return (
@@ -35,13 +39,11 @@ const User = () => {
           <div className="selector__users">
             <ul className="users__list">
               {profiles.map((profile) => (
-                <Link className="users__item" to={`/home`} key={profile.profile_id}>
-                  <li>
+                  <li className="users__item" key={profile.profile_id}>
                     <button onClick={() => selectUser(profile.profile_id)}>
                       {profile.name} pfp
                     </button>
                   </li>
-                </Link>
               ))}
             </ul>
           </div>

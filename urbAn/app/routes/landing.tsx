@@ -1,6 +1,8 @@
 import { Link } from "react-router";
 import { useState } from "react";
 
+import qr from "../assets/qr-code.png";
+
 import image1 from "../assets/images/image-1.png";
 import image2 from "../assets/images/image-2.png";
 import image3 from "../assets/images/image-3.png";
@@ -4574,6 +4576,13 @@ const Landing = () => {
             </div>
           </div>
         </footer>
+      </div>
+      <div id="responsive-redirect">
+        <p>
+          This page is under development, please continue on your mobile device
+          by scanning the QR-code
+        </p>
+        <img src={qr} alt="qr-code that links to this website" />
       </div>
     </>
   );

@@ -38,12 +38,23 @@ export const insertProfile = async (
   return { data, error };
 };
 
-export const setLocation = async (profileId, userLocation) => {
+export const setProfileLocation = async (profileId, userLocation) => {
   const { data, error } = await supabase
     .from("profiles")
-    .update({ user_location: userLocation })
+    .update({ coordinates: userLocation })
     .eq("profile_id", profileId)
-    .select();
+    .select()
+    .single();
+
+  return { data, error };
+};
+
+export const getProfileLocation = async (profileId) => {
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("coordinates")
+    .eq("profile_id", profileId)
+    .single();
 
   return { data, error };
 };

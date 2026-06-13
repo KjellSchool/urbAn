@@ -5,14 +5,68 @@ import { Map } from "../components/map";
 import { useUser } from "../contexts/userContext.tsx";
 
 import { getProfiles } from "../database/profiles.js";
+import { getProfileLocation } from "../database/profiles.js";
+
 import { getRoutes } from "../database/routes.js";
 import { getArchetype } from "../database/archetypes.js";
 
 const Home = () => {
   const { currentUser } = useUser();
+  const [profileLocation, setProfileLocation] = useState(currentUser?.coordinates);
 
   const [profiles, setProfiles] = useState([]);
+  const [closeProfiles, setCloseProfiles] = useState([]);
+  const [farProfiles, setFarProfiles] = useState([]);
   const [routes, setRoutes] = useState([]);
+
+  const getCurrentUserLocation = async () => {
+    const { data: location } = await getProfileLocation(currentUser?.profile_id);
+    setProfileLocation(location);
+  };
+
+  const calculateDistance = (user1Coords, user2Coords) => {
+    const [lat1, lon1] = user1Coords;
+    const [lat2, lon2] = user2Coords?.coordinates;
+
+    const R = 6371; // Earth's radius in km
+
+    const dLat = ((lat2 - lat1) * Math.PI) / 180;
+    const dLon = ((lon2 - lon1) * Math.PI) / 180;
+
+    const a =
+      Math.sin(dLat / 2) ** 2 +
+      Math.cos((lat1 * Math.PI) / 180) *
+        Math.cos((lat2 * Math.PI) / 180) *
+        Math.sin(dLon / 2) ** 2;
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    return R * c * 1000;
+  };
+
+  const groupProfiles = (users) => {
+    let newClose = [];
+    let newFar = [];
+
+    users.map((user) => {
+      if (user.profile_id !== currentUser?.profile_id) {
+        const userCoords = user.coordinates;
+        const userDistance = calculateDistance(userCoords, profileLocation);
+        console.log(user.name, userDistance);
+
+        if (userDistance < 200) {
+          newClose.push(user);
+        } else if (userDistance < 500) {
+          newFar.push(user);
+        }
+      }
+    });
+
+    // console.log(newClose);
+    setCloseProfiles(newClose);
+    // console.log(newFar);
+    setFarProfiles(newFar);
+  };
 
   const loadProfiles = async () => {
     const { data: profiles, error } = await getProfiles();
@@ -64,9 +118,9 @@ const Home = () => {
 
     const results = await Promise.all(
       archetypeIdList.map(async (id) => {
-        if (id !== currentUser.profile_id) {
+        if (id !== currentUser?.profile_id) {
           const { data } = await getArchetype(id);
-          return [id, data?.title];
+          return [id, data?.tag];
         }
       }),
     );
@@ -75,13 +129,30 @@ const Home = () => {
   };
 
   useEffect(() => {
+    if (!currentUser?.profile_id) return;
+    getCurrentUserLocation();
     loadProfiles();
     loadRoutes();
-  }, []);
+    
+    const loadProfilesInterval = setInterval(() => {
+      getCurrentUserLocation();
+      loadProfiles();
+    }, 5_000);
+
+    return () => clearInterval(loadProfilesInterval);
+  }, [currentUser]);
 
   useEffect(() => {
     if (profiles.length > 0) {
       loadProfileArchetype();
+
+      groupProfiles(profiles);
+
+      const groupingInterval = setInterval(() => {
+        groupProfiles(profiles);
+      }, 5_000);
+
+      return () => clearInterval(groupingInterval);
     }
   }, [profiles]);
 
@@ -804,8 +875,32 @@ const Home = () => {
           </button>
         </div>
         <div className="social__section">
+          <p>Closer than 200m</p>
           <ul className="social__nearby">
-            {profiles?.map((profile) => {
+            {closeProfiles?.map((profile) => {
+              if (profile?.profile_id !== currentUser?.profile_id) {
+                return (
+                  <li className="nearby__user" key={profile?.profile_id}>
+                    <div className="nearby__info">
+                      <div className="nearby__avater">pfp</div>
+                      <div>
+                        <p className="nearby__name">{profile?.name}</p>
+                        <p>{archetypes[profile?.primary_archetype]}</p>
+                      </div>
+                    </div>
+                    <p>{profile?.description}</p>
+                    <p className="nearby__routes">
+                      Has completed <span>X</span> routes
+                    </p>
+                    <button className="nearby__meet">Ask to meet up</button>
+                  </li>
+                );
+              }
+            })}
+          </ul>
+          <p>Closer than 500m</p>
+          <ul className="social__nearby">
+            {farProfiles?.map((profile) => {
               if (profile?.profile_id !== currentUser?.profile_id) {
                 return (
                   <li className="nearby__user" key={profile?.profile_id}>
