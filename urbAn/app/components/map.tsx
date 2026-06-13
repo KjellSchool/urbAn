@@ -20,6 +20,7 @@ export function Map() {
   const markersRef = useRef([]);
   const challengesRef = useRef([]);
   const popupRef = useRef([]);
+  const userLocationRef = useRef(null);
 
   const { currentUser } = useUser();
 
@@ -84,11 +85,11 @@ export function Map() {
 
   useEffect(() => {
     if (!navigator.geolocation) {
-      console.error("Geolocation is not supported by this browser.");
+      // console.error("Geolocation is not supported by this browser.");
       return;
     }
 
-    navigator.geolocation.getCurrentPosition(
+    navigator.geolocation.watchPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
 
@@ -107,52 +108,57 @@ export function Map() {
       },
       {
         enableHighAccuracy: true,
-        timeout: 10000,
-        maximumAge: 0,
+        // timeout: 10000,
+        // maximumAge: 0,
       },
     );
   }, []);
 
   const updateUserLocation = async () => {
-    const profileLocation = [userLocation.latitude, userLocation.longitude];
-    console.log(profileLocation);
-    console.log(currentUser?.profile_id)
-    const { data: updatedUser, error } =
-      await setProfileLocation(currentUser?.profile_id, profileLocation);
-    console.log(updatedUser);
-    console.log(error);
+    const location = userLocationRef.current;
+    if (!location) return;
+    const profileLocation = [
+      userLocationRef.current.latitude,
+      userLocationRef.current.longitude,
+    ];
+    console.log(currentUser?.name, profileLocation);
+    // console.log(currentUser?.profile_id)
+    const { data: updatedUser, error } = await setProfileLocation(
+      currentUser?.profile_id,
+      profileLocation,
+    );
+    // console.log(updatedUser);
   };
 
   useEffect(() => {
-    if (!userLocation || !currentUser?.profile_id) return;
+    userLocationRef.current = userLocation;
+  }, [userLocation]);
+
+  useEffect(() => {
+    if (!currentUser?.profile_id) return;
 
     updateUserLocation();
-    
+
     const locationInterval = setInterval(() => {
       updateUserLocation();
     }, 5_000);
 
     return () => clearInterval(locationInterval);
-  }, [userLocation]);
+  }, [currentUser?.profile_id]);
 
   useEffect(() => {
-    if (!userLocation) return;
-    const end = [userLocation.longitude + 0.02, userLocation.latitude + 0.02];
-
+    if (!mapContainer.current) return;
     if (map.current) return;
 
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/antwerpurbanteam/cmq7z64tc000d01s53xpofty6",
       zoom: 10,
-      antialias: true,
-      center: [userLocation.longitude, userLocation.latitude],
+      center: [3.0, 51.0], // fallback center (IMPORTANT FIX)
     });
 
     const geolocate = new mapboxgl.GeolocateControl({
-      positionOptions: {
-        enableHighAccuracy: true,
-      },
+      positionOptions: { enableHighAccuracy: true },
       trackUserLocation: true,
       showUserHeading: true,
       showAccuracyCircle: false,
@@ -162,70 +168,21 @@ export function Map() {
 
     map.current.on("load", () => {
       geolocate.trigger();
-
-      geolocate.on("geolocate", (e) => {
-        const userPos = [e.coords.longitude, e.coords.latitude];
-
-        map.current.flyTo({
-          center: userPos,
-          zoom: 16,
-        });
-
-        challengesRef.current.map((challengeData) => {
-          if (challengeData.discovered) return;
-
-          const distance = mapboxgl.LngLat.convert(userPos).distanceTo(
-            mapboxgl.LngLat.convert(challengeData.coordinate),
-          );
-
-          if (distance < 50) {
-            challengeData.discovered = true;
-
-            const popup = new mapboxgl.Popup()
-              .setLngLat(challengeData.coordinate)
-              .setHTML(`${challengeData.challenge.title}`)
-              .addTo(map.current);
-
-            popupRef.current.push(popup);
-          }
-        });
-      });
-
-      const layers = map.current.getStyle().layers;
-
-      const labelLayerId = layers.find(
-        (layer) => layer.type === "symbol" && layer.layout?.["text-field"],
-      )?.id;
-
-      // map.current.addLayer(
-      //   {
-      //     id: "3d-buildings",
-      //     source: "composite",
-      //     "source-layer": "building",
-      //     filter: ["==", "extrude", "true"],
-      //     type: "fill-extrusion",
-      //     minzoom: 14,
-      //     paint: {
-      //       "fill-extrusion-color": "#DED7D3",
-      //       "fill-extrusion-height": ["get", "height"],
-      //       "fill-extrusion-base": ["get", "min_height"],
-      //       "fill-extrusion-opacity": 0.8,
-      //     },
-      //   },
-      //   labelLayerId,
-      // );
-
-      // layers.forEach((layer) => {
-      //   if (layer.type === "symbol") {
-      //     map.current.setLayoutProperty(layer.id, "visibility", "none");
-      //   }
-      // });
     });
 
     return () => {
-      map.current.remove();
+      map.current?.remove();
       map.current = null;
     };
+  }, []);
+
+  useEffect(() => {
+    if (!userLocation || !map.current) return;
+
+    map.current.flyTo({
+      center: [userLocation.longitude, userLocation.latitude],
+      zoom: 16,
+    });
   }, [userLocation]);
 
   // CREATING ROUTES
@@ -258,7 +215,7 @@ export function Map() {
             Math.random() * route.coordinates?.length,
           );
           const randomCoordinate = route.coordinates[randomPoint];
-          console.log("added: ", challenge.title, randomCoordinate);
+          // console.log("added: ", challenge.title, randomCoordinate);
 
           challengesRef.current.push({
             challenge,
@@ -266,7 +223,7 @@ export function Map() {
             discovered: false,
           });
         } else {
-          console.log("not you");
+          // console.log("not you");
         }
       });
 

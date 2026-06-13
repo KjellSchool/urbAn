@@ -39,14 +39,21 @@ export const insertProfile = async (
 };
 
 export const setProfileLocation = async (profileId, userLocation) => {
-  console.log(profileId);
-  console.log(userLocation);
-
   const { data, error } = await supabase
     .from("profiles")
     .update({ coordinates: userLocation })
     .eq("profile_id", profileId)
     .select()
+    .single();
+
+  return { data, error };
+};
+
+export const getProfileLocation = async (profileId) => {
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("coordinates")
+    .eq("profile_id", profileId)
     .single();
 
   return { data, error };
