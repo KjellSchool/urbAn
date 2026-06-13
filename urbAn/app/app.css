@@ -686,6 +686,10 @@ button {
   justify-content: center;
   align-items: center;
 }
+.users__item * {
+  height: 100%;
+  width: 100%;
+}
 
 .selector__onboarding {
   align-self: center;
@@ -1127,7 +1131,7 @@ button {
   border-radius: 4px;
 }
 
-@media screen and (min-width: 394px) {
+@media screen and (min-width: 431px) {
   .landing {
     display: none;
   }
