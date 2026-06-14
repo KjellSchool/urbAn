@@ -4,11 +4,20 @@ import { Map } from "../components/map";
 
 import { useUser } from "../contexts/userContext.tsx";
 
-import { getProfiles } from "../database/profiles.js";
+import { supabase } from "../database/supabase.js";
+
+import { getProfiles, getProfile } from "../database/profiles.js";
 import { getProfileLocation } from "../database/profiles.js";
 
 import { getRoutes } from "../database/routes.js";
 import { getArchetype } from "../database/archetypes.js";
+
+import {
+  sendRequest,
+  getPendingRequests,
+  subscribeToRequests,
+  setMeetupStatus,
+} from "../database/meetup.js";
 
 const Home = () => {
   const { currentUser } = useUser();
@@ -20,6 +29,8 @@ const Home = () => {
   const [closeProfiles, setCloseProfiles] = useState([]);
   const [farProfiles, setFarProfiles] = useState([]);
   const [routes, setRoutes] = useState([]);
+
+  const [pendingMeetRequests, setPendingMeetRequests] = useState([]);
 
   const getCurrentUserLocation = async () => {
     const { data: location } = await getProfileLocation(
@@ -81,40 +92,42 @@ const Home = () => {
     const $sectionButton = document.querySelector(".game__nearby");
     const $routesSection = document.querySelector(".navigation__section");
     const $nearbySection = document.querySelector(".social__section");
-
+    
     const isActive =
-      $routesSection?.classList.contains("navigation__section--active") ||
-      $nearbySection?.classList.contains("social__section--active");
-
+    $routesSection?.classList.contains("navigation__section--active") ||
+    $nearbySection?.classList.contains("social__section--active");
+    
     $sectionButton?.classList.toggle("game__nearby--active", isActive);
   };
-
+  
   const revealRoutes = () => {
     const $routesSection = document.querySelector(".navigation__section");
     const $otherSection = document.querySelector(".social__section");
-
+    
     $routesSection?.classList.toggle("navigation__section--active");
     $otherSection?.classList.remove("social__section--active");
-
+    
     moveTabs();
   };
-
+  
   const revealNearbyUsers = () => {
     const $nearbySection = document.querySelector(".social__section");
     const $otherSection = document.querySelector(".navigation__section");
-
+    
     $nearbySection?.classList.toggle("social__section--active");
     $otherSection?.classList.remove("navigation__section--active");
-
+    
     moveTabs();
   };
-
+  
   const closeAllTabs = () => {
     const $nearbySection = document.querySelector(".social__section");
     const $routesSection = document.querySelector(".navigation__section");
-
+    const $sectionButton = document.querySelector(".game__nearby");
+    
     $nearbySection?.classList.remove("social__section--active");
     $routesSection?.classList.remove("navigation__section--active");
+    $sectionButton?.classList.remove("game__nearby--active");
   };
 
   const loadRoutes = async () => {
@@ -193,11 +206,111 @@ const Home = () => {
     }
   }, [profiles]);
 
+  const sendMeetRequest = async (receiverId) => {
+    const { data: sentRequest, error } = await sendRequest(
+      currentUser?.profile_id,
+      receiverId,
+    );
+  };
+
+  const loadPendingMeetRequests = async () => {
+    const { data: pendingRequests, error } = await getPendingRequests(
+      currentUser?.profile_id,
+    );
+    setPendingMeetRequests(pendingRequests);
+    console.log(pendingRequests);
+  };
+
+  useEffect(() => {
+    if (!currentUser) return;
+
+    console.log("subscribing for:", currentUser.profile_id);
+
+    loadPendingMeetRequests();
+
+    const channel = subscribeToRequests(
+      currentUser?.profile_id,
+      (freshMeet) => {
+        console.log("realtime event fired:", freshMeet);
+
+        setPendingMeetRequests((prev) => {
+          const exists = prev.find((r) => r.meet_id === freshMeet.meet_id);
+
+          if (exists) {
+            return prev.map((r) =>
+              r.meet_id === freshMeet.meet_id ? freshMeet : r,
+            );
+          }
+
+          return [...prev, freshMeet];
+        });
+      },
+    );
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [currentUser]);
+
+  const updateMeetupStatus = async (meetupId, status) => {
+    const request = pendingMeetRequests.find((r) => r.meet_id === meetupId);
+
+    if (!request) return;
+
+    // optimistic UI update (optional but good UX)
+    setPendingMeetRequests((prev) =>
+      prev.map((r) => (r.meet_id === meetupId ? { ...r, status } : r)),
+    );
+
+    let updatePayload = { status };
+
+    if (status === "accepted") {
+      const { data: sender } = await getProfile(request.sender_id);
+      const { data: receiver } = await getProfile(request.receiver_id);
+
+      if (!sender?.coordinates || !receiver?.coordinates) {
+        console.error("Missing coordinates");
+        return;
+      }
+
+      const senderCoords = sender.coordinates; // [lat, lng]
+      const receiverCoords = receiver.coordinates;
+
+      const middle = [
+        (senderCoords[0] + receiverCoords[0]) / 2,
+        (senderCoords[1] + receiverCoords[1]) / 2,
+      ];
+
+      updatePayload.location = middle; // [lat, lng]
+    }
+
+    const { data: freshMeet, error } = await supabase
+      .from("meet_requests")
+      .update(updatePayload)
+      .eq("meet_id", meetupId)
+      .select()
+      .single();
+
+    console.log(freshMeet);
+
+    setPendingMeetRequests((prev) => {
+      const exists = prev.find((r) => r.meet_id === freshMeet.meet_id);
+
+      if (exists) {
+        return prev.map((r) =>
+          r.meet_id === freshMeet.meet_id ? freshMeet : r,
+        );
+      }
+
+      return [...prev, freshMeet];
+    });
+  };
+
   return (
     <>
       <div className="game">
         <div className="game__map">
-          <Map />
+          <Map meetRequests={pendingMeetRequests} />
         </div>
         <button
           className="game__nearby button--social"
@@ -984,7 +1097,14 @@ const Home = () => {
                           <p className="stat__label">Meet Ups</p>
                         </div>
                       </div>
-                      <button className="nearby__meet">Ask to meet up!</button>
+                      <button
+                        className="nearby__meet"
+                        onClick={() => {
+                          sendMeetRequest(profile?.profile_id);
+                          closeAllTabs();
+                        }}>
+                        Ask to meet up!
+                      </button>
                     </li>
                   );
                 }
@@ -1062,7 +1182,14 @@ const Home = () => {
                           <p className="stat__label">Meet Ups</p>
                         </div>
                       </div>
-                      <button className="nearby__meet">Ask to meet up!</button>
+                      <button
+                        className="nearby__meet"
+                        onClick={() => {
+                          sendMeetRequest(profile?.profile_id);
+                          closeAllTabs();
+                        }}>
+                        Ask to meet up!
+                      </button>
                     </li>
                   );
                 }
@@ -2099,6 +2226,31 @@ const Home = () => {
             Close
           </button>
         </div>
+        {pendingMeetRequests
+          .filter((request) => request.status === "pending")
+          .map((meetRequest) =>
+            meetRequest?.sender_id !== currentUser?.profile_id ? (
+              <div className="game__meetup" key={meetRequest?.meet_id}>
+                <p>Someone wants to meet up!</p>
+                <div className="meetup__buttons">
+                  <button
+                    onClick={() =>
+                      updateMeetupStatus(meetRequest?.meet_id, "declined")
+                    }>
+                    Decline
+                  </button>
+                  <button
+                    onClick={() =>
+                      updateMeetupStatus(meetRequest?.meet_id, "accepted")
+                    }>
+                    Accept
+                  </button>
+                </div>
+              </div>
+            ) : (
+              ""
+            ),
+          )}
       </div>
     </>
   );

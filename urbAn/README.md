@@ -1,24 +1,27 @@
-# Developer Log
+# Development Todo
 
-## 03/06
+## Styling
 
-### Kjell
+- [ ] Profile page
+- [ ] Settings page
+- [ ] ...
 
-- Set up the project folder (React Router).
-- Made changes to the database setup.
-- Added the connection to the database and wrote basic functions for all of the tables.
+## Nearby Users
 
-## 04/06
+- [x] User location ping
+- [x] Distance to other users
+- [x] Meet up logic
+- [ ] Nearby user cards (completed routes, completed side quests, previous meetups)
 
-### Kjell
+## Side Quests
 
-- Set up home page structure + working map that follows user location.
-- Profile page contains all info about the currently active user. Just missing the secondary archetypes and detailed cards for the completed routes.
+- [ ] Add side quest drawer
+- [ ] Fill drawer with side quests that are on the current route
+- [ ] 
+- [ ] 
 
-## 05/06
+## Routes
 
-### Kjell
-
-- Added slide-in tabs for the nearby users and the routes. No content in these tabs yet.
-- Added colours to the variables in the css-file.
-- Organised the css file.
+- [ ] Cancel current route
+- [ ] 
+- [ ] 
