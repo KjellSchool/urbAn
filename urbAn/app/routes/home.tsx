@@ -4,11 +4,19 @@ import { Map } from "../components/map";
 
 import { useUser } from "../contexts/userContext.tsx";
 
+import { supabase } from "../database/supabase.js";
+
 import { getProfiles } from "../database/profiles.js";
 import { getProfileLocation } from "../database/profiles.js";
 
 import { getRoutes } from "../database/routes.js";
 import { getArchetype } from "../database/archetypes.js";
+
+import {
+  sendRequest,
+  getPendingRequests,
+  subscribeToRequests,
+} from "../database/meetup.js";
 
 const Home = () => {
   const { currentUser } = useUser();
@@ -20,6 +28,8 @@ const Home = () => {
   const [closeProfiles, setCloseProfiles] = useState([]);
   const [farProfiles, setFarProfiles] = useState([]);
   const [routes, setRoutes] = useState([]);
+
+  const [pendingMeetRequests, setPendingMeetRequests] = useState([]);
 
   const getCurrentUserLocation = async () => {
     const { data: location } = await getProfileLocation(
@@ -192,6 +202,46 @@ const Home = () => {
       return () => clearInterval(groupingInterval);
     }
   }, [profiles]);
+
+  const sendMeetRequest = async (receiverId) => {
+    const { data: sentRequest, error } = await sendRequest(
+      currentUser?.profile_id,
+      receiverId,
+    );
+  };
+
+  const loadPendingMeetRequests = async () => {
+    const { data: pendingRequests, error } = await getPendingRequests(
+      currentUser?.profile_id,
+    );
+    setPendingMeetRequests(pendingRequests);
+    console.log(pendingRequests);
+  };
+
+  useEffect(() => {
+    if (!currentUser) return;
+
+    console.log("subscribing for:", currentUser.profile_id);
+
+    loadPendingMeetRequests();
+
+    const channel = subscribeToRequests(
+      currentUser?.profile_id,
+      (newRequest) => {
+        console.log("realtime event fired:", newRequest);
+
+        setPendingMeetRequests((prev) => {
+          const next = [...prev, newRequest];
+          console.log(next);
+          return next;
+        });
+      },
+    );
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [currentUser]);
 
   return (
     <>
@@ -984,7 +1034,11 @@ const Home = () => {
                           <p className="stat__label">Meet Ups</p>
                         </div>
                       </div>
-                      <button className="nearby__meet">Ask to meet up!</button>
+                      <button
+                        className="nearby__meet"
+                        onClick={() => sendMeetRequest(profile?.profile_id)}>
+                        Ask to meet up!
+                      </button>
                     </li>
                   );
                 }
