@@ -10,5 +10,18 @@
 
 - [x] User location ping
 - [x] Distance to other users
-- [ ] Meet up logic
+- [x] Meet up logic
 - [ ] Nearby user cards (completed routes, completed side quests, previous meetups)
+
+## Side Quests
+
+- [ ] Add side quest drawer
+- [ ] Fill drawer with side quests that are on the current route
+- [ ] 
+- [ ] 
+
+## Routes
+
+- [ ] Cancel current route
+- [ ] 
+- [ ] 
