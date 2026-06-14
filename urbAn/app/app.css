@@ -1001,8 +1001,6 @@ button {
 }
 
 .nearby__avater {
-  background-color: var(--colour-pink-300);
-
   width: 4rem;
   height: 4rem;
   border-radius: 100%;
@@ -1023,9 +1021,10 @@ button {
   font-size: 120%;
 }
 
-.nearby__archetype {
-  background-color: var(--colour-yellow);
-  
+.archetype-tag {
+  font-family: "Antwerpen Regular";
+  font-size: 14px;
+
   width: fit-content;
   padding: var(--space-2xs) var(--space-s);
   border-radius: 32px;
@@ -1036,7 +1035,37 @@ button {
   font-weight: 700;
 }
 
-.nearby__meet {
+.nearby__stats {
+  display: flex;
+  gap: var(--space-s);
+}
+
+.nearby__stats div {
+  flex-grow: 1;
+
+  padding: var(--space-s);
+  border: 1px solid var(--colour-black);
+  border-radius: 12px;
+  box-shadow: -2px 2px 0 var(--colour-black);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.stat__number {
+  font-family: "Antwerpen Small Caps";
+  font-size: 24px;
+}
+
+.stat__label {
+  font-family: "Antwerpen Small Caps";
+  font-size: 10px;
+}
+
+.nearby__meet, .route__follow {
   align-self: flex-end;
 
   background-color: var(--colour-black);
@@ -1113,28 +1142,72 @@ button {
 .routes__list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-s);
+  gap: var(--space-l);
 }
 
 .routes__item {
-  background-color: lightgray;
-
-  padding: var(--space-s) var(--space-m);
-  border-radius: 8px;
+  background-color: var(--colour-white);
+  
+  border: 1px solid var(--colour-black);
+  border-radius: 20px;
+  box-shadow: -4px 4px var(--colour-black);
 
   display: flex;
   flex-direction: column;
-  gap: var(--space-2xs);
+}
+
+.route__cover {
+  width: 100%;
+  border-radius: 20px 20px 0 0;
+}
+
+.route__text {
+  text-align: left;
+  
+  padding: var(--space-s);
+  padding-bottom: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
 }
 
 .route__title {
-  font-family: "Antwerpen Regular";
-  font-size: 140%;
+  font-family: "Antwerpen Tall";
+  font-size: 24px;
 }
 
 .route__info {
+  font-size: 14px;
+  font-weight: 700;
+
+  padding: var(--space-xs);
+  border-radius: 32px;
+  
   display: flex;
-  gap: var(--space-s);
+  justify-content: space-between;
+  align-items: center;
+  /* gap: var(--space-s); */
+}
+
+.route__info div {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+.info__icon {
+  height: 1rem;
+  width: auto;
+}
+
+.route__description {
+  line-height: 110%;
+}
+
+.route__follow {
+  background-color: var(--colour-black);
+  right: var(--space-m);
 }
 
 /* settings */

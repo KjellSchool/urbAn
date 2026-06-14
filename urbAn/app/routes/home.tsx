@@ -56,7 +56,7 @@ const Home = () => {
       if (user.profile_id !== currentUser?.profile_id) {
         const userCoords = user.coordinates;
         const userDistance = calculateDistance(userCoords, profileLocation);
-        console.log(user.name, userDistance);
+        // console.log(user.name, userDistance);
 
         if (userDistance < 200) {
           newClose.push(user);
@@ -77,34 +77,36 @@ const Home = () => {
     setProfiles(profiles);
   };
 
-  const revealRoutes = () => {
-    const $section = document.querySelector(".navigation__section");
-    $section?.classList.toggle("navigation__section--active");
-
+  const moveTabs = () => {
     const $sectionButton = document.querySelector(".game__nearby");
-    if (!$sectionButton?.classList.contains("game__nearby--active")) {
-      $sectionButton?.classList.toggle("game__nearby--active");
-    }
+    const $routesSection = document.querySelector(".navigation__section");
+    const $nearbySection = document.querySelector(".social__section");
 
+    const isActive =
+      $routesSection?.classList.contains("navigation__section--active") ||
+      $nearbySection?.classList.contains("social__section--active");
+
+    $sectionButton?.classList.toggle("game__nearby--active", isActive);
+  };
+
+  const revealRoutes = () => {
+    const $routesSection = document.querySelector(".navigation__section");
     const $otherSection = document.querySelector(".social__section");
-    if ($otherSection?.classList.contains("social__section--active")) {
-      $otherSection.classList.remove("social__section--active");
-    }
+
+    $routesSection?.classList.toggle("navigation__section--active");
+    $otherSection?.classList.remove("social__section--active");
+
+    moveTabs();
   };
 
   const revealNearbyUsers = () => {
-    const $section = document.querySelector(".social__section");
-    $section?.classList.toggle("social__section--active");
-
-    const $sectionButton = document.querySelector(".game__nearby");
-    $sectionButton?.classList.toggle("game__nearby--active");
-    // if (!$sectionButton?.classList.contains("game__nearby--active")) {
-    // }
-
+    const $nearbySection = document.querySelector(".social__section");
     const $otherSection = document.querySelector(".navigation__section");
-    if ($otherSection?.classList.contains("navigation__section--active")) {
-      $otherSection.classList.remove("navigation__section--active");
-    }
+
+    $nearbySection?.classList.toggle("social__section--active");
+    $otherSection?.classList.remove("navigation__section--active");
+
+    moveTabs();
   };
 
   const closeAllTabs = () => {
@@ -120,7 +122,25 @@ const Home = () => {
     setRoutes(routes);
   };
 
-  const [archetypes, setArchetypes] = useState({});
+  const [routeArchetypes, setRouteArchetypes] = useState([]);
+
+  const loadRouteArchetypes = async (archetypeId) => {
+    const archetypeList = [
+      ...new Set(routes.map((route) => route.archetypes[0])),
+    ];
+
+    const result = await Promise.all(
+      archetypeList.map(async (id) => {
+        const { data } = await getArchetype(id);
+        // console.log(data);
+        return [id, data];
+      }),
+    );
+
+    setRouteArchetypes(Object.fromEntries(result));
+  };
+
+  const [profileArchetypes, setProfileArchetypes] = useState({});
 
   const loadProfileArchetype = async (archetypeId) => {
     const archetypeIdList = [
@@ -131,12 +151,13 @@ const Home = () => {
       archetypeIdList.map(async (id) => {
         if (id !== currentUser?.profile_id) {
           const { data } = await getArchetype(id);
-          return [id, data?.tag];
+          // console.log(data);
+          return [id, data];
         }
       }),
     );
 
-    setArchetypes(Object.fromEntries(results));
+    setProfileArchetypes(Object.fromEntries(results));
   };
 
   useEffect(() => {
@@ -155,6 +176,7 @@ const Home = () => {
 
   useEffect(() => {
     if (profiles.length > 0) {
+      loadRouteArchetypes();
       loadProfileArchetype();
 
       if (profiles.length > 0 && profileLocation?.coordinates) {
@@ -899,30 +921,70 @@ const Home = () => {
                   return (
                     <li className="nearby__user" key={profile?.profile_id}>
                       <div className="nearby__info">
-                        <div className="nearby__avater">pfp</div>
+                        <div
+                          className="nearby__avater"
+                          style={{
+                            backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
+                          }}>
+                          pfp
+                        </div>
                         <div className="info__text">
                           <p className="nearby__name">{profile?.name}, XX</p>
-                          <p className="nearby__archetype">
-                            {archetypes[profile?.primary_archetype]}
+                          <p
+                            className="nearby__archetype archetype-tag"
+                            style={{
+                              backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
+                            }}>
+                            {profileArchetypes[profile?.primary_archetype]?.tag}
                           </p>
                         </div>
                       </div>
                       <p>{profile?.description}</p>
                       <div className="nearby__stats">
-                        <div className="stats__routes">
-                          <p className="stat__number"></p>
-                          <p className="stat__label"></p>
+                        <div
+                          className="stats__routes"
+                          style={{
+                            backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}1a`,
+                          }}>
+                          <p
+                            className="stat__number"
+                            style={{
+                              color: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
+                            }}>
+                            3
+                          </p>
+                          <p className="stat__label">Routes</p>
                         </div>
-                        <div className="stats__challenges">
-                          <p className="stat__number"></p>
-                          <p className="stat__label"></p>
+                        <div
+                          className="stats__challenges"
+                          style={{
+                            backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}1a`,
+                          }}>
+                          <p
+                            className="stat__number"
+                            style={{
+                              color: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
+                            }}>
+                            5
+                          </p>
+                          <p className="stat__label">Side Quests</p>
                         </div>
-                        <div className="stats__meets">
-                          <p className="stat__number"></p>
-                          <p className="stat__label"></p>
+                        <div
+                          className="stats__meets"
+                          style={{
+                            backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}1a`,
+                          }}>
+                          <p
+                            className="stat__number"
+                            style={{
+                              color: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
+                            }}>
+                            1
+                          </p>
+                          <p className="stat__label">Meet Ups</p>
                         </div>
                       </div>
-                      <button className="nearby__meet">Ask to meet up</button>
+                      <button className="nearby__meet">Ask to meet up!</button>
                     </li>
                   );
                 }
@@ -937,17 +999,70 @@ const Home = () => {
                   return (
                     <li className="nearby__user" key={profile?.profile_id}>
                       <div className="nearby__info">
-                        <div className="nearby__avater">pfp</div>
-                        <div>
-                          <p className="nearby__name">{profile?.name}</p>
-                          <p>{archetypes[profile?.primary_archetype]}</p>
+                        <div
+                          className="nearby__avater"
+                          style={{
+                            backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
+                          }}>
+                          pfp
+                        </div>
+                        <div className="info__text">
+                          <p className="nearby__name">{profile?.name}, XX</p>
+                          <p
+                            className="nearby__archetype archetype-tag"
+                            style={{
+                              backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
+                            }}>
+                            {profileArchetypes[profile?.primary_archetype]?.tag}
+                          </p>
                         </div>
                       </div>
                       <p>{profile?.description}</p>
-                      <p className="nearby__routes">
-                        Has completed <span>X</span> routes
-                      </p>
-                      <button className="nearby__meet">Ask to meet up</button>
+                      <div className="nearby__stats">
+                        <div
+                          className="stats__routes"
+                          style={{
+                            backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}1a`,
+                          }}>
+                          <p
+                            className="stat__number"
+                            style={{
+                              color: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
+                            }}>
+                            3
+                          </p>
+                          <p className="stat__label">Routes</p>
+                        </div>
+                        <div
+                          className="stats__challenges"
+                          style={{
+                            backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}1a`,
+                          }}>
+                          <p
+                            className="stat__number"
+                            style={{
+                              color: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
+                            }}>
+                            5
+                          </p>
+                          <p className="stat__label">Side Quests</p>
+                        </div>
+                        <div
+                          className="stats__meets"
+                          style={{
+                            backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}1a`,
+                          }}>
+                          <p
+                            className="stat__number"
+                            style={{
+                              color: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
+                            }}>
+                            1
+                          </p>
+                          <p className="stat__label">Meet Ups</p>
+                        </div>
+                      </div>
+                      <button className="nearby__meet">Ask to meet up!</button>
                     </li>
                   );
                 }
@@ -956,22 +1071,1029 @@ const Home = () => {
           </div>
         </div>
         <div className="navigation__section drawer">
-          <ul className="routes__list">
-            {routes?.map((route) => (
-              <Link to={`?route=${route?.route_id}`} key={route?.route_id}>
-                <button onClick={closeAllTabs}>
-                  <li className="routes__item">
+          <h2 className="drawer__title">Exploring Routes</h2>
+          <div className="drawer__section">
+            <h3 className="drawer__subtitle">For you</h3>
+            <ul className="routes__list">
+              {routes?.map((route) => (
+                <li className="routes__item" key={route?.route_id}>
+                  <img
+                    className="route__cover"
+                    src={route?.route_cover}
+                    alt="cover"
+                  />
+                  <div className="route__text">
                     <h2 className="route__title">{route?.title}</h2>
-                    <div className="route__info">
-                      Archetype{" "}
-                      <p className="route__distance">{route?.distance}</p>
+                    <p
+                      className="archetype-tag"
+                      style={{
+                        backgroundColor: `#${routeArchetypes[route?.archetypes[0]]?.colour}`,
+                      }}>
+                      {routeArchetypes[route?.archetypes[0]]?.tag}
+                    </p>
+                    <div
+                      className="route__info"
+                      style={{
+                        backgroundColor: `#${routeArchetypes[route?.archetypes[0]]?.colour}33`,
+                      }}>
+                      <div className="route__stops">
+                        <svg
+                          className="info__icon"
+                          width="158"
+                          height="158"
+                          viewBox="0 0 158 158"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M89.9264 147.434H79.3691V157.991H89.9264V147.434Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M78.6296 147.434H68.0723V157.991H78.6296V147.434Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M67.3483 137.941H56.791V148.499H67.3483V137.941Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M90.6536 137.906H101.211V148.464H90.6536V137.906Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M56.0671 128.031H45.5098V138.589H56.0671V128.031Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M101.935 127.992H112.492V138.549H101.935V127.992Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M44.7839 118.156H34.2266V128.714H44.7839V118.156Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M113.216 118.156H123.773V128.714H113.216V118.156Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M33.4889 108.281H22.9316V118.839H33.4889V108.281Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M124.513 108.242H135.07V118.799H124.513V108.242Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M22.2077 98.4062H11.6504V108.964H22.2077V98.4062Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M135.794 98.4062H146.352V108.964H135.794V98.4062Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M22.2077 88.5312H11.6504V99.0885H22.2077V88.5312Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M135.794 88.4922H146.352V99.0495H135.794V88.4922Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M10.9264 78.6562H0.369141V89.2135H10.9264V78.6562Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M147.443 78.6172H158V89.1745H147.443V78.6172Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M10.9264 68.7812H0.369141V79.3385H10.9264V68.7812Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M147.076 68.7812H157.633V79.3385H147.076V68.7812Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M10.9264 58.9062H0.369141V69.4635H10.9264V58.9062Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M147.076 58.8672H157.633V69.4245H147.076V58.8672Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M10.9264 49.0312H0.369141V59.5885H10.9264V49.0312Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M147.076 49.0312H157.633V59.5885H147.076V49.0312Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M10.5573 39.1562H0V49.7135H10.5573V39.1562Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M147.076 39.1172H157.633V49.6745H147.076V39.1172Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M22.2077 29.3164H11.6504V39.8737H22.2077V29.3164Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M135.794 29.2812H146.352V39.8385H135.794V29.2812Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M33.4889 19.4062H22.9316V29.9635H33.4889V19.4062Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M124.513 19.3672H135.07V29.9245H124.513V19.3672Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M44.7839 9.53125H34.2266V20.0885H44.7839V9.53125Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M113.216 9.49219H123.773V20.0495H113.216V9.49219Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M56.0671 0H45.5098V10.5573H56.0671V0Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M67.3483 0H56.791V10.5573H67.3483V0Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M78.6296 0H68.0723V10.5573H78.6296V0Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M101.208 0H90.6504V10.5573H101.208V0Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M112.489 0H101.932V10.5573H112.489V0Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M78.6296 38.5742H68.0723V49.1315H78.6296V38.5742Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M78.6296 78.0742H68.0723V88.6315H78.6296V78.0742Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M101.211 59.0417V48.4844H90.6536V59.0417H101.211Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M67.3516 59.0417V48.4844H56.7943V59.0417H67.3516Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M89.9264 38.5742H79.3691V49.1315H89.9264V38.5742Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M89.9264 78.0742H79.3691V88.6315H89.9264V78.0742Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M112.492 68.9167V58.3594H101.935V68.9167H112.492Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M56.0703 68.9167V58.3594H45.513V68.9167H56.0703Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M101.211 78.7917V68.2344H90.6536V78.7917H101.211Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M67.3516 78.7917V68.2344H56.7943V78.7917H67.3516Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M89.9264 0H79.3691V10.5573H89.9264V0Z"
+                            fill="black"
+                          />
+                        </svg>
+                        <p>{route?.locations.length} stops</p>
+                      </div>
+                      <div>
+                        <svg
+                          className="info__icon"
+                          width="158"
+                          height="158"
+                          viewBox="0 0 158 158"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M17.5545 105.348H8.77734V114.125H17.5545V105.348Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M17.5545 96.5547H8.77734V105.332H17.5545V96.5547Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M8.77716 87.8047H0V96.5822H8.77716V87.8047Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M8.77716 79.0078H0V87.7853H8.77716V79.0078Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M8.77716 70.2031H0V78.9806H8.77716V70.2031Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M8.77716 61.457H0V70.2346H8.77716V61.457Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M17.5408 52.6133H8.76367V61.3908H17.5408V52.6133Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M17.5408 43.8672H8.76367V52.6447H17.5408V43.8672Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M17.5408 43.8672H8.76367V52.6447H17.5408V43.8672Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M26.3006 35.0625H17.5234V43.84H26.3006V35.0625Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M35.1619 26.3477H26.3848V35.1252H35.1619V26.3477Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M43.9158 17.5156H35.1387V26.2931H43.9158V17.5156Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M52.6346 8.79297H43.8574V17.5705H52.6346V8.79297Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M61.4197 8.75781H52.6426V17.5353H61.4197V8.75781Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M70.2108 0H61.4336V8.77752H70.2108V0Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M78.9959 0H70.2188V8.77752H78.9959V0Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M87.7733 0H78.9961V8.77752H87.7733V0Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M96.5447 0H87.7676V8.77752H96.5447V0Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M105.322 8.79297H96.5449V17.5705H105.322V8.79297Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M114.099 8.79297H105.322V17.5705H114.099V8.79297Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M122.881 17.5547H114.104V26.3322H122.881V17.5547Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M131.658 26.3477H122.881V35.1252H131.658V26.3477Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M140.433 35.1055H131.656V43.883H140.433V35.1055Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M149.215 43.9023H140.438V52.6799H149.215V43.9023Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M149.215 52.6602H140.438V61.4377H149.215V52.6602Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M157.992 61.457H149.215V70.2346H157.992V61.457Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M157.992 70.2031H149.215V78.9806H157.992V70.2031Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M157.992 79.0078H149.215V87.7853H157.992V79.0078Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M157.992 87.8047H149.215V96.5822H157.992V87.8047Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M149.215 96.5547H140.438V105.332H149.215V96.5547Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M149.215 105.348H140.438V114.125H149.215V105.348Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M140.433 114.07H131.656V122.848H140.433V114.07Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M131.658 122.867H122.881V131.645H131.658V122.867Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M122.881 131.66H114.104V140.438H122.881V131.66Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M114.099 140.418H105.322V149.195H114.099V140.418Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M105.322 140.418H96.5449V149.195H105.322V140.418Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M96.5447 149.215H87.7676V157.992H96.5447V149.215Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M87.7733 149.215H78.9961V157.992H87.7733V149.215Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M78.9959 149.215H70.2188V157.992H78.9959V149.215Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M70.2108 149.215H61.4336V157.992H70.2108V149.215Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M61.4393 140.418H52.6621V149.195H61.4393V140.418Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M52.6619 140.418H43.8848V149.195H52.6619V140.418Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M43.8904 131.66H35.1133V140.438H43.8904V131.66Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M35.1131 122.867H26.3359V131.645H35.1131V122.867Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M26.326 114.07H17.5488V122.848H26.326V114.07Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M83.367 74.6445H74.5898V83.4221H83.367V74.6445Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M83.367 65.8828H74.5898V74.6603H83.367V65.8828Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M92.1289 83.4221V74.6445H83.3518V83.4221H92.1289Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M83.367 57.0898H74.5898V65.8674H83.367V57.0898Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M100.883 83.4221V74.6445H92.1057V83.4221H100.883Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M83.367 48.3398H74.5898V57.1174H83.367V48.3398Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M109.652 83.4221V74.6445H100.875V83.4221H109.652Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M83.367 39.6172H74.5898V48.3947H83.367V39.6172Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M118.414 83.4221V74.6445H109.637V83.4221H118.414Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M83.367 30.8242H74.5898V39.6017H83.367V30.8242Z"
+                            fill="black"
+                          />
+                        </svg>
+                        <p>{route?.time} min</p>
+                      </div>
+                      <div className="route__distance">
+                        <svg
+                          className="info__icon"
+                          width="157"
+                          height="158"
+                          viewBox="0 0 157 158"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <rect
+                            x="83.7559"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="94.1895"
+                            y="18.2812"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="83.7559"
+                            y="46.0977"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="83.7559"
+                            y="36.7969"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="104.613"
+                            y="13.6523"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="83.7559"
+                            y="55.3125"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="73.3184"
+                            y="50.7266"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="42.0293"
+                            y="50.7266"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="114.461"
+                            y="153.297"
+                            width="9.83549"
+                            height="9.83549"
+                            transform="rotate(180 114.461 153.297)"
+                            fill="black"
+                          />
+                          <rect
+                            x="31.5898"
+                            y="50.7266"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="124.887"
+                            y="153.297"
+                            width="9.83549"
+                            height="9.83549"
+                            transform="rotate(180 124.887 153.297)"
+                            fill="black"
+                          />
+                          <rect
+                            x="21.1582"
+                            y="50.7266"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="135.318"
+                            y="153.297"
+                            width="9.83549"
+                            height="9.83549"
+                            transform="rotate(180 135.318 153.297)"
+                            fill="black"
+                          />
+                          <rect
+                            x="10.7344"
+                            y="59.9844"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="145.752"
+                            y="144.039"
+                            width="9.83549"
+                            height="9.83549"
+                            transform="rotate(180 145.752 144.039)"
+                            fill="black"
+                          />
+                          <rect
+                            y="69.2422"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="156.477"
+                            y="134.738"
+                            width="9.83549"
+                            height="9.83549"
+                            transform="rotate(180 156.477 134.738)"
+                            fill="black"
+                          />
+                          <rect
+                            x="0.300781"
+                            y="78.5391"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="156.186"
+                            y="125.523"
+                            width="9.83549"
+                            height="9.83549"
+                            transform="rotate(180 156.186 125.523)"
+                            fill="black"
+                          />
+                          <rect
+                            x="10.7344"
+                            y="87.7969"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="145.752"
+                            y="116.188"
+                            width="9.83549"
+                            height="9.83549"
+                            transform="rotate(180 145.752 116.188)"
+                            fill="black"
+                          />
+                          <rect
+                            x="21.1582"
+                            y="97.0898"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="31.5898"
+                            y="97.0898"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="42.0293"
+                            y="97.0898"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="52.4609"
+                            y="97.0898"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="62.8867"
+                            y="97.0898"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="73.3184"
+                            y="97.0898"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="83.7559"
+                            y="97.0898"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="94.1895"
+                            y="97.0898"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="104.613"
+                            y="97.0898"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="115.047"
+                            y="97.0898"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="125.48"
+                            y="97.0898"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="52.4609"
+                            y="50.7266"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="104.023"
+                            y="153.297"
+                            width="9.83549"
+                            height="9.83549"
+                            transform="rotate(180 104.023 153.297)"
+                            fill="black"
+                          />
+                          <rect
+                            x="114.248"
+                            y="18.2812"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="104.613"
+                            y="22.9102"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="83.7559"
+                            y="27.5391"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="83.7559"
+                            y="18.2812"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="83.7559"
+                            y="9.02344"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="62.8867"
+                            y="50.7266"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="93.5918"
+                            y="153.297"
+                            width="9.83549"
+                            height="9.83549"
+                            transform="rotate(180 93.5918 153.297)"
+                            fill="black"
+                          />
+                          <rect
+                            x="94.0723"
+                            y="158"
+                            width="20.4275"
+                            height="20.4275"
+                            transform="rotate(180 94.0723 158)"
+                            fill="black"
+                          />
+                          <rect
+                            x="99.291"
+                            y="66.1953"
+                            width="20.4275"
+                            height="20.4275"
+                            transform="rotate(180 99.291 66.1953)"
+                            fill="black"
+                          />
+                          <rect
+                            x="94.1895"
+                            y="27.5391"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                          <rect
+                            x="94.1895"
+                            y="9.02344"
+                            width="9.83549"
+                            height="9.83549"
+                            fill="black"
+                          />
+                        </svg>
+                        <p>{route?.distance} km</p>
+                      </div>
+                      <div>
+                        <svg
+                          className="info__icon"
+                          width="158"
+                          height="158"
+                          viewBox="0 0 158 158"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M88.875 0H79V9.87498H88.875V0Z"
+                            fill="#1E1E1E"
+                          />
+                          <path d="M79 0H69.125V9.87498H79V0Z" fill="#1E1E1E" />
+                          <path
+                            d="M98.75 9.875H88.875V19.75H98.75V9.875Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M59.25 9.875H69.125V19.75H59.25V9.875Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M98.75 19.75H88.875V29.625H98.75V19.75Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M59.25 19.75H69.125V29.625H59.25V19.75Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M108.625 29.625H98.75V39.5H108.625V29.625Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M49.375 29.625H59.25V39.5H49.375V29.625Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M108.625 39.5H98.75V49.375H108.625V39.5Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M49.375 39.5H59.25V49.375H49.375V39.5Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M118.5 49.375H108.625V59.25H118.5V49.375Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M9.87498 59.25H0V69.125H9.87498V59.25Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M148.125 59.25H158V69.125H148.125V59.25Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M19.75 69.125H9.875V79H19.75V69.125Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M138.25 69.125H148.125V79H138.25V69.125Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M29.625 79H19.75V88.875H29.625V79Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M128.375 79H138.25V88.875H128.375V79Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M29.625 98.75H19.75V108.625H29.625V98.75Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M128.375 98.75H138.25V108.625H128.375V98.75Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M39.5 88.875H29.625V98.75H39.5V88.875Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M118.5 88.875H128.375V98.75H118.5V88.875Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M29.625 108.625H19.75V118.5H29.625V108.625Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M128.375 108.625H138.25V118.5H128.375V108.625Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M19.75 118.5H9.875V128.375H19.75V118.5Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M138.25 118.5H148.125V128.375H138.25V118.5Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M148.125 148.125H158V158H148.125V148.125Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M138.25 128.375H148.125V138.25H138.25V128.375Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M19.75 128.375H9.875V138.25H19.75V128.375Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M9.87498 138.25H0V148.125H9.87498V138.25Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M9.87498 148.125H0V158H9.87498V148.125Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M138.25 148.125H148.125V158H138.25V148.125Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M128.375 148.125H138.25V158H128.375V148.125Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M19.75 148.125H9.875V158H19.75V148.125Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M148.125 138.25H158V148.125H148.125V138.25Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M29.625 148.125H19.75V158H29.625V148.125Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M118.5 138.25H128.375V148.125H118.5V138.25Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M39.5 138.25H29.625V148.125H39.5V138.25Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M98.75 128.375H88.875V138.25H98.75V128.375Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M59.25 128.375H69.125V138.25H59.25V128.375Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M79 118.5H69.125V128.375H79V118.5Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M108.625 128.375H98.75V138.25H108.625V128.375Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M49.375 128.375H59.25V138.25H49.375V128.375Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M88.875 118.5H79V128.375H88.875V118.5Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M118.5 138.25H108.625V148.125H118.5V138.25Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M39.5 138.25H49.375V148.125H39.5V138.25Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M128.375 49.375H118.5V59.25H128.375V49.375Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M9.87498 49.375H0V59.25H9.87498V49.375Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M138.25 49.375H128.375V59.25H138.25V49.375Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M19.75 49.375H9.875V59.25H19.75V49.375Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M148.125 49.375H138.25V59.25H148.125V49.375Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M158 49.375H148.125V59.25H158V49.375Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M29.625 49.375H19.75V59.25H29.625V49.375Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M39.5 49.375H29.625V59.25H39.5V49.375Z"
+                            fill="#1E1E1E"
+                          />
+                          <path
+                            d="M49.375 49.375H39.5V59.25H49.375V49.375Z"
+                            fill="#1E1E1E"
+                          />
+                        </svg>
+
+                        <p>{`5`} quests</p>
+                      </div>
                     </div>
                     <p className="route__description">{route?.description}</p>
-                  </li>
-                </button>
-              </Link>
-            ))}
-          </ul>
+                  </div>
+                  <Link
+                    className="route__follow"
+                    to={`?route=${route?.route_id}`}>
+                    <button onClick={closeAllTabs}>Follow Route</button>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
           <Link to={`/home`}>Cancel routes</Link>
           <button className="" onClick={revealRoutes}>
             Close
