@@ -11,16 +11,20 @@ import { getChallenges } from "../database/challenges.js";
 import { useUser } from "../contexts/userContext.js";
 import { setProfileLocation } from "../database/profiles.js";
 
+import { getProfile } from "../database/profiles.js";
+
 mapboxgl.accessToken =
   "pk.eyJ1IjoiYW50d2VycHVyYmFudGVhbSIsImEiOiJjbXB0aTVwcnIwOXhkMnpzZWR6dzl6MHRsIn0.6oxgIvb_wD5lre3xUm_5mA";
 
-export function Map() {
+export function Map({ meetRequests }) {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const markersRef = useRef([]);
   const challengesRef = useRef([]);
   const popupRef = useRef([]);
   const userLocationRef = useRef(null);
+  const meetupMarkersRef = useRef([]);
+  const meetupCircleRef = useRef(null);
 
   const { currentUser } = useUser();
 
@@ -35,6 +39,10 @@ export function Map() {
   const [coordinateString, setCoordinateString] = useState("");
 
   const [challenges, setChallenges] = useState([]);
+
+  const activeMeetup = meetRequests?.find(
+    (request) => request.status === "accepted",
+  );
 
   const loadRoute = async (routeId) => {
     if (!routeId) return;
@@ -289,12 +297,97 @@ export function Map() {
     }
   };
 
+  const [meetupProfiles, setMeetupProfiles] = useState([]);
+
+  const getMeetupProfile = async () => {
+    let meetupProfileList = [];
+
+    const { data: senderProfile, error } = await getProfile(
+      activeMeetup?.sender_id,
+    );
+    if (senderProfile?.profile_id !== currentUser?.profile_id) {
+      meetupProfileList.push(senderProfile);
+    }
+
+    const { data: receiverProfile, error: receiverError } = await getProfile(
+      activeMeetup?.receiver_id,
+    );
+    if (receiverProfile?.profile_id !== currentUser?.profile_id) {
+      meetupProfileList.push(receiverProfile);
+    }
+
+    return meetupProfileList;
+  };
+
   useEffect(() => {
     if (!map.current) return;
     if (!fullCoordinateList.length) return;
 
     renderWaypoints(fullCoordinateList);
   }, [fullCoordinateList]);
+
+  useEffect(() => {
+    const loadMeetup = async () => {
+      if (!activeMeetup) return;
+
+      const profiles = await getMeetupProfile();
+      setMeetupProfiles(profiles);
+
+      if (!map.current || profiles.length === 0) return;
+
+      const otherUser = profiles[0];
+
+      const middle = {
+        lng: (otherUser.coordinates[1] + currentUser?.coordinates[1]) / 2,
+        lat: (otherUser.coordinates[0] + currentUser?.coordinates[0]) / 2,
+      };
+
+      console.log(middle)
+
+      // cleanup
+      meetupMarkersRef.current.forEach((m) => m.remove());
+
+      if (map.current.getLayer("meetup-circle")) {
+        map.current.removeLayer("meetup-circle");
+      }
+
+      if (map.current.getSource("meetup-circle")) {
+        map.current.removeSource("meetup-circle");
+      }
+
+      // marker
+      const marker = new mapboxgl.Marker()
+        .setLngLat([middle.lng, middle.lat])
+        .addTo(map.current);
+
+      meetupMarkersRef.current.push(marker);
+
+      // circle
+      map.current.addSource("meetup-circle", {
+        type: "geojson",
+        data: {
+          type: "Feature",
+          geometry: {
+            type: "Point",
+            coordinates: [middle.lng, middle.lat],
+          },
+        },
+      });
+
+      map.current.addLayer({
+        id: "meetup-circle",
+        type: "circle",
+        source: "meetup-circle",
+        paint: {
+          "circle-radius": 140,
+          "circle-color": "#ff0000",
+          "circle-opacity": 0.2,
+        },
+      });
+    };
+
+    loadMeetup();
+  }, [activeMeetup]);
 
   return (
     <div

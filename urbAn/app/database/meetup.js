@@ -56,3 +56,14 @@ export const subscribeToRequests = (receiverId, onInsert) => {
 
   return channel;
 };
+
+export const setMeetupStatus = async (meetupId, status) => {
+  const { data, error } = await supabase
+    .from("meet_requests")
+    .update({ status: status })
+    .eq("meet_id", meetupId)
+    .select()
+    .single();
+
+  return { data, error };
+};

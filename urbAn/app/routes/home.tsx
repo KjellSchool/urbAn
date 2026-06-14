@@ -16,6 +16,7 @@ import {
   sendRequest,
   getPendingRequests,
   subscribeToRequests,
+  setMeetupStatus,
 } from "../database/meetup.js";
 
 const Home = () => {
@@ -243,11 +244,21 @@ const Home = () => {
     };
   }, [currentUser]);
 
+  const updateMeetupStatus = async (meetupId, status) => {
+    const { data: freshMeet, error } = await setMeetupStatus(meetupId, status);
+
+    setPendingMeetRequests((prev) =>
+      prev.map((request) =>
+        request.meet_id === meetupId ? { ...request, status } : request,
+      ),
+    );
+  };
+
   return (
     <>
       <div className="game">
         <div className="game__map">
-          <Map />
+          <Map meetRequests={pendingMeetRequests} />
         </div>
         <button
           className="game__nearby button--social"
@@ -2153,6 +2164,25 @@ const Home = () => {
             Close
           </button>
         </div>
+        {pendingMeetRequests.filter((request) => request.status === "pending").map((meetRequest) => (
+          <div className="game__meetup" key={meetRequest?.meet_id}>
+            <p>Someone wants to meet up!</p>
+            <div className="meetup__buttons">
+              <button
+                onClick={() =>
+                  updateMeetupStatus(meetRequest?.meet_id, "declined")
+                }>
+                Decline
+              </button>
+              <button
+                onClick={() =>
+                  updateMeetupStatus(meetRequest?.meet_id, "accepted")
+                }>
+                Accept
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
     </>
   );
