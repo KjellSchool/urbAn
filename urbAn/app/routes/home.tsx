@@ -6,7 +6,7 @@ import { useUser } from "../contexts/userContext.tsx";
 
 import { supabase } from "../database/supabase.js";
 
-import { getProfiles } from "../database/profiles.js";
+import { getProfiles, getProfile } from "../database/profiles.js";
 import { getProfileLocation } from "../database/profiles.js";
 
 import { getRoutes } from "../database/routes.js";
@@ -228,13 +228,19 @@ const Home = () => {
 
     const channel = subscribeToRequests(
       currentUser?.profile_id,
-      (newRequest) => {
-        console.log("realtime event fired:", newRequest);
+      (freshMeet) => {
+        console.log("realtime event fired:", freshMeet);
 
         setPendingMeetRequests((prev) => {
-          const next = [...prev, newRequest];
-          console.log(next);
-          return next;
+          const exists = prev.find((r) => r.meet_id === freshMeet.meet_id);
+
+          if (exists) {
+            return prev.map((r) =>
+              r.meet_id === freshMeet.meet_id ? freshMeet : r,
+            );
+          }
+
+          return [...prev, freshMeet];
         });
       },
     );
@@ -245,13 +251,57 @@ const Home = () => {
   }, [currentUser]);
 
   const updateMeetupStatus = async (meetupId, status) => {
-    const { data: freshMeet, error } = await setMeetupStatus(meetupId, status);
+    const request = pendingMeetRequests.find((r) => r.meet_id === meetupId);
 
+    if (!request) return;
+
+    // optimistic UI update (optional but good UX)
     setPendingMeetRequests((prev) =>
-      prev.map((request) =>
-        request.meet_id === meetupId ? { ...request, status } : request,
-      ),
+      prev.map((r) => (r.meet_id === meetupId ? { ...r, status } : r)),
     );
+
+    let updatePayload = { status };
+
+    if (status === "accepted") {
+      const { data: sender } = await getProfile(request.sender_id);
+      const { data: receiver } = await getProfile(request.receiver_id);
+
+      if (!sender?.coordinates || !receiver?.coordinates) {
+        console.error("Missing coordinates");
+        return;
+      }
+
+      const senderCoords = sender.coordinates; // [lat, lng]
+      const receiverCoords = receiver.coordinates;
+
+      const middle = [
+        (senderCoords[0] + receiverCoords[0]) / 2,
+        (senderCoords[1] + receiverCoords[1]) / 2,
+      ];
+
+      updatePayload.location = middle; // [lat, lng]
+    }
+
+    const { data: freshMeet, error } = await supabase
+      .from("meet_requests")
+      .update(updatePayload)
+      .eq("meet_id", meetupId)
+      .select()
+      .single();
+
+    console.log(freshMeet);
+
+    setPendingMeetRequests((prev) => {
+      const exists = prev.find((r) => r.meet_id === freshMeet.meet_id);
+
+      if (exists) {
+        return prev.map((r) =>
+          r.meet_id === freshMeet.meet_id ? freshMeet : r,
+        );
+      }
+
+      return [...prev, freshMeet];
+    });
   };
 
   return (
@@ -2164,25 +2214,27 @@ const Home = () => {
             Close
           </button>
         </div>
-        {pendingMeetRequests.filter((request) => request.status === "pending").map((meetRequest) => (
-          <div className="game__meetup" key={meetRequest?.meet_id}>
-            <p>Someone wants to meet up!</p>
-            <div className="meetup__buttons">
-              <button
-                onClick={() =>
-                  updateMeetupStatus(meetRequest?.meet_id, "declined")
-                }>
-                Decline
-              </button>
-              <button
-                onClick={() =>
-                  updateMeetupStatus(meetRequest?.meet_id, "accepted")
-                }>
-                Accept
-              </button>
+        {pendingMeetRequests
+          .filter((request) => request.status === "pending")
+          .map((meetRequest) => meetRequest?.sender_id !== currentUser?.profile_id ? (
+            <div className="game__meetup" key={meetRequest?.meet_id}>
+              <p>Someone wants to meet up!</p>
+              <div className="meetup__buttons">
+                <button
+                  onClick={() =>
+                    updateMeetupStatus(meetRequest?.meet_id, "declined")
+                  }>
+                  Decline
+                </button>
+                <button
+                  onClick={() =>
+                    updateMeetupStatus(meetRequest?.meet_id, "accepted")
+                  }>
+                  Accept
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          ) : "")}
       </div>
     </>
   );

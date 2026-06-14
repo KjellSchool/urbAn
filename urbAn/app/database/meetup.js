@@ -31,25 +31,27 @@ export const getPendingRequests = async (currentUserId) => {
   const { data, error } = await supabase
     .from("meet_requests")
     .select("*")
-    .eq("receiver_id", currentUserId)
-    .eq("status", "pending");
+    .or(`receiver_id.eq.${currentUserId},sender_id.eq.${currentUserId}`);
 
   return { data, error };
 };
 
-export const subscribeToRequests = (receiverId, onInsert) => {
+export const subscribeToRequests = (userId, onChange) => {
   const channel = supabase
-    .channel("meet_requests")
+    .channel(`meet_requests_${userId}`)
     .on(
       "postgres_changes",
       {
-        event: "INSERT",
+        event: "*",
         schema: "public",
         table: "meet_requests",
-        filter: `receiver_id=eq.${receiverId}`,
       },
       (payload) => {
-        onInsert(payload.new);
+        const request = payload.new;
+
+        if (request.sender_id === userId || request.receiver_id === userId) {
+          onChange(request);
+        }
       },
     )
     .subscribe();

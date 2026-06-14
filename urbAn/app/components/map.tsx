@@ -297,28 +297,6 @@ export function Map({ meetRequests }) {
     }
   };
 
-  const [meetupProfiles, setMeetupProfiles] = useState([]);
-
-  const getMeetupProfile = async () => {
-    let meetupProfileList = [];
-
-    const { data: senderProfile, error } = await getProfile(
-      activeMeetup?.sender_id,
-    );
-    if (senderProfile?.profile_id !== currentUser?.profile_id) {
-      meetupProfileList.push(senderProfile);
-    }
-
-    const { data: receiverProfile, error: receiverError } = await getProfile(
-      activeMeetup?.receiver_id,
-    );
-    if (receiverProfile?.profile_id !== currentUser?.profile_id) {
-      meetupProfileList.push(receiverProfile);
-    }
-
-    return meetupProfileList;
-  };
-
   useEffect(() => {
     if (!map.current) return;
     if (!fullCoordinateList.length) return;
@@ -327,67 +305,60 @@ export function Map({ meetRequests }) {
   }, [fullCoordinateList]);
 
   useEffect(() => {
-    const loadMeetup = async () => {
-      if (!activeMeetup) return;
+    if (!map.current) return;
+    if (!activeMeetup?.location) return;
 
-      const profiles = await getMeetupProfile();
-      setMeetupProfiles(profiles);
+    const middle = activeMeetup.location;
+    // expected: [lat, lng] or [lng, lat] depending on your DB
 
-      if (!map.current || profiles.length === 0) return;
+    console.log("📍 meetup location:", middle);
 
-      const otherUser = profiles[0];
+    // cleanup
+    meetupMarkersRef.current.forEach((m) => m.remove());
 
-      const middle = {
-        lng: (otherUser.coordinates[1] + currentUser?.coordinates[1]) / 2,
-        lat: (otherUser.coordinates[0] + currentUser?.coordinates[0]) / 2,
-      };
+    if (map.current.getLayer("meetup-circle")) {
+      map.current.removeLayer("meetup-circle");
+    }
 
-      console.log(middle)
+    if (map.current.getSource("meetup-circle")) {
+      map.current.removeSource("meetup-circle");
+    }
 
-      // cleanup
-      meetupMarkersRef.current.forEach((m) => m.remove());
+    // IMPORTANT: Mapbox expects [lng, lat]
+    const lngLat = [middle[1], middle[0]];
 
-      if (map.current.getLayer("meetup-circle")) {
-        map.current.removeLayer("meetup-circle");
-      }
+    // marker
+    const marker = new mapboxgl.Marker().setLngLat(lngLat).addTo(map.current);
 
-      if (map.current.getSource("meetup-circle")) {
-        map.current.removeSource("meetup-circle");
-      }
+    meetupMarkersRef.current.push(marker);
 
-      // marker
-      const marker = new mapboxgl.Marker()
-        .setLngLat([middle.lng, middle.lat])
-        .addTo(map.current);
-
-      meetupMarkersRef.current.push(marker);
-
-      // circle
-      map.current.addSource("meetup-circle", {
-        type: "geojson",
-        data: {
-          type: "Feature",
-          geometry: {
-            type: "Point",
-            coordinates: [middle.lng, middle.lat],
-          },
+    // circle
+    map.current.addSource("meetup-circle", {
+      type: "geojson",
+      data: {
+        type: "Feature",
+        geometry: {
+          type: "Point",
+          coordinates: lngLat,
         },
-      });
+      },
+    });
 
-      map.current.addLayer({
-        id: "meetup-circle",
-        type: "circle",
-        source: "meetup-circle",
-        paint: {
-          "circle-radius": 140,
-          "circle-color": "#ff0000",
-          "circle-opacity": 0.2,
-        },
-      });
-    };
-
-    loadMeetup();
+    map.current.addLayer({
+      id: "meetup-circle",
+      type: "circle",
+      source: "meetup-circle",
+      paint: {
+        "circle-radius": 25,
+        "circle-color": "#ff0000",
+        "circle-opacity": 0.2,
+      },
+    });
   }, [activeMeetup]);
+
+  useEffect(() => {
+    console.log("MAP meetRequests:", meetRequests);
+  }, [meetRequests]);
 
   return (
     <div
