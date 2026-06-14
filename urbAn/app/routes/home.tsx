@@ -92,40 +92,42 @@ const Home = () => {
     const $sectionButton = document.querySelector(".game__nearby");
     const $routesSection = document.querySelector(".navigation__section");
     const $nearbySection = document.querySelector(".social__section");
-
+    
     const isActive =
-      $routesSection?.classList.contains("navigation__section--active") ||
-      $nearbySection?.classList.contains("social__section--active");
-
+    $routesSection?.classList.contains("navigation__section--active") ||
+    $nearbySection?.classList.contains("social__section--active");
+    
     $sectionButton?.classList.toggle("game__nearby--active", isActive);
   };
-
+  
   const revealRoutes = () => {
     const $routesSection = document.querySelector(".navigation__section");
     const $otherSection = document.querySelector(".social__section");
-
+    
     $routesSection?.classList.toggle("navigation__section--active");
     $otherSection?.classList.remove("social__section--active");
-
+    
     moveTabs();
   };
-
+  
   const revealNearbyUsers = () => {
     const $nearbySection = document.querySelector(".social__section");
     const $otherSection = document.querySelector(".navigation__section");
-
+    
     $nearbySection?.classList.toggle("social__section--active");
     $otherSection?.classList.remove("navigation__section--active");
-
+    
     moveTabs();
   };
-
+  
   const closeAllTabs = () => {
     const $nearbySection = document.querySelector(".social__section");
     const $routesSection = document.querySelector(".navigation__section");
-
+    const $sectionButton = document.querySelector(".game__nearby");
+    
     $nearbySection?.classList.remove("social__section--active");
     $routesSection?.classList.remove("navigation__section--active");
+    $sectionButton?.classList.remove("game__nearby--active");
   };
 
   const loadRoutes = async () => {
@@ -1097,7 +1099,10 @@ const Home = () => {
                       </div>
                       <button
                         className="nearby__meet"
-                        onClick={() => sendMeetRequest(profile?.profile_id)}>
+                        onClick={() => {
+                          sendMeetRequest(profile?.profile_id);
+                          closeAllTabs();
+                        }}>
                         Ask to meet up!
                       </button>
                     </li>
@@ -1177,7 +1182,14 @@ const Home = () => {
                           <p className="stat__label">Meet Ups</p>
                         </div>
                       </div>
-                      <button className="nearby__meet">Ask to meet up!</button>
+                      <button
+                        className="nearby__meet"
+                        onClick={() => {
+                          sendMeetRequest(profile?.profile_id);
+                          closeAllTabs();
+                        }}>
+                        Ask to meet up!
+                      </button>
                     </li>
                   );
                 }
@@ -2216,25 +2228,29 @@ const Home = () => {
         </div>
         {pendingMeetRequests
           .filter((request) => request.status === "pending")
-          .map((meetRequest) => meetRequest?.sender_id !== currentUser?.profile_id ? (
-            <div className="game__meetup" key={meetRequest?.meet_id}>
-              <p>Someone wants to meet up!</p>
-              <div className="meetup__buttons">
-                <button
-                  onClick={() =>
-                    updateMeetupStatus(meetRequest?.meet_id, "declined")
-                  }>
-                  Decline
-                </button>
-                <button
-                  onClick={() =>
-                    updateMeetupStatus(meetRequest?.meet_id, "accepted")
-                  }>
-                  Accept
-                </button>
+          .map((meetRequest) =>
+            meetRequest?.sender_id !== currentUser?.profile_id ? (
+              <div className="game__meetup" key={meetRequest?.meet_id}>
+                <p>Someone wants to meet up!</p>
+                <div className="meetup__buttons">
+                  <button
+                    onClick={() =>
+                      updateMeetupStatus(meetRequest?.meet_id, "declined")
+                    }>
+                    Decline
+                  </button>
+                  <button
+                    onClick={() =>
+                      updateMeetupStatus(meetRequest?.meet_id, "accepted")
+                    }>
+                    Accept
+                  </button>
+                </div>
               </div>
-            </div>
-          ) : "")}
+            ) : (
+              ""
+            ),
+          )}
       </div>
     </>
   );
