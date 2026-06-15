@@ -20,6 +20,7 @@
 
   /* neutral colours */
   --colour-white: #fff;
+  --color-white-dark: #f2f2f2;
   --colour-black-light: #2c2c2c;
   --colour-black: #000;
 
@@ -907,10 +908,20 @@ button {
   grid-row: 1;
   justify-self: flex-end;
 
-  width: fit-content;
-  height: fit-content;
+  background-color: var(--colour-yellow);
+
+  width: 4rem;
+  height: 4rem;
+  padding: var(--space-s);
+  border-radius: 32px;
+  box-shadow: 0 4px 4px #00000033;
+  margin: var(--space-xs);
 
   z-index: +1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .game__navigation {
@@ -946,7 +957,7 @@ button {
   transition: all 200ms ease;
 }
 
-.navigation__routes svg *{
+.navigation__routes svg * {
   fill: var(--colour-white);
 }
 
@@ -1091,54 +1102,155 @@ button {
 
 /* profile */
 .profile {
+  background-color: var(--color-white-dark);
+
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+}
+
+.profile__header {
+  background: linear-gradient(
+    to bottom,
+    var(--colour-blue-400),
+    var(--colour-blue-300)
+  );
+
+  padding: var(--space-s);
+  border-bottom: 2px solid var(--colour-black);
+
+  display: flex;
+  flex-direction: column;
   gap: var(--space-m);
 }
 
-.profile * {
-  width: 100%;
-}
-
 .profile__navigation {
-  padding: var(--space-xs) var(--space-s);
-
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-}
-
-.button--profile {
-  width: fit-content;
-}
-
-.profile__info {
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: var(--space-s);
 }
 
-.profile__info * {
-  width: fit-content;
-}
+.profile__navigation--back {
+  background-color: var(--colour-yellow);
 
-.pfp {
-  background-color: lightgray;
-  width: 8rem;
-  height: 8rem;
-  border-radius: 100%;
+  width: 3rem;
+  height: 3rem;
+  /* padding: var(--space-xs); */
+  border: 1px solid var(--colour-black);
+  border-radius: 32px;
+  box-shadow: 2px 2px 0 var(--colour-black);
 
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.info__personal {
+.profile__title {
+  color: var(--colour-white);
+  font-family: "Antwerpen Regular";
+  font-size: 32px;
+  text-align: center;
+}
+
+.profile__main {
+  padding: var(--space-m);
+
   display: flex;
   flex-direction: column;
+  gap: var(--space-m);
+}
+
+.profile__info {
+  display: flex;
+  gap: var(--space-s);
+}
+
+.info__avatar {
+  background-color: var(--colour-yellow);
+
+  padding: var(--space-m) var(--space-s);
+  border: 1px solid var(--colour-black);
+  border-radius: 20px;
+  box-shadow: -2px 2px 0 var(--colour-black);
+}
+
+.info__avatar svg {
+  width: 6rem;
+  height: auto;
+}
+
+.info__personal {
+  width: 100%;
+  padding: var(--space-xs);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-m);
+}
+
+.personal__name {
+  font-family: "Antwerpen Pixel";
+  font-size: 32px;
+}
+
+.profile__description {
+  background-color: var(--colour-white);
+
+  padding: var(--space-m);
+  border: 1px solid var(--colour-black);
+  border-radius: 20px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.description__title {
+  paint-order: stroke fill;
+
+  color: var(--colour-pink-300);
+  font-family: "Pixelify Sans";
+  font-size: 128px;
+  line-height: 70%;
+  -webkit-text-stroke: 4px black;
+  text-shadow: 0 -4px 0 var(--colour-black);
+
+  width: fit-content;
+  height: 0rem;
+
+  transform: scale(-1);
+
+  position: relative;
+  top: -0.5rem;
+  left: -1.5rem;
+}
+
+.description__text {
+  font-size: 20px;
+  font-style: italic;
+}
+
+.profile__stats {
+  margin-top: var(--space-xs);
+  margin-bottom: var(--space-s);
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.profile__stats div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  gap: var(--space-2xs);
+}
+
+.info__stat--data {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.info__stat--label {
+  text-transform: uppercase;
 }
 
 /* routes */
@@ -1226,13 +1338,13 @@ button {
   border: 1px solid var(--colour-black);
   border-radius: 20px;
   box-shadow: -4px 4px 0 var(--colour-black);
-  
+
   position: absolute;
   top: 50%;
   left: 50%;
-  
+
   transform: translate(-50%, -50%);
-  
+
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
@@ -1240,7 +1352,7 @@ button {
 
 .meetup__sender {
   background-color: var(--colour-black);
-  
+
   padding: var(--space-s);
   border-radius: 20px 20px 0 0;
 
@@ -1283,7 +1395,6 @@ button {
 
 .meetup__decline {
   background-color: var(--colour-white);
-
 }
 
 .meetup__accept {
