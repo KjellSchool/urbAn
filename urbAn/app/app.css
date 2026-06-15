@@ -6,6 +6,7 @@
   /* secondary colours */
   --colour-blue-300: #46a2ff;
   --colour-blue-400: #047af4;
+  --colour-blue: #0051ff;
 
   --colour-green-200: #2effa5;
   --colour-green-300: #00e081;
@@ -182,6 +183,13 @@ button {
   color: var(--colour-white);
   font-family: "Antwerpen Regular";
   font-size: 32px;
+  text-align: center;
+}
+
+.drawer__description {
+  color: var(--colour-white);
+  font-family: "Antwerpen Regular";
+  font-size: 20px;
   text-align: center;
 }
 
@@ -895,21 +903,21 @@ button {
   gap: var(--space-s);
 }
 
-.game__nearby, .game__challenges {
-
+.game__nearby,
+.game__challenges {
   background-color: var(--colour-yellow);
-  
+
   width: fit-content;
   height: fit-content;
   padding: var(--space-s) var(--space-m);
   border-radius: 0 32px 32px 0;
   box-shadow: 0 4px 4px #00000033;
-  
 
   z-index: +1;
 }
 
-.game__nearby svg, .game__challenges svg {
+.game__nearby svg,
+.game__challenges svg {
   width: auto;
   height: 2rem;
 }
@@ -972,6 +980,10 @@ button {
   transition: all 200ms ease;
 }
 
+.navigation__cancel {
+  background-color: var(--colour-black);
+}
+
 .navigation__routes svg * {
   fill: var(--colour-white);
 }
@@ -998,13 +1010,83 @@ button {
   display: none;
 }
 
+/* challenges */
+.home__challenges {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-l);
+}
+
+.challenges__section:has(.challenges__empty) {
+  padding-bottom: 0;
+}
+
+.challenges__title {
+  margin-bottom: var(--space-s);
+}
+
+.challenges__item {
+  background-color: var(--colour-white);
+
+  padding: var(--space-m) var(--space-s);
+  padding-bottom: 0;
+  border: 1px solid var(--colour-black);
+  border-radius: 20px;
+  box-shadow: -4px 4px 0 var(--colour-black);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
+
+.challenge__description {
+  font-size: 20px;
+}
+
+.challenge__route {
+  background-color: var(--colour-orange);
+  margin-bottom: -1rem;
+}
+
+.challenges__empty {
+  background: var(--colour-blue) url('./assets/background/drawer-bottom.svg');
+  background-position: bottom;
+  background-repeat: no-repeat;
+
+  height: 100%;
+  padding-bottom: 4rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.empty__message {
+  color: var(--colour-white);
+  font-family: "Antwerpen Regular";
+  font-size: 32px;
+  text-align: center;
+
+  margin: auto;
+}
+
+.empty__search {
+  justify-self: flex-end;
+
+  background-color: var(--colour-yellow);
+
+  color: var(--colour-black);
+
+  width: 90%;
+  margin: auto;
+  margin-bottom: 0;
+}
+
+.empty__search svg * {
+  fill: var(--colour-black);
+}
+
 /* nearby users */
-.social__section {
-}
-
-.social__section--active {
-}
-
 .social__nearby {
   display: flex;
   flex-direction: column;
@@ -1099,7 +1181,8 @@ button {
 }
 
 .nearby__meet,
-.route__follow {
+.route__follow,
+.challenge__finish {
   align-self: flex-end;
 
   background-color: var(--colour-black);
@@ -1387,7 +1470,8 @@ button {
 
 /* routes */
 .navigation__section--active,
-.social__section--active, .challenges__section--active {
+.social__section--active,
+.challenges__section--active {
   transform: translateY(35%);
 }
 
