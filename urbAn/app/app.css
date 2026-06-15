@@ -900,7 +900,7 @@ button {
 }
 
 .game__nearby--active {
-  transform: translateY(-65dvh);
+  transform: translateY(-67.5dvh);
 }
 
 .social__profile {
