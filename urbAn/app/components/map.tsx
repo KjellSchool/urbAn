@@ -249,7 +249,7 @@ export function Map({ meetRequests, onRouteLoaded }) {
       );
 
       onRouteLoaded?.({
-        route,
+        route: activeRoute,
         locations: activeRouteLocations,
         challenges: routeChallenges,
       });
