@@ -17,7 +17,7 @@ import { getProfile } from "../database/profiles.js";
 mapboxgl.accessToken =
   "pk.eyJ1IjoiYW50d2VycHVyYmFudGVhbSIsImEiOiJjbXB0aTVwcnIwOXhkMnpzZWR6dzl6MHRsIn0.6oxgIvb_wD5lre3xUm_5mA";
 
-export function Map({ meetRequests }) {
+export function Map({ meetRequests, onRouteLoaded }) {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const markersRef = useRef([]);
@@ -74,6 +74,16 @@ export function Map({ meetRequests }) {
       .map(([lng, lat]) => `${lng},${lat}`)
       .join(";");
     setCoordinateString(result);
+
+    const routeChallenges = challenges.filter(
+      (challenge) => challenge.route_id === routeId,
+    );
+
+    // onRouteLoaded?.({
+    //   route,
+    //   locations: allLocations,
+    //   challenges: routeChallenges,
+    // });
   };
 
   const loadChallenges = async () => {
@@ -86,8 +96,24 @@ export function Map({ meetRequests }) {
   }, []);
 
   useEffect(() => {
+    // 1. Route removed → immediately reset parent
+    if (!routeId) {
+      onRouteLoaded?.({
+        route: null,
+        locations: [],
+        challenges: [],
+      });
+
+      setActiveRoute(null);
+      setActiveRouteLocation([]);
+      setFullCoordinateList([]);
+      setCoordinateString("");
+
+      return;
+    }
+
+    // 2. Wait for GPS before loading route
     if (!userLocation) return;
-    if (!routeId) return;
 
     loadRoute(routeId);
   }, [routeId, userLocation]);
@@ -218,23 +244,33 @@ export function Map({ meetRequests }) {
       const start = [userLocation?.longitude, userLocation?.latitude];
       const route = await getRoute(coordinateString);
 
-      challenges.map((challenge) => {
-        if (challenge.route_id === routeId) {
-          const randomPoint = Math.floor(
-            Math.random() * route.coordinates?.length,
-          );
-          const randomCoordinate = route.coordinates[randomPoint];
-          // console.log("added: ", challenge.title, randomCoordinate);
+      const routeChallenges = challenges.filter(
+        (challenge) => challenge.route_id === routeId,
+      );
 
-          challengesRef.current.push({
-            challenge,
-            coordinate: randomCoordinate,
-            discovered: false,
-          });
-        } else {
-          // console.log("not you");
-        }
+      onRouteLoaded?.({
+        route,
+        locations: activeRouteLocations,
+        challenges: routeChallenges,
       });
+
+      // challenges.map((challenge) => {
+      //   if (challenge.route_id === routeId) {
+      //     const randomPoint = Math.floor(
+      //       Math.random() * route.coordinates?.length,
+      //     );
+      //     const randomCoordinate = route.coordinates[randomPoint];
+      //     // console.log("added: ", challenge.title, randomCoordinate);
+
+      //     challengesRef.current.push({
+      //       challenge,
+      //       coordinate: randomCoordinate,
+      //       discovered: false,
+      //     });
+      //   } else {
+      //     // console.log("not you");
+      //   }
+      // });
 
       // this line gives an error everytime the map is loaded
       if (map.current.getSource("route")) {
@@ -304,6 +340,30 @@ export function Map({ meetRequests }) {
 
     renderWaypoints(fullCoordinateList);
   }, [fullCoordinateList]);
+
+  useEffect(() => {
+    if (!map.current) return;
+
+    if (!routeId) {
+      // remove waypoint markers
+      markersRef.current.forEach((m) => m.remove());
+      markersRef.current = [];
+
+      // remove route line
+      if (map.current.getLayer("route-line")) {
+        map.current.removeLayer("route-line");
+      }
+
+      if (map.current.getSource("route")) {
+        map.current.removeSource("route");
+      }
+
+      setActiveRoute(null);
+      setActiveRouteLocation([]);
+      setFullCoordinateList([]);
+      setCoordinateString("");
+    }
+  }, [routeId]);
 
   useEffect(() => {
     if (!map.current) return;

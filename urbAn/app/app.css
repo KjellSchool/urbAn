@@ -880,26 +880,36 @@ button {
   z-index: +1;
 }
 
-.game__nearby {
+.game__buttons {
   grid-column: 1;
   grid-row: 2;
   align-self: flex-end;
 
-  background-color: var(--colour-yellow);
+  width: fit-content;
 
+  transform: translateY(-5dvh);
+  transition: all 200ms ease-in-out;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
+
+.game__nearby, .game__challenges {
+
+  background-color: var(--colour-yellow);
+  
   width: fit-content;
   height: fit-content;
   padding: var(--space-s) var(--space-m);
   border-radius: 0 32px 32px 0;
   box-shadow: 0 4px 4px #00000033;
-
-  transform: translateY(-5dvh);
-  transition: all 200ms ease-in-out;
+  
 
   z-index: +1;
 }
 
-.game__nearby--active {
+.game__buttons--active {
   transform: translateY(-67.5dvh);
 }
 
