@@ -859,7 +859,7 @@ const Settings = () => {
             </div>
           </div>
           <h2 className="group__title">Personal information</h2>
-          <div className="group__setting">
+          <div className="group__setting--bio">
             <div className="element__setting">
               <p>Gender</p>
               <p>{currentUser?.gender}</p>

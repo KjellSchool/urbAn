@@ -1396,14 +1396,43 @@ button {
   padding-bottom: var(--space-xs);
 }
 
-.group__title{
+.group__title {
   font-family: "Antwerpen Regular";
   font-size: 20px;
 }
 
-.group__setting label{
+.group__setting label,
+.element__setting {
   font-family: "sun antwerpen";
-    font-size: 20px;
+  font-size: 20px;
+}
+
+.element__setting p:last-child {
+  font-family: "sun antwerpen";
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.group__setting--bio {
+  background-color: var(--colour-white);
+  padding: var(--space-m);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+
+}
+
+.element__setting {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: var(--space-s);
+}
+
+.group__setting--bio .element__setting {
+  border-bottom: 1px solid var(--colour-beige);
+  margin-bottom: var(--space-s);
 }
 
 /* routes */
