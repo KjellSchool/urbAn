@@ -909,8 +909,13 @@ button {
   z-index: +1;
 }
 
+.game__nearby svg, .game__challenges svg {
+  width: auto;
+  height: 2rem;
+}
+
 .game__buttons--active {
-  transform: translateY(-67.5dvh);
+  transform: translateY(-64dvh);
 }
 
 .social__profile {
@@ -1382,8 +1387,8 @@ button {
 
 /* routes */
 .navigation__section--active,
-.social__section--active {
-  transform: translateY(30%);
+.social__section--active, .challenges__section--active {
+  transform: translateY(35%);
 }
 
 .routes__list {
