@@ -1253,6 +1253,114 @@ button {
   text-transform: uppercase;
 }
 
+.achievements__container {
+  background-color: var(--colour-white);
+
+  padding: var(--space-s);
+  border: 1px solid var(--colour-black);
+  border-radius: 20px;
+  box-shadow: -4px 4px 0 var(--colour-black);
+}
+
+.achievements__title {
+  font-family: "Antwerpen Regular";
+  font-size: 20px;
+
+  margin-top: var(--space-xs);
+  margin-bottom: var(--space-s);
+}
+
+.achievements__item:has(+ .achievements__item) {
+  padding-bottom: var(--space-s);
+  border-bottom: 1px solid black;
+  margin-bottom: var(--space-s);
+}
+
+.achievements__item summary {
+  list-style: none;
+
+  font-family: "Antwerpen Small Caps";
+  font-size: 24px;
+
+  display: flex;
+  align-items: center;
+}
+
+.achievement__stat {
+  font-size: 32px;
+
+  width: 4rem;
+  padding: var(--space-m);
+  padding-top: 0;
+  padding-bottom: var(--space-xs);
+  border-radius: 32px;
+  margin-right: var(--space-s);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.stat--pink {
+  background-color: var(--colour-pink-300);
+}
+
+.stat--blue {
+  background-color: var(--colour-blue-300);
+}
+.stat--green {
+  background-color: var(--colour-green-300);
+}
+
+.achievements__item summary::after {
+  content: "";
+
+  background-image: url(./assets/icons/arrow-back.svg);
+  -webkit-transform: rotate(180deg);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  width: 1rem;
+  height: 1rem;
+  margin-left: auto;
+
+  transform: "";
+  transition: all 200ms ease-in-out;
+}
+
+.achievements__item[open] summary::after {
+  -webkit-transform: rotate(270deg);
+  transform: "";
+}
+
+.achievements__item summary + ul {
+  margin-top: var(--space-s);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.profile__route {
+  margin-left: var(--space-s);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.profile__route::before {
+  content: " ";
+
+  background-color: var(--colour-pink-300);
+
+  width: 8px;
+  height: 8px;
+  border-radius: 32px;
+
+  display: inline-block;
+}
+
 /* routes */
 .navigation__section--active,
 .social__section--active {

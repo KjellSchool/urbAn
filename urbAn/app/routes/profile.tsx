@@ -1376,7 +1376,7 @@ const Profile = () => {
           </div>
           <div className="profile__stats">
             <div className="profile__gender">
-              <p className="info__stat--data">Dude</p>
+              <p className="info__stat--data">{currentUser?.gender}</p>
               <p className="info__stat--label">Gender</p>
             </div>
             <div className="profile__age">
@@ -1384,7 +1384,7 @@ const Profile = () => {
               <p className="info__stat--label">Age</p>
             </div>
             <div className="profile__country">
-              <p className="info__stat--data">Belgium</p>
+              <p className="info__stat--data">{currentUser?.nationality}</p>
               <p className="info__stat--label">Nationality</p>
             </div>
           </div>
@@ -1393,15 +1393,27 @@ const Profile = () => {
             <p className="description__text">{currentUser?.description}</p>
           </div>
           <div className="profile__achievements">
-            <h2>Your Achievements</h2>
-            <ul>
-              {completedRoutes.map((completedRoute) => (
-                <li className="profile" key={completedRoute?.route_id}>
-                  <h2 className="route__title">{completedRoute?.title}</h2>
-                </li>
-                // <li key={completedRoute.route_id}>{completedRoute.title}</li>
-              ))}
-            </ul>
+            <h2 className="achievements__title">Your Achievements</h2>
+            <div className="achievements__container">
+              <details className="achievements__item">
+                <summary><span className="achievement__stat stat--pink">{completedRoutes.length}</span> Routes</summary>
+                <ul>
+                  {completedRoutes.map((completedRoute) => (
+                    <li
+                      className="profile__route"
+                      key={completedRoute?.route_id}>
+                      {completedRoute?.title}
+                    </li>
+                  ))}
+                </ul>
+              </details>
+              <details className="achievements__item">
+                <summary><span className="achievement__stat stat--blue">X</span> Side Quests</summary>
+              </details>
+              <details className="achievements__item">
+                <summary><span className="achievement__stat stat--green">X</span> Meetups</summary>
+              </details>
+            </div>
           </div>
         </main>
       </div>
