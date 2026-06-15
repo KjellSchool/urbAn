@@ -890,6 +890,7 @@ button {
   height: fit-content;
   padding: var(--space-s) var(--space-m);
   border-radius: 0 32px 32px 0;
+  box-shadow: 0 4px 4px #00000033;
 
   transform: translateY(-5dvh);
   transition: all 200ms ease-in-out;
@@ -922,17 +923,18 @@ button {
 }
 
 .navigation__routes {
-  background-color: var(--colour-pink-300);
+  background-color: var(--colour-blue-400);
 
+  color: var(--colour-white);
   font-family: "Antwerpen Small Caps";
   font-size: 1.5rem;
   font-weight: bold;
 
   width: 100%;
   padding: var(--space-s) var(--space-s);
-  border: 2px solid var(--colour-black);
+  /* border: 2px solid var(--colour-black); */
   border-radius: 32px;
-  box-shadow: 2px 4px 0 var(--colour-black);
+  /* box-shadow: 2px 4px 0 var(--colour-black); */
   margin: 0 var(--space-m);
   margin-bottom: var(--space-s);
 
@@ -942,6 +944,10 @@ button {
   gap: var(--space-xs);
 
   transition: all 200ms ease;
+}
+
+.navigation__routes svg *{
+  fill: var(--colour-white);
 }
 
 .navigation__routes:hover {
@@ -981,7 +987,7 @@ button {
 
 .nearby__user {
   background-color: var(--colour-white);
-  
+
   padding: var(--space-m);
   padding-bottom: 0;
   border: 1px solid var(--colour-black);
@@ -1026,6 +1032,7 @@ button {
   font-size: 14px;
 
   width: fit-content;
+  height: fit-content;
   padding: var(--space-2xs) var(--space-s);
   border-radius: 32px;
 }
@@ -1065,7 +1072,8 @@ button {
   font-size: 10px;
 }
 
-.nearby__meet, .route__follow {
+.nearby__meet,
+.route__follow {
   align-self: flex-end;
 
   background-color: var(--colour-black);
@@ -1147,7 +1155,7 @@ button {
 
 .routes__item {
   background-color: var(--colour-white);
-  
+
   border: 1px solid var(--colour-black);
   border-radius: 20px;
   box-shadow: -4px 4px var(--colour-black);
@@ -1163,7 +1171,7 @@ button {
 
 .route__text {
   text-align: left;
-  
+
   padding: var(--space-s);
   padding-bottom: 0;
 
@@ -1183,7 +1191,7 @@ button {
 
   padding: var(--space-xs);
   border-radius: 32px;
-  
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1214,22 +1222,74 @@ button {
 .game__meetup {
   background-color: var(--colour-white);
 
-  padding: var(--space-m);
-
+  width: 80dvw;
+  border: 1px solid var(--colour-black);
+  border-radius: 20px;
+  box-shadow: -4px 4px 0 var(--colour-black);
+  
   position: absolute;
   top: 50%;
   left: 50%;
-
+  
   transform: translate(-50%, -50%);
-
+  
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
 }
 
-.meetup__buttons {
+.meetup__sender {
+  background-color: var(--colour-black);
+  
+  padding: var(--space-s);
+  border-radius: 20px 20px 0 0;
+
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.sender__name {
+  color: white;
+  font-family: "Antwerpen Pixel";
+  font-size: 32px;
+}
+
+.meetup__content {
+  padding: var(--space-s);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
+
+.meetup__message {
+  font-family: "Antwerpen Small Caps";
+}
+
+.meetup__buttons {
+  font-family: "Antwerpen Small Caps";
+
+  display: flex;
+  justify-content: space-evenly;
+  gap: var(--space-l);
+}
+
+.meetup__buttons button {
+  padding: var(--space-xs) var(--space-m);
+  border: 1px solid var(--colour-black);
+  border-radius: 32px;
+}
+
+.meetup__decline {
+  background-color: var(--colour-white);
+
+}
+
+.meetup__accept {
+  background-color: var(--colour-black);
+
+  color: white;
 }
 
 /* settings */

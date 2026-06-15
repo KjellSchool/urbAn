@@ -31,6 +31,8 @@ const Home = () => {
   const [routes, setRoutes] = useState([]);
 
   const [pendingMeetRequests, setPendingMeetRequests] = useState([]);
+  const [senderProfile, setSenderProfile] = useState(null);
+  const [senderArchetype, setSenderArchetype] = useState(null);
 
   const getCurrentUserLocation = async () => {
     const { data: location } = await getProfileLocation(
@@ -92,39 +94,39 @@ const Home = () => {
     const $sectionButton = document.querySelector(".game__nearby");
     const $routesSection = document.querySelector(".navigation__section");
     const $nearbySection = document.querySelector(".social__section");
-    
+
     const isActive =
-    $routesSection?.classList.contains("navigation__section--active") ||
-    $nearbySection?.classList.contains("social__section--active");
-    
+      $routesSection?.classList.contains("navigation__section--active") ||
+      $nearbySection?.classList.contains("social__section--active");
+
     $sectionButton?.classList.toggle("game__nearby--active", isActive);
   };
-  
+
   const revealRoutes = () => {
     const $routesSection = document.querySelector(".navigation__section");
     const $otherSection = document.querySelector(".social__section");
-    
+
     $routesSection?.classList.toggle("navigation__section--active");
     $otherSection?.classList.remove("social__section--active");
-    
+
     moveTabs();
   };
-  
+
   const revealNearbyUsers = () => {
     const $nearbySection = document.querySelector(".social__section");
     const $otherSection = document.querySelector(".navigation__section");
-    
+
     $nearbySection?.classList.toggle("social__section--active");
     $otherSection?.classList.remove("navigation__section--active");
-    
+
     moveTabs();
   };
-  
+
   const closeAllTabs = () => {
     const $nearbySection = document.querySelector(".social__section");
     const $routesSection = document.querySelector(".navigation__section");
     const $sectionButton = document.querySelector(".game__nearby");
-    
+
     $nearbySection?.classList.remove("social__section--active");
     $routesSection?.classList.remove("navigation__section--active");
     $sectionButton?.classList.remove("game__nearby--active");
@@ -217,8 +219,25 @@ const Home = () => {
     const { data: pendingRequests, error } = await getPendingRequests(
       currentUser?.profile_id,
     );
+
     setPendingMeetRequests(pendingRequests);
     console.log(pendingRequests);
+  };
+
+  const loadSenderProfile = async () => {
+    const pendingRequest = pendingMeetRequests.find(
+      (request) => request.status === "pending",
+    );
+
+    if (!pendingRequest) return;
+    console.log(pendingRequest);
+
+    const { data: profile } = await getProfile(pendingRequest.sender_id);
+    setSenderProfile(profile);
+
+    const { data: archetype } = await getArchetype(profile?.primary_archetype);
+    console.log(archetype);
+    setSenderArchetype(archetype);
   };
 
   useEffect(() => {
@@ -251,6 +270,10 @@ const Home = () => {
       supabase.removeChannel(channel);
     };
   }, [currentUser]);
+
+  useEffect(() => {
+    loadSenderProfile();
+  }, [pendingMeetRequests]);
 
   const updateMeetupStatus = async (meetupId, status) => {
     const request = pendingMeetRequests.find((r) => r.meet_id === meetupId);
@@ -304,6 +327,28 @@ const Home = () => {
 
       return [...prev, freshMeet];
     });
+  };
+
+  const calculateAge = (dob) => {
+    if (!dob) return;
+    const dobFormatted = dob.toString().replaceAll("-", "");
+
+    const year = Number(dob.substr(0, 4));
+    const month = Number(dob.substr(4, 2)) - 1;
+    const day = Number(dob.substr(6, 2));
+
+    const today = new Date();
+
+    let age = today.getFullYear() - year;
+
+    if (
+      today.getMonth() < month ||
+      (today.getMonth() == month && today.getDate() < day)
+    ) {
+      age--;
+    }
+
+    return age;
   };
 
   return (
@@ -2231,20 +2276,30 @@ const Home = () => {
           .map((meetRequest) =>
             meetRequest?.sender_id !== currentUser?.profile_id ? (
               <div className="game__meetup" key={meetRequest?.meet_id}>
-                <p>Someone wants to meet up!</p>
-                <div className="meetup__buttons">
-                  <button
-                    onClick={() =>
-                      updateMeetupStatus(meetRequest?.meet_id, "declined")
-                    }>
-                    Decline
-                  </button>
-                  <button
-                    onClick={() =>
-                      updateMeetupStatus(meetRequest?.meet_id, "accepted")
-                    }>
-                    Accept
-                  </button>
+                <div className="meetup__sender">
+                  <p className="sender__name">
+                    {senderProfile?.name}, {calculateAge(senderProfile?.date_of_birth)}
+                  </p>
+                  <p className="archetype-tag " style={{backgroundColor: `#${senderArchetype?.colour}`}}>{senderArchetype?.tag}</p>
+                </div>
+                <div className="meetup__content">
+                  <p className="meetup__message">Has sent you a meet up request!</p>
+                  <div className="meetup__buttons">
+                    <button
+                      className="meetup__decline"
+                      onClick={() =>
+                        updateMeetupStatus(meetRequest?.meet_id, "declined")
+                      }>
+                      Decline
+                    </button>
+                    <button
+                      className="meetup__accept"
+                      onClick={() =>
+                        updateMeetupStatus(meetRequest?.meet_id, "accepted")
+                      }>
+                      Accept
+                    </button>
+                  </div>
                 </div>
               </div>
             ) : (
