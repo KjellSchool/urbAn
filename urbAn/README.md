@@ -4,7 +4,7 @@
 
 - [ ] Profile page
 - [ ] Settings page
-- [ ] ...
+- [x] Meet-up popup
 
 ## Nearby Users
 
