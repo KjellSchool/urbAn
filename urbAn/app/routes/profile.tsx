@@ -4,10 +4,17 @@ import { Link } from "react-router";
 
 import { useUser } from "../contexts/userContext.tsx";
 
-import { getProfiles } from "../database/profiles.js";
+import { getProfiles, getProfile } from "../database/profiles.js";
 import { getArchetype } from "../database/archetypes.js";
 import { getCompletedRoutesForUser } from "../database/routes.js";
 import { getRoute } from "../database/routes.js";
+
+import {
+  getChallenge,
+  getCompletedChallenges,
+} from "../database/challenges.js";
+
+import { getConcludedMeetups } from "../database/meetup.js";
 
 const Profile = () => {
   const [profiles, setProfiles] = useState([]);
@@ -44,12 +51,6 @@ const Profile = () => {
   };
 
   const loadProfiles = async () => {
-    // const { data, error } = await getProfiles();
-
-    // const user = data?.[1];
-    // setProfiles(data);
-    // setUser(user);
-
     if (currentUser?.profile_id) {
       setUserId(currentUser.profile_id);
 
@@ -72,10 +73,65 @@ const Profile = () => {
     }
   };
 
+  const [completedChallenges, setCompletedChallenges] = useState([]);
+  const [challenges, setChallenges] = useState([]);
+
+  const loadCompletedChallenges = async () => {
+    const { data: challengeProgress, error } = await getCompletedChallenges(
+      currentUser?.profile_id,
+    );
+
+    let challenges = [];
+
+    challengeProgress.forEach(async (progress) => {
+      const { data: challenge, error: challengeError } = await getChallenge(
+        progress?.challenge_id,
+      );
+
+      challenges.push(challenge);
+    });
+
+    console.log(challenges);
+    setCompletedChallenges(challengeProgress);
+    setChallenges(challenges);
+  };
+
+  const [concludedMeetups, setConcludedMeetups] = useState([]);
+  const [meetupPeople, setMeetupPeople] = useState([]);
+
+  const loadConcludedMeetups = async () => {
+    const { data: meetups, error } = await getConcludedMeetups(
+      currentUser?.profile_id,
+    );
+
+    setConcludedMeetups(meetups);
+
+    let people = [];
+
+    meetups?.forEach(async (meetup) => {
+      if (meetup.sender_id !== currentUser?.profile_id) {
+        const { data: sender, error } = await getProfile(meetup.sender_id);
+
+        people.push(sender);
+      }
+
+      if (meetup.receiver_id !== currentUser?.profile_id) {
+        const { data: receiver, error } = await getProfile(meetup.receiver_id);
+
+        people.push(receiver);
+      }
+    });
+
+    console.log(people);
+    setMeetupPeople(people);
+  };
+
   useEffect(() => {
     if (!currentUser) return;
 
     loadProfiles();
+    loadCompletedChallenges();
+    loadConcludedMeetups();
   }, [currentUser]);
 
   return (
@@ -1396,11 +1452,16 @@ const Profile = () => {
             <h2 className="achievements__title">Your Achievements</h2>
             <div className="achievements__container">
               <details className="achievements__item">
-                <summary><span className="achievement__stat stat--pink">{completedRoutes.length}</span> Routes</summary>
+                <summary>
+                  <span className="achievement__stat stat--pink">
+                    {completedRoutes.length}
+                  </span>{" "}
+                  Routes
+                </summary>
                 <ul>
                   {completedRoutes.map((completedRoute) => (
                     <li
-                      className="profile__route"
+                      className="achievement__entry entry--pink"
                       key={completedRoute?.route_id}>
                       {completedRoute?.title}
                     </li>
@@ -1408,10 +1469,38 @@ const Profile = () => {
                 </ul>
               </details>
               <details className="achievements__item">
-                <summary><span className="achievement__stat stat--blue">X</span> Side Quests</summary>
+                <summary>
+                  <span className="achievement__stat stat--blue">
+                    {completedChallenges?.length}
+                  </span>{" "}
+                  Side Quests
+                </summary>
+                <ul>
+                  {challenges.map((challenge) => (
+                    <li
+                      className="achievement__entry entry--blue"
+                      key={challenge?.challenge_id}>
+                      {challenge?.title}
+                    </li>
+                  ))}
+                </ul>
               </details>
               <details className="achievements__item">
-                <summary><span className="achievement__stat stat--green">X</span> Meetups</summary>
+                <summary>
+                  <span className="achievement__stat stat--green">
+                    {meetupPeople?.length}
+                  </span>
+                  Meetups
+                </summary>
+                <ul>
+                  {meetupPeople.map((person) => (
+                    <li
+                      className="achievement__entry entry--green"
+                      key={person?.profile_id}>
+                      {person?.name}
+                    </li>
+                  ))}
+                </ul>
               </details>
             </div>
           </div>

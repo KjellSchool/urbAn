@@ -1,6 +1,10 @@
 import { Link } from "react-router";
 
+import { useUser } from "~/contexts/userContext";
+
 const Settings = () => {
+  const { currentUser } = useUser();
+
   const removeCurrentUser = () => {
     localStorage.removeItem("currentUser");
   }
@@ -45,6 +49,7 @@ const Settings = () => {
           <Link to={``}>Retake the archetype quiz</Link>
           <Link className="settings__log" to={`/`}><button onClick={removeCurrentUser}>Log out</button></Link>
         </div>
+        <p>My id: {currentUser?.profile_id}</p>
       </div>
     </>
   )

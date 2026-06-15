@@ -69,3 +69,13 @@ export const setMeetupStatus = async (meetupId, status) => {
 
   return { data, error };
 };
+
+export const getConcludedMeetups = async (profileId) => {
+  const { data, error } = await supabase
+    .from("meet_requests")
+    .select("*")
+    .eq("status", "concluded")
+    .or(`sender_id.eq.${profileId},receiver_id.eq.${profileId}`);
+
+  return { data, error };
+};

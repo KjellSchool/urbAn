@@ -1342,23 +1342,32 @@ button {
   gap: var(--space-xs);
 }
 
-.profile__route {
+.achievement__entry {
   margin-left: var(--space-s);
   display: flex;
   align-items: center;
   gap: var(--space-xs);
 }
 
-.profile__route::before {
+.achievement__entry::before {
   content: " ";
-
-  background-color: var(--colour-pink-300);
 
   width: 8px;
   height: 8px;
   border-radius: 32px;
 
   display: inline-block;
+}
+.entry--pink::before {
+  background-color: var(--colour-pink-300);
+}
+
+.entry--blue::before {
+  background-color: var(--colour-blue-300);
+}
+
+.entry--green::before {
+  background-color: var(--colour-green-300);
 }
 
 /* routes */
