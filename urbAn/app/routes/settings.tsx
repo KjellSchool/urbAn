@@ -918,10 +918,10 @@ const Settings = () => {
           </div>
         </div>
         <div className="settings__links">
-          <Link to={``}>Retake the archetype quiz</Link>
-          <Link className="settings__log" to={`/`}><button onClick={removeCurrentUser}>Log out</button></Link>
+          <Link className="settings__log login" to={`/`}><button onClick={removeCurrentUser}>LOG OUT</button></Link>
+          <Link className="settings__log delete" to={`/`}><button onClick={removeCurrentUser}>DELETE ACCOUNT</button></Link>
         </div>
-        <p>My id: {currentUser?.profile_id}</p>
+        <p className="id">My id: {currentUser?.profile_id}</p>
       </div>
     </>
   )

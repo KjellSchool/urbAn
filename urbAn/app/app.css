@@ -1527,6 +1527,40 @@ input:checked+.slider:before {
   border-radius: 50%;
 }
 
+.settings__links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: var(--space-m);
+}
+
+.settings__log {
+  font-family: "Antwerpen Regular";
+  font-size: 24px;
+  text-transform: uppercase;
+  margin-top: var(--space-s);
+  text-align: center;
+  padding: 1rem 2rem;
+  width: 320px;
+  border-radius: 32px;
+  letter-spacing: 36px;
+}
+
+.login {
+  color: var(--color-white-dark);
+  background-color: var(--colour-black);
+}
+
+.delete {
+  border: 1px solid var(--colour-black);
+  font-size: 20px;
+}
+
+.id {
+  text-align: center;
+  margin-bottom: var(--space-m);
+}
+
 /* routes */
 .navigation__section--active,
 .social__section--active {
