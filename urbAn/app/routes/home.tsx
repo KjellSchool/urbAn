@@ -98,30 +98,48 @@ const Home = () => {
     const $sectionButton = document.querySelector(".game__buttons");
     const $routesSection = document.querySelector(".navigation__section");
     const $nearbySection = document.querySelector(".social__section");
+    const $challengesSection = document.querySelector(".challenges__section");
 
     const isActive =
       $routesSection?.classList.contains("navigation__section--active") ||
-      $nearbySection?.classList.contains("social__section--active");
+      $nearbySection?.classList.contains("social__section--active") ||
+      $challengesSection?.classList.contains("challenges__section--active");
 
     $sectionButton?.classList.toggle("game__buttons--active", isActive);
   };
 
   const revealRoutes = () => {
     const $routesSection = document.querySelector(".navigation__section");
-    const $otherSection = document.querySelector(".social__section");
+    const $nearbySection = document.querySelector(".social__section");
+    const $challengesSection = document.querySelector(".challenges__section");
 
     $routesSection?.classList.toggle("navigation__section--active");
-    $otherSection?.classList.remove("social__section--active");
+    $nearbySection?.classList.remove("social__section--active");
+    $challengesSection?.classList.remove("challenges__section--active");
 
     moveTabs();
   };
 
   const revealNearbyUsers = () => {
     const $nearbySection = document.querySelector(".social__section");
-    const $otherSection = document.querySelector(".navigation__section");
+    const $routesSection = document.querySelector(".navigation__section");
+    const $challengesSection = document.querySelector(".challenges__section");
 
     $nearbySection?.classList.toggle("social__section--active");
-    $otherSection?.classList.remove("navigation__section--active");
+    $routesSection?.classList.remove("navigation__section--active");
+    $challengesSection?.classList.remove("challenges__section--active");
+
+    moveTabs();
+  };
+
+  const revealChallenges = () => {
+    const $challengesSection = document.querySelector(".challenges__section");
+    const $nearbySection = document.querySelector(".social__section");
+    const $routesSection = document.querySelector(".navigation__section");
+
+    $challengesSection?.classList.toggle("challenges__section--active");
+    $nearbySection?.classList.remove("social__section--active");
+    $routesSection?.classList.remove("navigation__section--active");
 
     moveTabs();
   };
@@ -372,7 +390,189 @@ const Home = () => {
           />
         </div>
         <div className="game__buttons">
-          <button className="game__challenges">chal</button>
+          <button className="game__challenges" onClick={revealChallenges}>
+            <svg
+              width="158"
+              height="158"
+              viewBox="0 0 158 158"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M88.875 0H79V9.87498H88.875V0Z" fill="#1E1E1E" />
+              <path d="M79 0H69.125V9.87498H79V0Z" fill="#1E1E1E" />
+              <path d="M98.75 9.875H88.875V19.75H98.75V9.875Z" fill="#1E1E1E" />
+              <path d="M59.25 9.875H69.125V19.75H59.25V9.875Z" fill="#1E1E1E" />
+              <path
+                d="M98.75 19.75H88.875V29.625H98.75V19.75Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M59.25 19.75H69.125V29.625H59.25V19.75Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M108.625 29.625H98.75V39.5H108.625V29.625Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M49.375 29.625H59.25V39.5H49.375V29.625Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M108.625 39.5H98.75V49.375H108.625V39.5Z"
+                fill="#1E1E1E"
+              />
+              <path d="M49.375 39.5H59.25V49.375H49.375V39.5Z" fill="#1E1E1E" />
+              <path
+                d="M118.5 49.375H108.625V59.25H118.5V49.375Z"
+                fill="#1E1E1E"
+              />
+              <path d="M9.87498 59.25H0V69.125H9.87498V59.25Z" fill="#1E1E1E" />
+              <path
+                d="M148.125 59.25H158V69.125H148.125V59.25Z"
+                fill="#1E1E1E"
+              />
+              <path d="M19.75 69.125H9.875V79H19.75V69.125Z" fill="#1E1E1E" />
+              <path
+                d="M138.25 69.125H148.125V79H138.25V69.125Z"
+                fill="#1E1E1E"
+              />
+              <path d="M29.625 79H19.75V88.875H29.625V79Z" fill="#1E1E1E" />
+              <path d="M128.375 79H138.25V88.875H128.375V79Z" fill="#1E1E1E" />
+              <path
+                d="M29.625 98.75H19.75V108.625H29.625V98.75Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M128.375 98.75H138.25V108.625H128.375V98.75Z"
+                fill="#1E1E1E"
+              />
+              <path d="M39.5 88.875H29.625V98.75H39.5V88.875Z" fill="#1E1E1E" />
+              <path
+                d="M118.5 88.875H128.375V98.75H118.5V88.875Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M29.625 108.625H19.75V118.5H29.625V108.625Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M128.375 108.625H138.25V118.5H128.375V108.625Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M19.75 118.5H9.875V128.375H19.75V118.5Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M138.25 118.5H148.125V128.375H138.25V118.5Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M148.125 148.125H158V158H148.125V148.125Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M138.25 128.375H148.125V138.25H138.25V128.375Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M19.75 128.375H9.875V138.25H19.75V128.375Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M9.87498 138.25H0V148.125H9.87498V138.25Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M9.87498 148.125H0V158H9.87498V148.125Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M138.25 148.125H148.125V158H138.25V148.125Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M128.375 148.125H138.25V158H128.375V148.125Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M19.75 148.125H9.875V158H19.75V148.125Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M148.125 138.25H158V148.125H148.125V138.25Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M29.625 148.125H19.75V158H29.625V148.125Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M118.5 138.25H128.375V148.125H118.5V138.25Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M39.5 138.25H29.625V148.125H39.5V138.25Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M98.75 128.375H88.875V138.25H98.75V128.375Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M59.25 128.375H69.125V138.25H59.25V128.375Z"
+                fill="#1E1E1E"
+              />
+              <path d="M79 118.5H69.125V128.375H79V118.5Z" fill="#1E1E1E" />
+              <path
+                d="M108.625 128.375H98.75V138.25H108.625V128.375Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M49.375 128.375H59.25V138.25H49.375V128.375Z"
+                fill="#1E1E1E"
+              />
+              <path d="M88.875 118.5H79V128.375H88.875V118.5Z" fill="#1E1E1E" />
+              <path
+                d="M118.5 138.25H108.625V148.125H118.5V138.25Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M39.5 138.25H49.375V148.125H39.5V138.25Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M128.375 49.375H118.5V59.25H128.375V49.375Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M9.87498 49.375H0V59.25H9.87498V49.375Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M138.25 49.375H128.375V59.25H138.25V49.375Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M19.75 49.375H9.875V59.25H19.75V49.375Z"
+                fill="#1E1E1E"
+              />
+              <path
+                d="M148.125 49.375H138.25V59.25H148.125V49.375Z"
+                fill="#1E1E1E"
+              />
+              <path d="M158 49.375H148.125V59.25H158V49.375Z" fill="#1E1E1E" />
+              <path
+                d="M29.625 49.375H19.75V59.25H29.625V49.375Z"
+                fill="#1E1E1E"
+              />
+              <path d="M39.5 49.375H29.625V59.25H39.5V49.375Z" fill="#1E1E1E" />
+              <path
+                d="M49.375 49.375H39.5V59.25H49.375V49.375Z"
+                fill="#1E1E1E"
+              />
+            </svg>
+          </button>
           <button
             className="game__nearby button--social"
             onClick={revealNearbyUsers}>
@@ -1652,9 +1852,207 @@ const Home = () => {
         <div className="game__navigation">
           {activeRoute?.route ? (
             <Link
-              className="navigation__routes button--navigation"
+              className="navigation__routes navigation__cancel button--navigation"
               to={`/home`}>
               <button onClick={closeAllTabs}>
+                Cancel route
+              </button>
+            </Link>
+          ) : (
+            <button
+              className="navigation__routes button--navigation"
+              onClick={revealRoutes}>
+              <svg
+                width="23"
+                height="21"
+                viewBox="0 0 23 21"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M19.499 18H17.9991V19.4999H19.499V18Z" fill="black" />
+                <path
+                  d="M20.9989 19.5H19.499V20.9999H20.9989V19.5Z"
+                  fill="black"
+                />
+                <path d="M19.499 15H17.9991V16.4999H19.499V15Z" fill="black" />
+                <path
+                  d="M17.9991 15H16.4992V16.4999H17.9991V15Z"
+                  fill="black"
+                />
+                <path
+                  d="M16.4992 15H14.9992V16.4999H16.4992V15Z"
+                  fill="black"
+                />
+                <path
+                  d="M16.4992 13.5H14.9992V14.9999H16.4992V13.5Z"
+                  fill="black"
+                />
+                <path
+                  d="M17.9991 13.5H16.4992V14.9999H17.9991V13.5Z"
+                  fill="black"
+                />
+                <path
+                  d="M17.9991 16.5H16.4992V17.9999H17.9991V16.5Z"
+                  fill="black"
+                />
+                <path
+                  d="M19.499 16.5H17.9991V17.9999H19.499V16.5Z"
+                  fill="black"
+                />
+                <path d="M20.9989 18H19.499V19.4999H20.9989V18Z" fill="black" />
+                <path
+                  d="M20.9989 16.5H19.499V17.9999H20.9989V16.5Z"
+                  fill="black"
+                />
+                <path
+                  d="M22.4989 18H20.9989V19.4999H22.4989V18Z"
+                  fill="black"
+                />
+                <path
+                  d="M22.4989 19.5H20.9989V20.9999H22.4989V19.5Z"
+                  fill="black"
+                />
+                <path
+                  d="M13.4993 13.5H11.9994V14.9999H13.4993V13.5Z"
+                  fill="black"
+                />
+                <path
+                  d="M16.4992 12H14.9992V13.4999H16.4992V12Z"
+                  fill="black"
+                />
+                <path
+                  d="M16.4992 10.5H14.9992V11.9999H16.4992V10.5Z"
+                  fill="black"
+                />
+                <path d="M17.9991 9H16.4992V10.4999H17.9991V9Z" fill="black" />
+                <path
+                  d="M17.9991 7.5H16.4992V8.99992H17.9991V7.5Z"
+                  fill="black"
+                />
+                <path d="M17.9991 6H16.4992V7.49992H17.9991V6Z" fill="black" />
+                <path
+                  d="M14.9992 1.5H13.4993V2.99992H14.9992V1.5Z"
+                  fill="black"
+                />
+                <path
+                  d="M13.4993 1.5H11.9994V2.99992H13.4993V1.5Z"
+                  fill="black"
+                />
+                <path
+                  d="M11.9994 3.75H10.4995V5.24992H11.9994V3.75Z"
+                  fill="black"
+                />
+                <path
+                  d="M13.4993 5.25H11.9994V6.74992H13.4993V5.25Z"
+                  fill="black"
+                />
+                <path
+                  d="M13.4993 6.75H11.9994V8.24992H13.4993V6.75Z"
+                  fill="black"
+                />
+                <path d="M11.9994 0H10.4995V1.49992H11.9994V0Z" fill="black" />
+                <path d="M10.4995 0H8.99954V1.49992H10.4995V0Z" fill="black" />
+                <path d="M8.99956 0H7.49963V1.49992H8.99956V0Z" fill="black" />
+                <path d="M7.49962 0H5.99969V1.49992H7.49962V0Z" fill="black" />
+                <path
+                  d="M5.99968 1.5H4.49976V2.99992H5.99968V1.5Z"
+                  fill="black"
+                />
+                <path
+                  d="M2.99985 5.99992V4.5H1.49992V5.99992H2.99985Z"
+                  fill="black"
+                />
+                <path
+                  d="M16.4992 5.99992V4.5H14.9993V5.99992H16.4992Z"
+                  fill="black"
+                />
+                <path
+                  d="M4.49977 1.5H2.99985V2.99992H4.49977V1.5Z"
+                  fill="black"
+                />
+                <path
+                  d="M2.99985 4.49992V3H1.49992V4.49992H2.99985Z"
+                  fill="black"
+                />
+                <path
+                  d="M16.4992 4.49992V3H14.9993V4.49992H16.4992Z"
+                  fill="black"
+                />
+                <path d="M1.49992 6H0V7.49992H1.49992V6Z" fill="black" />
+                <path d="M1.49992 7.5H0V8.99992H1.49992V7.5Z" fill="black" />
+                <path d="M1.49992 9H0V10.4999H1.49992V9Z" fill="black" />
+                <path
+                  d="M2.99983 10.5H1.49991V11.9999H2.99983V10.5Z"
+                  fill="black"
+                />
+                <path
+                  d="M2.99983 12H1.49991V13.4999H2.99983V12Z"
+                  fill="black"
+                />
+                <path
+                  d="M4.49977 13.5H2.99985V14.9999H4.49977V13.5Z"
+                  fill="black"
+                />
+                <path
+                  d="M5.99968 13.5H4.49976V14.9999H5.99968V13.5Z"
+                  fill="black"
+                />
+                <path
+                  d="M7.49962 15H5.99969V16.4999H7.49962V15Z"
+                  fill="black"
+                />
+                <path
+                  d="M8.99956 15H7.49963V16.4999H8.99956V15Z"
+                  fill="black"
+                />
+                <path
+                  d="M10.4995 15H8.99954V16.4999H10.4995V15Z"
+                  fill="black"
+                />
+                <path
+                  d="M11.9994 15H10.4995V16.4999H11.9994V15Z"
+                  fill="black"
+                />
+                <path
+                  d="M14.9992 13.5H13.4993V14.9999H14.9992V13.5Z"
+                  fill="black"
+                />
+              </svg>
+              Look for routes
+            </button>
+          )}
+        </div>
+        <div className="challenges__section drawer">
+          <div>
+            <h2 className="drawer__title challenges__title">Side Quests</h2>
+            <p className="drawer__description">
+              Complete to unlock local tips!
+            </p>
+          </div>
+          {activeRoute?.route ? (
+            <div className="drawer__section">
+              <h3 className="drawer__subtitle">In this route</h3>
+              <ul className="home__challenges">
+                {activeRoute?.challenges?.map((challenge) => (
+                  <li
+                    className="challenges__item"
+                    key={challenge?.challenge_id}>
+                    <p className="challenge__description">
+                      {challenge?.description}
+                    </p>
+                    <p className="challenge__route archetype-tag">
+                      {activeRoute?.route?.title}
+                    </p>
+                    <button className="challenge__finish">Done!</button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <div className="challenges__empty">
+              <h3 className="empty__message">Start a route to reveal some side quests</h3>
+              <button
+                className="navigation__routes empty__search button--navigation"
+                onClick={revealRoutes}>
                 <svg
                   width="23"
                   height="21"
@@ -1837,182 +2235,15 @@ const Home = () => {
                     fill="black"
                   />
                 </svg>
-                Cancel route
+                Look for routes
               </button>
-            </Link>
-          ) : (
-            <button
-              className="navigation__routes button--navigation"
-              onClick={revealRoutes}>
-              <svg
-                width="23"
-                height="21"
-                viewBox="0 0 23 21"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path d="M19.499 18H17.9991V19.4999H19.499V18Z" fill="black" />
-                <path
-                  d="M20.9989 19.5H19.499V20.9999H20.9989V19.5Z"
-                  fill="black"
-                />
-                <path d="M19.499 15H17.9991V16.4999H19.499V15Z" fill="black" />
-                <path
-                  d="M17.9991 15H16.4992V16.4999H17.9991V15Z"
-                  fill="black"
-                />
-                <path
-                  d="M16.4992 15H14.9992V16.4999H16.4992V15Z"
-                  fill="black"
-                />
-                <path
-                  d="M16.4992 13.5H14.9992V14.9999H16.4992V13.5Z"
-                  fill="black"
-                />
-                <path
-                  d="M17.9991 13.5H16.4992V14.9999H17.9991V13.5Z"
-                  fill="black"
-                />
-                <path
-                  d="M17.9991 16.5H16.4992V17.9999H17.9991V16.5Z"
-                  fill="black"
-                />
-                <path
-                  d="M19.499 16.5H17.9991V17.9999H19.499V16.5Z"
-                  fill="black"
-                />
-                <path d="M20.9989 18H19.499V19.4999H20.9989V18Z" fill="black" />
-                <path
-                  d="M20.9989 16.5H19.499V17.9999H20.9989V16.5Z"
-                  fill="black"
-                />
-                <path
-                  d="M22.4989 18H20.9989V19.4999H22.4989V18Z"
-                  fill="black"
-                />
-                <path
-                  d="M22.4989 19.5H20.9989V20.9999H22.4989V19.5Z"
-                  fill="black"
-                />
-                <path
-                  d="M13.4993 13.5H11.9994V14.9999H13.4993V13.5Z"
-                  fill="black"
-                />
-                <path
-                  d="M16.4992 12H14.9992V13.4999H16.4992V12Z"
-                  fill="black"
-                />
-                <path
-                  d="M16.4992 10.5H14.9992V11.9999H16.4992V10.5Z"
-                  fill="black"
-                />
-                <path d="M17.9991 9H16.4992V10.4999H17.9991V9Z" fill="black" />
-                <path
-                  d="M17.9991 7.5H16.4992V8.99992H17.9991V7.5Z"
-                  fill="black"
-                />
-                <path d="M17.9991 6H16.4992V7.49992H17.9991V6Z" fill="black" />
-                <path
-                  d="M14.9992 1.5H13.4993V2.99992H14.9992V1.5Z"
-                  fill="black"
-                />
-                <path
-                  d="M13.4993 1.5H11.9994V2.99992H13.4993V1.5Z"
-                  fill="black"
-                />
-                <path
-                  d="M11.9994 3.75H10.4995V5.24992H11.9994V3.75Z"
-                  fill="black"
-                />
-                <path
-                  d="M13.4993 5.25H11.9994V6.74992H13.4993V5.25Z"
-                  fill="black"
-                />
-                <path
-                  d="M13.4993 6.75H11.9994V8.24992H13.4993V6.75Z"
-                  fill="black"
-                />
-                <path d="M11.9994 0H10.4995V1.49992H11.9994V0Z" fill="black" />
-                <path d="M10.4995 0H8.99954V1.49992H10.4995V0Z" fill="black" />
-                <path d="M8.99956 0H7.49963V1.49992H8.99956V0Z" fill="black" />
-                <path d="M7.49962 0H5.99969V1.49992H7.49962V0Z" fill="black" />
-                <path
-                  d="M5.99968 1.5H4.49976V2.99992H5.99968V1.5Z"
-                  fill="black"
-                />
-                <path
-                  d="M2.99985 5.99992V4.5H1.49992V5.99992H2.99985Z"
-                  fill="black"
-                />
-                <path
-                  d="M16.4992 5.99992V4.5H14.9993V5.99992H16.4992Z"
-                  fill="black"
-                />
-                <path
-                  d="M4.49977 1.5H2.99985V2.99992H4.49977V1.5Z"
-                  fill="black"
-                />
-                <path
-                  d="M2.99985 4.49992V3H1.49992V4.49992H2.99985Z"
-                  fill="black"
-                />
-                <path
-                  d="M16.4992 4.49992V3H14.9993V4.49992H16.4992Z"
-                  fill="black"
-                />
-                <path d="M1.49992 6H0V7.49992H1.49992V6Z" fill="black" />
-                <path d="M1.49992 7.5H0V8.99992H1.49992V7.5Z" fill="black" />
-                <path d="M1.49992 9H0V10.4999H1.49992V9Z" fill="black" />
-                <path
-                  d="M2.99983 10.5H1.49991V11.9999H2.99983V10.5Z"
-                  fill="black"
-                />
-                <path
-                  d="M2.99983 12H1.49991V13.4999H2.99983V12Z"
-                  fill="black"
-                />
-                <path
-                  d="M4.49977 13.5H2.99985V14.9999H4.49977V13.5Z"
-                  fill="black"
-                />
-                <path
-                  d="M5.99968 13.5H4.49976V14.9999H5.99968V13.5Z"
-                  fill="black"
-                />
-                <path
-                  d="M7.49962 15H5.99969V16.4999H7.49962V15Z"
-                  fill="black"
-                />
-                <path
-                  d="M8.99956 15H7.49963V16.4999H8.99956V15Z"
-                  fill="black"
-                />
-                <path
-                  d="M10.4995 15H8.99954V16.4999H10.4995V15Z"
-                  fill="black"
-                />
-                <path
-                  d="M11.9994 15H10.4995V16.4999H11.9994V15Z"
-                  fill="black"
-                />
-                <path
-                  d="M14.9992 13.5H13.4993V14.9999H14.9992V13.5Z"
-                  fill="black"
-                />
-              </svg>
-              Look for routes
-            </button>
+            </div>
           )}
-        </div>
-        <div className="challenges__secton drawer">
-          ff
-          {activeRoute?.challenges?.map((challenge) => (
-            <p>{challenge.title}</p>
-          ))}
         </div>
         <div className="social__section drawer">
           <h2 className="drawer__title">Nearby Explorers</h2>
           <div className="drawer__section">
-            <h3 className="drawer__subtitle">Closer than 200m</h3>
+            <h3 className="drawer__subtitle">200m radius</h3>
             <ul className="social__nearby">
               {closeProfiles?.map((profile) => {
                 if (profile?.profile_id !== currentUser?.profile_id) {
@@ -2097,7 +2328,7 @@ const Home = () => {
             </ul>
           </div>
           <div className="drawer__section">
-            <h3 className="drawer__subtitle">Closer than 500m</h3>
+            <h3 className="drawer__subtitle">500m radius</h3>
             <ul className="social__nearby">
               {farProfiles?.map((profile) => {
                 if (profile?.profile_id !== currentUser?.profile_id) {

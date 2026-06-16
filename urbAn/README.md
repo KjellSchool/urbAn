@@ -2,7 +2,7 @@
 
 ## Styling
 
-- [ ] Profile page
+- [x] Profile page
 - [ ] Settings page
 - [x] Meet-up popup
 - [ ] Edit profile page
@@ -10,6 +10,13 @@
 ## TO build
 
 - [ ] Edit profile page
+
+## Landing Page
+
+- [ ] Feature Promotion
+- [ ] Tutorial
+- [ ] Footer
+- [ ] ! Desktop !
 
 ## Nearby Users
 
