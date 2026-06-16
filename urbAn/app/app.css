@@ -851,7 +851,13 @@ button {
 }
 
 .user__new {
+  background-image: url("./assets/background/user-picker.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
   padding-top: var(--space-l);
+  margin-bottom: -1.5rem;
 }
 
 .new__promo {
@@ -879,7 +885,7 @@ button {
 
 .new__title--sticker {
   align-self: flex-end;
-  
+
   font-family: "Antwerpen Pixel";
   font-size: 64px;
 
@@ -919,7 +925,17 @@ button {
 }
 
 .new__form {
-  background-color: var(--colour-blue-400);
+  background:
+    linear-gradient(to bottom, var(--colour-blue-400), var(--colour-blue-300)),
+    url("./assets/background/drawer-bottom.svg");
+
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
 }
 
 .new__form {
@@ -932,15 +948,23 @@ button {
 .new__form label {
   color: var(--colour-white);
   font-family: "Antwerpen Regular";
-  
+
   display: flex;
   flex-direction: column;
   gap: var(--space-2xs);
 }
 
-.new__form label input, .new__form label select {
-  font-size: 20px;
+.new__form label select,
+.new__form label input[type="date"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
 
+.new__form label input,
+.new__form label textarea,
+.new__form label select {
+  font-size: 20px;
   border: 1px solid var(--colour-black);
   border-radius: 8px;
   box-shadow: 2px 2px 0 var(--colour-black);
@@ -949,6 +973,12 @@ button {
 .form__info {
   display: flex;
   justify-content: space-between;
+}
+
+.form__info label,
+.form__info label input,
+.form__info label select {
+  height: 100%;
 }
 
 .quiz__question {
@@ -1010,6 +1040,10 @@ button {
   border-radius: 32px;
   border: 1px solid var(--colour-black);
   box-shadow: -4px 4px 1px black;
+}
+
+.quiz-start {
+  margin: auto;
 }
 
 /*! ===== game ===== */

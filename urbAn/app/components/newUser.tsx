@@ -171,7 +171,7 @@ const NewUser = () => {
           </label>
           <label>
             Tell us about you
-            <input
+            <textarea
               type="text"
               name="description"
               placeholder="Travel lover since 2016!"
@@ -192,6 +192,7 @@ const NewUser = () => {
               <input
                 type="date"
                 name="birthday"
+                value="1999-01-01"
                 onChange={(e) => {
                   const value = e.target.value;
 

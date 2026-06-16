@@ -290,7 +290,6 @@ const ArchetypeQuiz = () => {
             </defs>
           </svg>
         </h2>
-
         ) : ""}
         <Outlet
           context={{
@@ -328,9 +327,9 @@ const ArchetypeQuiz = () => {
             )
           ) : (
             <Link
-              className="quiz__navigation"
+              className="quiz__navigation quiz-start"
               to={`/question-${quizQuestionNumber + 1}`}>
-              <button onClick={pageUp}>Next</button>
+              <button onClick={pageUp}>Start Quiz</button>
             </Link>
           )}
         </div>
