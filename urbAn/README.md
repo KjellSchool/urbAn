@@ -5,6 +5,11 @@
 - [x] Profile page
 - [ ] Settings page
 - [x] Meet-up popup
+- [ ] Edit profile page
+
+## TO build
+
+- [ ] Edit profile page
 
 ## Landing Page
 

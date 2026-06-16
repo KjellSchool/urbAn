@@ -4,6 +4,7 @@
   --colour-orange: #ff8029;
 
   /* secondary colours */
+  --colour-blue-100: #BEE3FF;
   --colour-blue-300: #46a2ff;
   --colour-blue-400: #047af4;
   --colour-blue: #0051ff;
@@ -82,8 +83,7 @@
 
 @font-face {
   font-family: "Pixelify Sans";
-  src: url("./assets/fonts/PixelifySans-VariableFont_wght.ttf")
-    format("truetype");
+  src: url("./assets/fonts/PixelifySans-VariableFont_wght.ttf") format("truetype");
 }
 
 /*! ===== universal ===== */
@@ -150,11 +150,9 @@ button {
 }
 
 .drawer {
-  background: linear-gradient(
-    to bottom,
-    var(--colour-blue-400),
-    var(--colour-blue-300)
-  );
+  background: linear-gradient(to bottom,
+      var(--colour-blue-400),
+      var(--colour-blue-300));
 
   width: 100%;
   height: 80dvh;
@@ -218,8 +216,7 @@ button {
 /*! ===== landing page ===== */
 .landing {
   /* background-color: var(--colour-blue-300); */
-  background: var(--colour-blue-400)
-    url("./assets/background/sky-color-halftone.png");
+  background: var(--colour-blue-400) url("./assets/background/sky-color-halftone.png");
   background-blend-mode: color-dodge;
   background-size: 200%;
   background-repeat: repeat-y;
@@ -752,6 +749,7 @@ button {
   justify-content: center;
   align-items: center;
 }
+
 .users__item * {
   height: 100%;
   width: 100%;
@@ -905,6 +903,7 @@ button {
 
 .game__nearby,
 .game__challenges {
+
   background-color: var(--colour-yellow);
 
   width: fit-content;
@@ -912,6 +911,7 @@ button {
   padding: var(--space-s) var(--space-m);
   border-radius: 0 32px 32px 0;
   box-shadow: 0 4px 4px #00000033;
+
 
   z-index: +1;
 }
@@ -1010,6 +1010,10 @@ button {
   display: none;
 }
 
+/* nearby users */
+.social__section {}
+
+.social__section--active {}
 /* challenges */
 .home__challenges {
   display: flex;
@@ -1199,7 +1203,8 @@ button {
 }
 
 /* profile */
-.profile {
+.profile,
+.settings {
   background-color: var(--color-white-dark);
 
   min-height: 100dvh;
@@ -1207,12 +1212,11 @@ button {
   flex-direction: column;
 }
 
-.profile__header {
-  background: linear-gradient(
-    to bottom,
-    var(--colour-blue-400),
-    var(--colour-blue-300)
-  );
+.profile__header,
+.settings__header {
+  background: linear-gradient(to bottom,
+      var(--colour-blue-400),
+      var(--colour-blue-300));
 
   padding: var(--space-s);
   border-bottom: 2px solid var(--colour-black);
@@ -1222,13 +1226,15 @@ button {
   gap: var(--space-m);
 }
 
-.profile__navigation {
+.profile__navigation,
+.settings__navigation {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.profile__navigation--back {
+.profile__navigation--back,
+.settings__navigation--back {
   background-color: var(--colour-yellow);
 
   width: 3rem;
@@ -1243,14 +1249,16 @@ button {
   align-items: center;
 }
 
-.profile__title {
+.profile__title,
+.settings__title {
   color: var(--colour-white);
   font-family: "Antwerpen Regular";
   font-size: 32px;
   text-align: center;
 }
 
-.profile__main {
+.profile__main,
+.settings__group {
   padding: var(--space-m);
 
   display: flex;
@@ -1406,6 +1414,7 @@ button {
 .stat--blue {
   background-color: var(--colour-blue-300);
 }
+
 .stat--green {
   background-color: var(--colour-green-300);
 }
@@ -1432,7 +1441,7 @@ button {
   transform: "";
 }
 
-.achievements__item summary + ul {
+.achievements__item summary+ul {
   margin-top: var(--space-s);
 
   display: flex;
@@ -1456,6 +1465,7 @@ button {
 
   display: inline-block;
 }
+
 .entry--pink::before {
   background-color: var(--colour-pink-300);
 }
@@ -1466,6 +1476,184 @@ button {
 
 .entry--green::before {
   background-color: var(--colour-green-300);
+}
+
+/*settings*/
+.personal__edit {
+  background-color: var(--colour-pink-300);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 32px;
+  font-family: "Antwerpen Small Caps";
+  font-size: 19px;
+  width: 13rem;
+  padding-top: var(--space-xs);
+  padding-bottom: var(--space-xs);
+}
+
+.group__title {
+  font-family: "Antwerpen Regular";
+  font-size: 20px;
+}
+
+.group__setting label,
+.element__setting,
+.group__setting--access label {
+  font-family: "sun antwerpen";
+  font-size: 20px;
+}
+
+.element__setting p:last-child {
+  font-family: "sun antwerpen";
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.group__setting--bio {
+  background-color: var(--colour-white);
+  padding: var(--space-m);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+
+}
+
+.element__setting {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: var(--space-s);
+}
+
+.group__setting--bio .element__setting {
+  border-bottom: 1px solid var(--colour-beige);
+  margin-bottom: var(--space-s);
+}
+
+.group__setting--bio .element__setting:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.group__setting {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: var(--space-s);
+  background-color: var(--colour-white);
+  padding: var(--space-m);
+  border-radius: 20px;
+  gap: var(--space-s);
+}
+
+.group__setting--access {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: var(--space-s);
+  background-color: var(--colour-white);
+  padding: var(--space-m);
+  border-radius: 20px;
+  gap: var(--space-s);
+}
+
+.group__setting--access div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.group__setting--access div:first-child {
+  border-bottom: 1px solid var(--colour-beige);
+  padding-bottom: var(--space-s);
+  margin-bottom: var(--space-s);
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 68px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--colour-blue-100);
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: var(--colour-blue-400);
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked+.slider {
+  background-color: var(--colour-blue-400);
+}
+
+input:checked+.slider:before {
+  background-color: var(--colour-blue-100);
+  transform: translateX(33px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.settings__links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: var(--space-m);
+}
+
+.settings__log {
+  font-family: "Antwerpen Regular";
+  font-size: 24px;
+  text-transform: uppercase;
+  margin-top: var(--space-s);
+  text-align: center;
+  padding: 1rem 2rem;
+  width: 320px;
+  border-radius: 32px;
+  letter-spacing: 36px;
+}
+
+.login {
+  color: var(--color-white-dark);
+  background-color: var(--colour-black);
+}
+
+.delete {
+  border: 1px solid var(--colour-black);
+  font-size: 20px;
+}
+
+.id {
+  text-align: center;
+  margin-bottom: var(--space-m);
 }
 
 /* routes */
@@ -1617,50 +1805,6 @@ button {
   background-color: var(--colour-black);
 
   color: white;
-}
-
-/* settings */
-.settings {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-s);
-}
-
-.settings__title {
-  font-family: "Antwerpen Regular";
-  font-size: 140%;
-  align-self: center;
-}
-
-.settings__group {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2xs);
-}
-
-.group__title {
-  font-size: 120%;
-  font-weight: bold;
-}
-
-.group__setting {
-  display: flex;
-  justify-content: space-between;
-}
-
-.settings__links {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-}
-
-.settings__links * {
-  align-self: center;
-  background-color: lightgray;
-
-  width: fit-content;
-  padding: var(--space-xs) var(--space-s);
-  border-radius: 4px;
 }
 
 /*! ===== media queries ===== */
