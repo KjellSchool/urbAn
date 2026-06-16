@@ -20,6 +20,8 @@ const ArchetypeQuiz = () => {
   const lastChar = url.pathname.substring(url.pathname.length - 1);
   const currentPage = parseInt(lastChar);
 
+  console.log(currentPage);
+
   const [quizQuestionNumber, setQuizQuestionNumber] = useState(currentPage);
 
   const pageDown = () => {
@@ -167,130 +169,19 @@ const ArchetypeQuiz = () => {
     console.log(newProfile, error);
     setCurrentUser(newProfile);
 
-    navigate("/home");
+    navigate("/result");
   };
 
   const loadingPositions = [
-    3.6084, 32.481, 61.353, 90.2251, 119.098, 147.97, 176.841, 206,
+    3.6084, 32.481, 61.353, 90.2251, 119.098, 147.97, 176.841,
   ];
 
   return (
     <>
       <div className="quiz__layout">
-        { currentPage !== 1 ? (
-        <h2 className="quiz__title">
-          <span>{currentPage - 1} / 7 complete</span>
-          <svg
-            width="237"
-            height="36"
-            viewBox="0 0 237 36"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <mask id="path-1-inside-1_1153_2177" fill="white">
-              <rect width="237" height="36" rx="2" />
-            </mask>
-            <rect
-              width="237"
-              height="36"
-              rx="2"
-              stroke="#2EFFA5"
-              stroke-width="4.81203"
-              mask="url(#path-1-inside-1_1153_2177)"
-            />
-            {loadingPositions.slice(0, currentPage - 1).map((x, index) => (
-              <rect
-                x={x}
-                y="3.60547"
-                width="27.6692"
-                height="28.8722"
-                fill="url(#paint0_linear_1153_2177)"
-              />
-            ))}
-            <defs>
-              <linearGradient
-                id="paint0_linear_1153_2177"
-                x1="17.443"
-                y1="3.60547"
-                x2="17.443"
-                y2="32.4776"
-                gradientUnits="userSpaceOnUse">
-                <stop stop-color="#2EFFA5" />
-                <stop offset="1" stop-color="#00E081" />
-              </linearGradient>
-              <linearGradient
-                id="paint1_linear_1153_2177"
-                x1="46.3155"
-                y1="3.60547"
-                x2="46.3155"
-                y2="32.4776"
-                gradientUnits="userSpaceOnUse">
-                <stop stop-color="#2EFFA5" />
-                <stop offset="1" stop-color="#00E081" />
-              </linearGradient>
-              <linearGradient
-                id="paint2_linear_1153_2177"
-                x1="75.1876"
-                y1="3.60547"
-                x2="75.1876"
-                y2="32.4776"
-                gradientUnits="userSpaceOnUse">
-                <stop stop-color="#2EFFA5" />
-                <stop offset="1" stop-color="#00E081" />
-              </linearGradient>
-              <linearGradient
-                id="paint3_linear_1153_2177"
-                x1="104.06"
-                y1="3.60547"
-                x2="104.06"
-                y2="32.4776"
-                gradientUnits="userSpaceOnUse">
-                <stop stop-color="#2EFFA5" />
-                <stop offset="1" stop-color="#00E081" />
-              </linearGradient>
-              <linearGradient
-                id="paint4_linear_1153_2177"
-                x1="132.932"
-                y1="3.60547"
-                x2="132.932"
-                y2="32.4776"
-                gradientUnits="userSpaceOnUse">
-                <stop stop-color="#2EFFA5" />
-                <stop offset="1" stop-color="#00E081" />
-              </linearGradient>
-              <linearGradient
-                id="paint5_linear_1153_2177"
-                x1="161.804"
-                y1="3.60547"
-                x2="161.804"
-                y2="32.4776"
-                gradientUnits="userSpaceOnUse">
-                <stop stop-color="#2EFFA5" />
-                <stop offset="1" stop-color="#00E081" />
-              </linearGradient>
-              <linearGradient
-                id="paint6_linear_1153_2177"
-                x1="190.676"
-                y1="3.60547"
-                x2="190.676"
-                y2="32.4776"
-                gradientUnits="userSpaceOnUse">
-                <stop stop-color="#2EFFA5" />
-                <stop offset="1" stop-color="#00E081" />
-              </linearGradient>
-              <linearGradient
-                id="paint7_linear_1153_2177"
-                x1="219.835"
-                y1="3.60547"
-                x2="219.835"
-                y2="32.4776"
-                gradientUnits="userSpaceOnUse">
-                <stop stop-color="#2EFFA5" />
-                <stop offset="1" stop-color="#00E081" />
-              </linearGradient>
-            </defs>
-          </svg>
-        </h2>
-        ) : ""}
+        {currentPage !== 1 && !Number.isNaN(currentPage) ? (
+          <h2 className="quiz__title">...</h2>
+        ) : null}
         <Outlet
           context={{
             setPendingUser,
@@ -299,8 +190,13 @@ const ArchetypeQuiz = () => {
             pendingAnswer,
           }}></Outlet>
         <div className="quiz__buttons">
-          {quizQuestionNumber > 1 ? (
-            quizQuestionNumber > 6 ? (
+          {Number.isNaN(currentPage) ? (
+            <>
+              <Link className="quiz__navigation quiz__explore" to={"/home"}>Start Exploring!</Link>
+              <p>You can retake this quiz later in the settings.</p>
+            </>
+          ) : quizQuestionNumber > 1 ? (
+            quizQuestionNumber > 7 ? (
               <>
                 <Link
                   className="quiz__navigation"
