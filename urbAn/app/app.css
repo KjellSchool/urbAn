@@ -784,6 +784,7 @@ button {
   font-family: "Antwerpen Small Caps";
   font-size: 20px;
   overflow-wrap: break-word;
+}
 
 .selector__onboarding {
   background-color: var(--colour-blue-300);
