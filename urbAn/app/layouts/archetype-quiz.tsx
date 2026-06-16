@@ -157,8 +157,10 @@ const ArchetypeQuiz = () => {
 
     const { data: newProfile, error } = await insertProfile(
       finalUser.username,
-      finalUser.birthday,
       finalUser.description,
+      finalUser.birthday,
+      finalUser.gender,
+      finalUser.country,
       finalUser.archetype,
     );
 
@@ -175,8 +177,9 @@ const ArchetypeQuiz = () => {
   return (
     <>
       <div className="quiz__layout">
+        { currentPage !== 1 ? (
         <h2 className="quiz__title">
-          <span>{currentPage} / 8 complete</span>
+          <span>{currentPage - 1} / 7 complete</span>
           <svg
             width="237"
             height="36"
@@ -194,7 +197,7 @@ const ArchetypeQuiz = () => {
               stroke-width="4.81203"
               mask="url(#path-1-inside-1_1153_2177)"
             />
-            {loadingPositions.slice(0, currentPage).map((x, index) => (
+            {loadingPositions.slice(0, currentPage - 1).map((x, index) => (
               <rect
                 x={x}
                 y="3.60547"
@@ -287,6 +290,8 @@ const ArchetypeQuiz = () => {
             </defs>
           </svg>
         </h2>
+
+        ) : ""}
         <Outlet
           context={{
             setPendingUser,
@@ -301,13 +306,11 @@ const ArchetypeQuiz = () => {
                 <Link
                   className="quiz__navigation"
                   to={`/question-${quizQuestionNumber - 1}`}>
-                  <button onClick={pageDown}>Previous</button>
+                  <button onClick={pageDown}>Back</button>
                 </Link>
-                {/* <Link to={``}> */}
                 <button className="quiz__navigation" onClick={submitOnboarding}>
                   Finish
                 </button>
-                {/* </Link> */}
               </>
             ) : (
               <>
