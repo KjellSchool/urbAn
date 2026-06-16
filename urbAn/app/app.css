@@ -4,6 +4,7 @@
   --colour-orange: #ff8029;
 
   /* secondary colours */
+  --colour-blue-100: #BEE3FF;
   --colour-blue-300: #46a2ff;
   --colour-blue-400: #047af4;
 
@@ -1402,7 +1403,8 @@ button {
 }
 
 .group__setting label,
-.element__setting {
+.element__setting,
+.group__setting--access label {
   font-family: "sun antwerpen";
   font-size: 20px;
 }
@@ -1433,6 +1435,96 @@ button {
 .group__setting--bio .element__setting {
   border-bottom: 1px solid var(--colour-beige);
   margin-bottom: var(--space-s);
+}
+
+.group__setting--bio .element__setting:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.group__setting {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: var(--space-s);
+  background-color: var(--colour-white);
+  padding: var(--space-m);
+  border-radius: 20px;
+  gap: var(--space-s);
+}
+
+.group__setting--access {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: var(--space-s);
+  background-color: var(--colour-white);
+  padding: var(--space-m);
+  border-radius: 20px;
+  gap: var(--space-s);
+}
+
+.group__setting--access div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.group__setting--access div:first-child {
+  border-bottom: 1px solid var(--colour-beige);
+  padding-bottom: var(--space-s);
+  margin-bottom: var(--space-s);
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 68px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--colour-blue-100);
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: var(--colour-blue-400);
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked+.slider {
+  background-color: var(--colour-blue-400);
+}
+
+input:checked+.slider:before {
+  background-color: var(--colour-blue-100);
+  transform: translateX(33px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }
 
 /* routes */

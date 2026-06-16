@@ -882,25 +882,39 @@ const Settings = () => {
           <h2 className="group__title">Location</h2>
           <div className="group__setting">
             <label htmlFor="">Visibility</label>
-            <input type="checkbox" />
+            <label className="switch">
+              <input className="switch visibility" type="checkbox" />
+              <span className="slider round"></span>
+            </label>
           </div>
         </div>
         <div className="settings__group">
           <h2 className="group__title">Appearance</h2>
           <div className="group__setting">
             <label htmlFor="">Dark mode</label>
-            <input type="checkbox" />
+            <label className="switch">
+              <input className="switch darkmode" type="checkbox" />
+              <span className="slider round"></span>
+            </label>
           </div>
         </div>
         <div className="settings__group">
           <h2 className="group__title">Accessibility</h2>
-          <div className="group__setting">
-            <label htmlFor="">Screen reader</label>
-            <input type="checkbox" />
-          </div>
-          <div className="group__setting">
-            <label htmlFor="">High contrast</label>
-            <input type="checkbox" />
+          <div className="group__setting--access">
+            <div>
+              <label htmlFor="">Screen reader</label>
+              <label className="switch">
+                <input className="switch screenread" type="checkbox" />
+                <span className="slider round"></span>
+              </label>
+            </div>
+            <div>
+              <label htmlFor="">High contrast</label>
+              <label className="switch">
+                <input className="switch contrast" type="checkbox" />
+                <span className="slider round"></span>
+              </label>
+            </div>
           </div>
         </div>
         <div className="settings__links">
