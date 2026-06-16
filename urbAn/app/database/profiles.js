@@ -18,8 +18,10 @@ export const getProfile = async (profileId) => {
 
 export const insertProfile = async (
   username,
-  birthday,
   description,
+  birthday,
+  gender, 
+  country,
   archetype,
 ) => {
   const { data, error } = await supabase
@@ -29,6 +31,8 @@ export const insertProfile = async (
         name: username,
         description: description,
         date_of_birth: birthday,
+        gender: gender,
+        nationality: country,
         primary_archetype: archetype,
       },
     ])
