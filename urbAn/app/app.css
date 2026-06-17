@@ -897,6 +897,15 @@ li{
   font-size: 20px;
   font-weight: 700;
   text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.selector__description span {
+  width: fit-content;
 }
 
 .selector__users {

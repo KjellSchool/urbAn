@@ -36,7 +36,6 @@ const User = () => {
         <h1 className="selector__title">Who's there?</h1>
         <p className="selector__description">
           <span className="highlight-blue-100">Select or create your</span>
-          <br />
           <span className="highlight-blue-100">own profile</span>
         </p>
         <ul className="selector__users">
