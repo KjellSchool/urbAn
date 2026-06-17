@@ -192,7 +192,6 @@ const NewUser = () => {
               <input
                 type="date"
                 name="birthday"
-                value="1999-01-01"
                 onChange={(e) => {
                   const value = e.target.value;
 
