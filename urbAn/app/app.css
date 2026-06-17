@@ -784,6 +784,7 @@ button {
   justify-items: center;
   align-items: flex-start;
   row-gap: var(--space-m);
+column-gap: var(--space-m);
 }
 
 .users__item button {
