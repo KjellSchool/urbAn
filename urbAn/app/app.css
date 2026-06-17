@@ -708,16 +708,75 @@ button {
   left: 5rem;
 }
 
-
+/*footer*/
 .landing__footer {
   display: flex;
   flex-direction: column;
 }
 
+.footer__skyline {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+.footer__skyline img {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.footer__skyline svg {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: flex-end;
+}
+
 .footer__content {
   background-color: var(--colour-black);
+}
 
+.content__container {
+  margin: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-m);
+}
+
+.content__container p,
+li,
+h2 {
   color: var(--colour-white);
+  font-family: "Sun Antwerpen";
+  font-size: 16px;
+}
+
+.footer__title {
+  font-family: "Antwerpen Pixel";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.footer__adress {
+  max-width: 250px;
+}
+
+.footer__adress--short {
+  max-width: 100px;
+}
+
+.footer__logo {
+  width: 40%;
+  transform: rotate(5deg);
+  position: relative;
+  left: 13rem;
+  top: -5rem;
+  margin-bottom: -40%;
+}
+
+.footer__info li {
+  margin-bottom: var(--space-xs);
 }
 
 #responsive-redirect {
