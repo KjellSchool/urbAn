@@ -2,10 +2,9 @@
 
 ## Styling
 
-- [x] Profile page 
-- [ ] Settings page
+- [x] Profile page
+- [x] Settings page
 - [x] Meet-up popup
-- [ ] Edit profile page
 
 ## TO build
 
@@ -27,13 +26,10 @@
 
 ## Side Quests
 
-- [ ] Add side quest drawer
-- [ ] Fill drawer with side quests that are on the current route
-- [ ] 
-- [ ] 
+- [x] Add side quest drawer
+- [x] Fill drawer with side quests that are on the current route
+- [ ] Conplete side quests
 
 ## Routes
 
-- [ ] Cancel current route
-- [ ] 
-- [ ] 
+- [x] Cancel current route
