@@ -884,7 +884,7 @@ h2 {
   justify-items: center;
   align-items: flex-start;
   row-gap: var(--space-m);
-column-gap: var(--space-m);
+  column-gap: var(--space-m);
 }
 
 .users__item button {
@@ -1640,7 +1640,8 @@ column-gap: var(--space-m);
 
 /* profile */
 .profile,
-.settings {
+.settings,
+.editprofile {
   background-color: var(--color-white-dark);
 
   min-height: 100dvh;
@@ -1649,7 +1650,8 @@ column-gap: var(--space-m);
 }
 
 .profile__header,
-.settings__header {
+.settings__header,
+.editprofile__header {
   background: linear-gradient(to bottom,
       var(--colour-blue-400),
       var(--colour-blue-300));
@@ -1663,30 +1665,30 @@ column-gap: var(--space-m);
 }
 
 .profile__navigation,
-.settings__navigation {
+.settings__navigation,
+.editprofile__navigation {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .profile__navigation--back,
-.settings__navigation--back {
+.settings__navigation--back,
+.editprofile__navigation--back {
   background-color: var(--colour-yellow);
-
   width: 3rem;
   height: 3rem;
-  /* padding: var(--space-xs); */
   border: 1px solid var(--colour-black);
   border-radius: 32px;
   box-shadow: 2px 2px 0 var(--colour-black);
-
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .profile__title,
-.settings__title {
+.settings__title,
+.editprofile__title {
   color: var(--colour-white);
   font-family: "Antwerpen Regular";
   font-size: 32px;
@@ -1694,7 +1696,8 @@ column-gap: var(--space-m);
 }
 
 .profile__main,
-.settings__group {
+.settings__group,
+.editprofile__group {
   padding: var(--space-m);
 
   display: flex;
@@ -1935,7 +1938,8 @@ column-gap: var(--space-m);
 
 .group__setting label,
 .element__setting,
-.group__setting--access label {
+.group__setting--access label,
+.form__label {
   font-family: "sun antwerpen";
   font-size: 20px;
 }
@@ -2063,7 +2067,9 @@ input:checked+.slider:before {
   margin-bottom: var(--space-m);
 }
 
-.settings__log {
+.settings__log,
+.retake__quiz,
+.save__profile {
   font-family: "Antwerpen Regular";
   font-size: 24px;
   text-transform: uppercase;
@@ -2075,18 +2081,64 @@ input:checked+.slider:before {
   letter-spacing: 36px;
 }
 
-.login {
+.login,
+.save__profile {
   color: var(--color-white-dark);
   background-color: var(--colour-black);
 }
 
-.delete {
+.delete,
+.retake__quiz {
   border: 1px solid var(--colour-black);
   font-size: 20px;
 }
 
 .id {
   text-align: center;
+  margin-bottom: var(--space-m);
+}
+
+/*edit profile*/
+.retake__quiz {
+  padding: var(--space-xs) var(--space-m);
+}
+
+.profile__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-m);
+  margin: 0 var(--space-m);
+}
+
+.form__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.form__group input {
+  border-radius: 16px;
+  border: none;
+  height: 3.5rem;
+  padding: var(--space-s);
+  font-size: 16px;
+}
+
+.form__group--descrip textarea {
+  border-radius: 16px;
+  border: none;
+  min-height: 8rem;
+  padding: var(--space-s);
+  font-size: 16px;
+}
+
+.form__group--descrip p{
+  font-size: 12px;
+  color: var(--colour-orange);
+  align-self: flex-end;
+}
+
+.save__profile {
   margin-bottom: var(--space-m);
 }
 
