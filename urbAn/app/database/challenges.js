@@ -25,3 +25,33 @@ export const getCompletedChallenges = async (profileId) => {
 
   return { data, error };
 };
+
+export const insertChallengeProgres = async (challengeId, profileId) => {
+  const { data, error } = await supabase
+    .from("challenge_progress")
+    .upsert(
+      {
+        profile_id: profileId,
+        challenge_id: challengeId,
+        completed: true,
+      },
+      {
+        onConflict: "profile_id,challenge_id",
+      },
+    )
+    .select()
+    .single();
+
+  return { data, error };
+};
+
+export const getChallengeProgress = async (challengeId, profileId) => {
+  const { data, error } = await supabase
+    .from("challenge_progress")
+    .select("*")
+    .eq("challenge_id", challengeId)
+    .eq("profile_id", profileId)
+    .single();
+
+  return { data, error };
+};

@@ -83,7 +83,8 @@
 
 @font-face {
   font-family: "Pixelify Sans";
-  src: url("./assets/fonts/PixelifySans-VariableFont_wght.ttf") format("truetype");
+  src: url("./assets/fonts/PixelifySans-VariableFont_wght.ttf")
+    format("truetype");
 }
 
 /*! ===== universal ===== */
@@ -153,9 +154,11 @@ button {
 }
 
 .drawer {
-  background: linear-gradient(to bottom,
-      var(--colour-blue-400),
-      var(--colour-blue-300));
+  background: linear-gradient(
+    to bottom,
+    var(--colour-blue-400),
+    var(--colour-blue-300)
+  );
 
   width: 100%;
   height: 80dvh;
@@ -216,10 +219,25 @@ button {
   top: -3dvh;
 }
 
+.popup-container {
+  background-color: #00000076;
+  
+  width: 100dvw;
+  height: 100dvh;
+
+  position: fixed;
+  /* top: 0;
+  left: 0; */
+  inset: 0;
+
+  z-index: +2;
+}
+
 /*! ===== landing page ===== */
 .landing {
   /* background-color: var(--colour-blue-300); */
-  background: var(--colour-blue-400) url("./assets/background/sky-color-halftone.png");
+  background: var(--colour-blue-400)
+    url("./assets/background/sky-color-halftone.png");
   background-blend-mode: color-dodge;
   background-size: 200%;
   background-repeat: repeat-y;
@@ -693,7 +711,6 @@ button {
   width: 100%;
 }
 
-
 .landing__footer {
   display: flex;
   flex-direction: column;
@@ -784,7 +801,7 @@ button {
   justify-items: center;
   align-items: flex-start;
   row-gap: var(--space-m);
-column-gap: var(--space-m);
+  column-gap: var(--space-m);
 }
 
 .users__item button {
@@ -1029,7 +1046,8 @@ column-gap: var(--space-m);
   background-color: var(--colour-blue-100);
 }
 
-.question__options:has(label input:checked) .question__option:has(input:checked) {
+.question__options:has(label input:checked)
+  .question__option:has(input:checked) {
   background-color: var(--colour-white);
 }
 
@@ -1129,7 +1147,7 @@ column-gap: var(--space-m);
 }
 
 .archetype__result {
-  background-image: url('./assets/background/result-bg.svg');
+  background-image: url("./assets/background/result-bg.svg");
   background-size: cover;
   background-position: top center;
   background-repeat: no-repeat;
@@ -1550,9 +1568,11 @@ column-gap: var(--space-m);
 
 .profile__header,
 .settings__header {
-  background: linear-gradient(to bottom,
-      var(--colour-blue-400),
-      var(--colour-blue-300));
+  background: linear-gradient(
+    to bottom,
+    var(--colour-blue-400),
+    var(--colour-blue-300)
+  );
 
   padding: var(--space-s);
   border-bottom: 2px solid var(--colour-black);
@@ -1777,7 +1797,7 @@ column-gap: var(--space-m);
   transform: "";
 }
 
-.achievements__item summary+ul {
+.achievements__item summary + ul {
   margin-top: var(--space-s);
 
   display: flex;
@@ -1939,11 +1959,11 @@ column-gap: var(--space-m);
   transition: 0.4s;
 }
 
-input:checked+.slider {
+input:checked + .slider {
   background-color: var(--colour-blue-400);
 }
 
-input:checked+.slider:before {
+input:checked + .slider:before {
   background-color: var(--colour-blue-100);
   transform: translateX(33px);
 }
@@ -2069,7 +2089,7 @@ input:checked+.slider:before {
 }
 
 /* meetup */
-.game__meetup {
+.game__meetup, .challenge__tip {
   background-color: var(--colour-white);
 
   width: 80dvw;
@@ -2088,7 +2108,7 @@ input:checked+.slider:before {
   gap: var(--space-xs);
 }
 
-.meetup__sender {
+.meetup__sender, .tip__header {
   background-color: var(--colour-black);
 
   padding: var(--space-s);
@@ -2099,13 +2119,24 @@ input:checked+.slider:before {
   align-items: center;
 }
 
-.sender__name {
+.tip__header {
+  justify-content: flex-start;
+  gap: var(--space-xs);
+}
+
+.sender__name, .tip__header p {
   color: white;
   font-family: "Antwerpen Pixel";
   font-size: 32px;
 }
 
-.meetup__content {
+.tip__header p {
+  font-family: "Pixelify Sans";
+  font-size: 24px;
+  text-transform: uppercase;
+}
+
+.meetup__content, .tip__content {
   padding: var(--space-s);
 
   display: flex;
@@ -2113,8 +2144,61 @@ input:checked+.slider:before {
   gap: var(--space-s);
 }
 
+.content__title {
+  font-family: "Antwerpen Small Caps";
+  font-size: 20px;
+  text-align: center;
+}
+
+.tip__title {
+  color: var(--colour-orange);
+  font-family: "Antwerpen Pixel";
+  font-size: 32px;
+  text-align: center;
+
+  margin-bottom: var(--space-s);
+}
+
+.tip__close {
+  background-color: var(--colour-black);
+
+  color: var(--colour-white);
+  font-family: "Antwerpen Small Caps";
+  font-size: 20px;
+  
+  width: fit-content;
+  padding: var(--space-2xs) var(--space-m);
+  padding-bottom: var(--space-xs);
+  border-radius: 32px;
+  margin: auto;
+}
+
 .meetup__message {
   font-family: "Antwerpen Small Caps";
+}
+
+.sender__information {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
+
+.information__info {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-s);
+}
+
+.information__info div {
+  flex-grow: 1;
+  
+  background-color: lightgray;
+
+  font-family: "Antwerpen Regular";
+  text-align: center;
+
+  padding: var(--space-2xs) var(--space-xs);
+  border-radius: 32px;
 }
 
 .meetup__buttons {

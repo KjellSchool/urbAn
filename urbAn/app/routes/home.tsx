@@ -19,6 +19,13 @@ import {
   setMeetupStatus,
 } from "../database/meetup.js";
 
+import {
+  insertChallengeProgres,
+  getChallengeProgress,
+} from "../database/challenges.js";
+
+import { getChallengeTip } from "../database/tips.js";
+
 const Home = () => {
   const { currentUser } = useUser();
   const [profileLocation, setProfileLocation] = useState(
@@ -33,10 +40,13 @@ const Home = () => {
   const [activeRoute, setActiveRoute] = useState(null);
   const [routeLocations, setRouteLocations] = useState([]);
   const [routeChallenges, setRouteChallenges] = useState([]);
+  const [challengeTip, setChallengeTip] = useState(null);
+  const [tipActive, setTipActive] = useState(false);
 
   const [pendingMeetRequests, setPendingMeetRequests] = useState([]);
   const [senderProfile, setSenderProfile] = useState(null);
   const [senderArchetype, setSenderArchetype] = useState(null);
+  const [meetinInterest, setMeetingInterest] = useState(false);
 
   const getCurrentUserLocation = async () => {
     const { data: location } = await getProfileLocation(
@@ -73,7 +83,6 @@ const Home = () => {
       if (user.profile_id !== currentUser?.profile_id) {
         const userCoords = user.coordinates;
         const userDistance = calculateDistance(userCoords, profileLocation);
-        // console.log(user.name, userDistance);
 
         if (userDistance < 200) {
           newClose.push(user);
@@ -83,9 +92,7 @@ const Home = () => {
       }
     });
 
-    // console.log(newClose);
     setCloseProfiles(newClose);
-    // console.log(newFar);
     setFarProfiles(newFar);
   };
 
@@ -148,10 +155,12 @@ const Home = () => {
     const $nearbySection = document.querySelector(".social__section");
     const $routesSection = document.querySelector(".navigation__section");
     const $sectionButton = document.querySelector(".game__buttons");
+    const $challengesSection = document.querySelector(".challenges__section");
 
     $nearbySection?.classList.remove("social__section--active");
     $routesSection?.classList.remove("navigation__section--active");
     $sectionButton?.classList.remove("game__buttons--active");
+    $challengesSection?.classList.remove("challenges__section--active");
   };
 
   const loadRoutes = async () => {
@@ -169,7 +178,6 @@ const Home = () => {
     const result = await Promise.all(
       archetypeList.map(async (id) => {
         const { data } = await getArchetype(id);
-        // console.log(data);
         return [id, data];
       }),
     );
@@ -188,7 +196,6 @@ const Home = () => {
       archetypeIdList.map(async (id) => {
         if (id !== currentUser?.profile_id) {
           const { data } = await getArchetype(id);
-          // console.log(data);
           return [id, data];
         }
       }),
@@ -243,7 +250,6 @@ const Home = () => {
     );
 
     setPendingMeetRequests(pendingRequests);
-    console.log(pendingRequests);
   };
 
   const loadSenderProfile = async () => {
@@ -252,28 +258,22 @@ const Home = () => {
     );
 
     if (!pendingRequest) return;
-    console.log(pendingRequest);
 
     const { data: profile } = await getProfile(pendingRequest.sender_id);
     setSenderProfile(profile);
 
     const { data: archetype } = await getArchetype(profile?.primary_archetype);
-    console.log(archetype);
     setSenderArchetype(archetype);
   };
 
   useEffect(() => {
     if (!currentUser) return;
 
-    console.log("subscribing for:", currentUser.profile_id);
-
     loadPendingMeetRequests();
 
     const channel = subscribeToRequests(
       currentUser?.profile_id,
       (freshMeet) => {
-        console.log("realtime event fired:", freshMeet);
-
         setPendingMeetRequests((prev) => {
           const exists = prev.find((r) => r.meet_id === freshMeet.meet_id);
 
@@ -336,8 +336,6 @@ const Home = () => {
       .select()
       .single();
 
-    console.log(freshMeet);
-
     setPendingMeetRequests((prev) => {
       const exists = prev.find((r) => r.meet_id === freshMeet.meet_id);
 
@@ -349,6 +347,8 @@ const Home = () => {
 
       return [...prev, freshMeet];
     });
+
+    setMeetingInterest(false);
   };
 
   const calculateAge = (dob) => {
@@ -373,6 +373,51 @@ const Home = () => {
     return age;
   };
 
+  const toggleMeetingInterest = () => {
+    setMeetingInterest(!meetinInterest);
+  };
+
+  const [challengesProgress, setChallengesProgress] = useState([]);
+
+  const loadChallengesProgress = async () => {
+    let challengesProgres = await Promise.all(
+      routeChallenges?.map(async (challenge) => {
+        const { data: progress, error } = await getChallengeProgress(
+          challenge?.challenge_id,
+          currentUser?.profile_id,
+        );
+
+        return progress;
+      }),
+    );
+
+    setChallengesProgress(challengesProgres);
+  };
+
+  useEffect(() => {
+    if (!routeChallenges) return;
+
+    loadChallengesProgress();
+  }, [routeChallenges]);
+
+  const setChallengeComplete = async (challengeId) => {
+    const { data: challengeProgress, error } = await insertChallengeProgres(
+      challengeId,
+      currentUser?.profile_id,
+    );
+
+    console.log("error: ", error);
+    loadChallengesProgress();
+  };
+
+  const loadChallengeTip = async (challengeId) => {
+    const { data: tip, error } = await getChallengeTip(challengeId);
+
+    console.log(tipActive);
+    console.log(tip);
+    setChallengeTip(tip);
+  };
+
   return (
     <>
       <div className="game">
@@ -380,12 +425,9 @@ const Home = () => {
           <Map
             meetRequests={pendingMeetRequests}
             onRouteLoaded={(route, locations, challenges) => {
-              console.log("route: ", route);
-              console.log("locations: ", locations);
-              console.log("challenges: ", challenges);
               setActiveRoute(route);
               setRouteLocations(locations);
-              setRouteChallenges(challenges);
+              setRouteChallenges(route.challenges);
             }}
           />
         </div>
@@ -1854,9 +1896,7 @@ const Home = () => {
             <Link
               className="navigation__routes navigation__cancel button--navigation"
               to={`/home`}>
-              <button onClick={closeAllTabs}>
-                Cancel route
-              </button>
+              <button onClick={closeAllTabs}>Cancel route</button>
             </Link>
           ) : (
             <button
@@ -2042,14 +2082,47 @@ const Home = () => {
                     <p className="challenge__route archetype-tag">
                       {activeRoute?.route?.title}
                     </p>
-                    <button className="challenge__finish">Done!</button>
+                    <button
+                      className="challenge__finish"
+                      onClick={() => {
+                        setChallengeComplete(challenge?.challenge_id);
+                        loadChallengeTip(challenge?.challenge_id);
+                        setTipActive(true);
+                        closeAllTabs();
+                      }}>
+                      Complete
+                    </button>
+                    {/* {!challengesProgress?.some(
+                      (progress) =>
+                        progress?.challenge_id === challenge.challenge_id,
+                    ) ? (
+                      <button
+                        className="challenge__finish"
+                        onClick={() => {
+                          setChallengeComplete(challenge.challenge_id);
+                          loadChallengeTip(challenge?.challenge_id);
+                          setTipActive(true);
+                        }}>
+                        Complete
+                      </button>
+                    ) : (
+                      <button
+                        className="challenge__finish"
+                        onClick={() =>
+                          setChallengeComplete(challenge.challenge_id)
+                        }>
+                        See local tip!
+                      </button>
+                    )} */}
                   </li>
                 ))}
               </ul>
             </div>
           ) : (
             <div className="challenges__empty">
-              <h3 className="empty__message">Start a route to reveal some side quests</h3>
+              <h3 className="empty__message">
+                Start a route to reveal some side quests
+              </h3>
               <button
                 className="navigation__routes empty__search button--navigation"
                 onClick={revealRoutes}>
@@ -3459,9 +3532,40 @@ const Home = () => {
                   </p>
                 </div>
                 <div className="meetup__content">
-                  <p className="meetup__message">
-                    Has sent you a meet up request!
-                  </p>
+                  {!meetinInterest ? (
+                    <p className="meetup__message">
+                      Has sent you a meet up request!
+                    </p>
+                  ) : (
+                    <div className="sender__information">
+                      <div className="information__info">
+                        <div className="sender__gender">
+                          {senderProfile?.gender}
+                        </div>
+                        <div className="sender__distance">
+                          {Math.round(
+                            calculateDistance(
+                              senderProfile?.coordinates,
+                              currentUser,
+                            ),
+                          )}
+                          m
+                        </div>
+                        <div className="sender__age">
+                          {calculateAge(senderProfile?.date_of_birth) - 4} -{" "}
+                          {calculateAge(senderProfile?.date_of_birth) + 4}
+                        </div>
+                      </div>
+                      <p className="information__description">
+                        {senderProfile?.description}
+                      </p>
+                      {/* <div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                      </div> */}
+                    </div>
+                  )}
                   <div className="meetup__buttons">
                     <button
                       className="meetup__decline"
@@ -3470,13 +3574,21 @@ const Home = () => {
                       }>
                       Decline
                     </button>
-                    <button
-                      className="meetup__accept"
-                      onClick={() =>
-                        updateMeetupStatus(meetRequest?.meet_id, "accepted")
-                      }>
-                      Accept
-                    </button>
+                    {!meetinInterest ? (
+                      <button
+                        className="meetup__accept"
+                        onClick={toggleMeetingInterest}>
+                        Profile
+                      </button>
+                    ) : (
+                      <button
+                        className="meetup__accept"
+                        onClick={() =>
+                          updateMeetupStatus(meetRequest?.meet_id, "accepted")
+                        }>
+                        Accept
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -3484,6 +3596,568 @@ const Home = () => {
               ""
             ),
           )}
+        {tipActive ? (
+          <div className="popup-container">
+            <div className="challenge__tip">
+              <div className="tip__header">
+                <svg
+                  width="20"
+                  height="24"
+                  viewBox="0 0 20 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M7.69228 0H9.23074V1.50002H7.69228V0Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M6.15385 1.49988L7.69228 1.50002L7.69231 2.9999H6.15385V1.49988Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M6.15385 0H7.69228V1.50002L6.15385 1.49988V0Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M13.8461 1.49988H12.3077V2.9999H13.8461V1.49988Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M13.8461 0H12.3077V1.49988H13.8461V0Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M4.61536 1.49988H6.15385V2.9999H4.61536V1.49988Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M15.3846 1.49988H13.8461V2.9999H15.3846V1.49988Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M3.07692 2.99976L4.61536 2.9999L4.61538 4.49977H3.07692V2.99976Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M16.923 2.99976L15.3846 2.9999L15.3846 4.49977H16.923V2.99976Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M3.07692 4.49977H4.61538V5.99965H3.07692V4.49977Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M16.923 4.49977H15.3846V5.99965H16.923V4.49977Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M3.07692 5.99965H4.61538V7.49953H3.07692V5.99965Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M1.53843 5.99951L3.07692 5.99965V7.49953H1.53843V5.99951Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M1.53843 4.49963L3.07692 4.49977V5.99965L1.53843 5.99951V4.49963Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M3.07692 7.49953H4.61538V8.99941H3.07692V7.49953Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M1.53843 7.49953H3.07692V8.99941H1.53843V7.49953Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M3.07692 8.99941H4.61538V10.4993H3.07692V8.99941Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M3.07692 10.4993H4.61538V11.9992H3.07692V10.4993Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M3.07692 11.9992H4.61538V13.499H3.07692V11.9992Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M3.07692 13.499H4.61538V14.9989H3.07692V13.499Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M3.07692 15.0006H4.61538V16.5006H3.07692V15.0006Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M3.07692 16.5006H4.61538V18.0005H3.07692V16.5006Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M3.07692 18.0005H4.61538V19.5004H3.07692V18.0005Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M3.07692 19.5004H4.61538V21.0002H3.07692V19.5004Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M3.07692 21.0002H4.61538V22.5001H3.07692V21.0002Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M3.07692 22.5001H4.61538V24H3.07692V22.5001Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M4.61538 10.4993L6.15382 10.4991V11.9992H4.61538V10.4993Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M4.61538 11.9992H6.15382V13.499H4.61538V11.9992Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M4.61538 13.499H6.15382V14.9989H4.61538V13.499Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M4.61538 15.0006H6.15382V16.5006H4.61538V15.0006Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M4.61538 16.5006H6.15382V18.0005H4.61538V16.5006Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M4.61538 18.0005H6.15382V19.5004H4.61538V18.0005Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M4.61538 19.5004H6.15382V21.0002H4.61538V19.5004Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M4.61538 21.0002H6.15382V22.5001H4.61538V21.0002Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M4.61538 22.5001H6.15382V24H4.61538V22.5001Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M6.15382 10.4991H7.69231V11.9992H6.15382V10.4991Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M6.15382 11.9992H7.69231V13.499H6.15382V11.9992Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M6.15382 13.499H7.69231V14.9989H6.15382V13.499Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M6.15382 15.0006H7.69231V16.5006H6.15382V15.0006Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M6.15382 16.5006H7.69231V18.0005H6.15382V16.5006Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M6.15382 18.0005H7.69231V19.5004H6.15382V18.0005Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M6.15382 19.5004H7.69231V21.0002H6.15382V19.5004Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M6.15382 21.0002H7.69231V22.5001H6.15382V21.0002Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M6.15382 22.5001H7.69231V24H6.15382V22.5001Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M7.69231 10.4991H9.23074V11.9992H7.69231V10.4991Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M7.69231 11.9992H9.23074V13.499H7.69231V11.9992Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M7.69231 13.499H9.23074V14.9989H7.69231V13.499Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M7.69231 21.0002L9.23074 21.0001V22.5001H7.69231V21.0002Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M7.69231 22.5001H9.23074V24H7.69231V22.5001Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M9.23074 10.4991H10.7692V11.9992H9.23074V10.4991Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M9.23074 11.9992H10.7692V13.499H9.23074V11.9992Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M9.23074 13.499H10.7692V14.9989H9.23074V13.499Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M9.23074 21.0001H10.7692V22.5001H9.23074V21.0001Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M9.23074 22.5001H10.7692V24H9.23074V22.5001Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M10.7692 10.4991H12.3077V11.9992H10.7692V10.4991Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M10.7692 11.9992H12.3077V13.499H10.7692V11.9992Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M10.7692 13.499H12.3077V14.9989H10.7692V13.499Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M7.69228 17.683H9.23074V19.183H7.69228V17.683Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M7.69228 19.183H9.23074V20.6829H7.69228V19.183Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M7.69228 20.6829H9.23074V22.1827H7.69228V20.6829Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M10.7692 17.683H12.3077V19.183H10.7692V17.683Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M10.7692 19.183H12.3077V20.6829H10.7692V19.183Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M10.7692 20.6829H12.3077V22.1827H10.7692V20.6829Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M10.7692 21.0001H12.3077V22.5001H10.7692V21.0001Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M10.7692 22.5001H12.3077V24H10.7692V22.5001Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M12.3077 10.4991H13.8462V11.9992H12.3077V10.4991Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M12.3077 11.9992H13.8462V13.499H12.3077V11.9992Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M12.3077 13.499H13.8462V14.9989H12.3077V13.499Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M12.3077 15.0006H13.8462V16.5006H12.3077V15.0006Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M12.3077 16.5006H13.8462V18.0005H12.3077V16.5006Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M12.3077 18.0005H13.8462V19.5004H12.3077V18.0005Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M12.3077 19.5004H13.8462V21.0002L12.3077 21.0001L12.3077 19.5004Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M12.3077 21.0001L13.8462 21.0002V22.5001H12.3077V21.0001Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M12.3077 22.5001H13.8462V24H12.3077V22.5001Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M13.8462 10.4991H15.3846V11.9992H13.8462V10.4991Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M13.8462 11.9992H15.3846V13.499H13.8462V11.9992Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M13.8462 13.499H15.3846V14.9989H13.8462V13.499Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M13.8462 15.0006H15.3846V16.5006H13.8462V15.0006Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M13.8462 16.5006H15.3846V18.0005H13.8462V16.5006Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M13.8462 18.0005H15.3846V19.5004H13.8462V18.0005Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M13.8462 19.5004H15.3846V21.0002H13.8462V19.5004Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M13.8462 21.0002H15.3846V22.5001H13.8462V21.0002Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M13.8462 22.5001H15.3846V24H13.8462V22.5001Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M15.3846 10.4991H16.9231V11.9992H15.3846V10.4991Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M15.3846 11.9992H16.9231V13.499H15.3846V11.9992Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M15.3846 13.499H16.9231V14.9989H15.3846V13.499Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M15.3846 15.0006H16.9231V16.5006H15.3846V15.0006Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M15.3846 16.5006H16.9231V18.0005H15.3846V16.5006Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M15.3846 18.0005H16.9231V19.5004H15.3846V18.0005Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M15.3846 19.5004H16.9231V21.0002H15.3846V19.5004Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M15.3846 21.0002H16.9231V22.5001H15.3846V21.0002Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M15.3846 22.5001H16.9231V24H15.3846V22.5001Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M16.9231 10.4991H18.4615V11.9992H16.9231V10.4991Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M16.9231 11.9992H18.4615V13.499H16.9231V11.9992Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M16.9231 13.499H18.4615V14.9989H16.9231V13.499Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M16.9231 15.0006H18.4615V16.5006H16.9231V15.0006Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M16.9231 16.5006H18.4615V18.0005H16.9231V16.5006Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M16.9231 18.0005H18.4615V19.5004H16.9231V18.0005Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M16.9231 19.5004H18.4615V21.0002H16.9231V19.5004Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M16.9231 21.0002H18.4615V22.5001H16.9231V21.0002Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M16.9231 22.5001H18.4615V24H16.9231V22.5001Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M18.4615 10.4991H20V11.9992H18.4615V10.4991Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M18.4615 11.9992H20V13.499H18.4615V11.9992Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M18.4615 13.499H20V14.9989H18.4615V13.499Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M18.4615 15.0006H20V16.5006H18.4615V15.0006Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M18.4615 16.5006H20V18.0005H18.4615V16.5006Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M18.4615 18.0005H20V19.5004H18.4615V18.0005Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M18.4615 19.5004H20V21.0002H18.4615V19.5004Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M18.4615 21.0002H20V22.5001H18.4615V21.0002Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M1.53843 8.99941H3.07692V10.4993H1.53843V8.99941Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M1.53843 10.4993H3.07692V11.9992H1.53843V10.4993Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M1.53843 11.9992H3.07692V13.499H1.53843V11.9992Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M1.53843 13.499H3.07692V14.9989H1.53843V13.499Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M1.53843 15.0006H3.07692V16.5006H1.53843V15.0006Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M1.53843 16.5006H3.07692V18.0005H1.53843V16.5006Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M1.53843 18.0005H3.07692V19.5004H1.53843V18.0005Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M1.53843 19.5004H3.07692V21.0002H1.53843V19.5004Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M1.53843 21.0002H3.07692V22.5001H1.53843V21.0002Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M1.53843 22.5001H3.07692V24H1.53843V22.5001Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M0 10.4991L1.53843 10.4993V11.9992H0V10.4991Z"
+                    fill="white"
+                  />
+                  <path d="M0 11.9992H1.53843V13.499H0V11.9992Z" fill="white" />
+                  <path d="M0 13.499H1.53843V14.9989H0V13.499Z" fill="white" />
+                  <path
+                    d="M0 15.0006H1.53843V16.5006H0V15.0006Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M0 16.5006H1.53843V18.0005H0V16.5006Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M0 18.0005H1.53843V19.5004H0V18.0005Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M0 19.5004H1.53843V21.0002H0V19.5004Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M0 21.0002H1.53843V22.5001H0V21.0002Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M4.61536 2.9999H6.15385L6.15382 4.49977H4.61538L4.61536 2.9999Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M15.3846 2.9999H13.8461L13.8462 4.49977H15.3846L15.3846 2.9999Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M7.69228 1.50002H9.23074V2.9999H7.69231L7.69228 1.50002Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M9.23074 0H10.7692V1.50002H9.23074V0Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M9.23074 1.50002H10.7692V2.9999H9.23074V1.50002Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M10.7692 0H12.3077V1.49988L10.7692 1.50002V0Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M10.7692 1.50002L12.3077 1.49988V2.9999H10.7692V1.50002Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M15.3846 4.49977H13.8462V5.99965H15.3846V4.49977Z"
+                    fill="white"
+                  />
+                </svg>
+                <p>Unlocked</p>
+              </div>
+              <div className="tip__content">
+                <p className="content__title">Local Tip</p>
+                <p className="tip__title">{challengeTip?.title}</p>
+                <p className="tip__description">{challengeTip?.description}</p>
+                <button
+                  className="tip__close"
+                  onClick={() => setTipActive(false)}>
+                  Git it!
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </>
   );

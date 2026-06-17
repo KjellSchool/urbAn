@@ -217,10 +217,10 @@ const NewUser = () => {
                     gender: value,
                   }));
                 }}>
-                <option value="">- Pick one -</option>
-                <option value="woman">Woman</option>
-                <option value="man">Man</option>
-                <option value="non-binary">Non-Binary</option>
+                <option key={1} value="">- Pick one -</option>
+                <option key={2} value="woman">Woman</option>
+                <option key={3} value="man">Man</option>
+                <option key={4} value="non-binary">Non-Binary</option>
               </select>
             </label>
             <label>
@@ -237,7 +237,7 @@ const NewUser = () => {
                   }));
                 }}>
                 {countries?.map((country) => (
-                  <option value={country.country}>
+                  <option key={country.country} value={country.country}>
                     {country.flag}
                   </option>
                 ))}
