@@ -1737,7 +1737,7 @@ h2 {
   box-shadow: -2px 2px 0 var(--colour-black);
 }
 
-.info__avatar svg {
+.info__avatar img {
   width: 6rem;
   height: auto;
 }
