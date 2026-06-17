@@ -5293,18 +5293,12 @@ const Landing = () => {
               </div>
             </div>
             <div className="share__stories">
-<<<<<<< HEAD
-              <h2 className="instructions__title">Share your layer</h2>
-              <img src={imagestory1} alt="story" />
-              <img src={imagestory2} alt="story" />
-=======
               <h2 className="instructions__title">Share
                 your layer</h2>
               <div className="story__images">
                 <img src={imagestory1} alt="story" />
                 <img src={imagestory2} alt="story" />
               </div>
->>>>>>> f80eb2c371dbfc573ef1a62e37680d69113cb68f
             </div>
           </div>
         </main>
