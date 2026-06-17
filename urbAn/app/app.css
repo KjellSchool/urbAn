@@ -2152,6 +2152,7 @@ input:checked + .slider:before {
 }
 
 .route__title {
+  color: var(--colour-black);
   font-family: "Antwerpen Tall";
   font-size: 24px;
 }
