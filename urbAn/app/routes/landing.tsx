@@ -4572,9 +4572,10 @@ const Landing = () => {
             <div className="share__stories">
               <h2 className="instructions__title">Share
                 your layer</h2>
-              <img src={imagestory1} alt="story" />
-              <img src={imagestory2} alt="story" />
-
+              <div className="story__images">
+                <img src={imagestory1} alt="story" />
+                <img src={imagestory2} alt="story" />
+              </div>
             </div>
           </div>
         </main>
