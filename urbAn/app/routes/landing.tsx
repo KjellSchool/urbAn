@@ -4842,16 +4842,537 @@ const Landing = () => {
               <p className="footer__adress--short">Steenplein 1 2000 Antwerp</p>
               <img className="footer__logo" src={antwerp_logo} alt="antwerp logo" />
               <ul className="footer__info">
-                <li>visit.antwerpem.be</li>
-                <li>info@visitantwerp.be</li>
-                <li>+32 (0)3 221 13 33</li>
+                <li><Link to="https://visit.antwerpen.be" target="_blank">visit.antwerpen.be</Link></li>
+                <li><Link to="mailto:info@visitantwerp.be">info@visitantwerp.be</Link></li>
+                <li><Link to="tel:+3232211333">+32 (0)3 221 13 33</Link></li>
               </ul>
               <div>
                 <h2 className="footer__title">Share your Layer!</h2>
+                <div className="footer__socials">
+                  <Link to="https://www.instagram.com/" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
+                      <rect x="5" y="5" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="5" y="1.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="5" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="11.6719" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="11.6719" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="15" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="15" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="18.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="18.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="21.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="21.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="31.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="31.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="5" y="41.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="5" y="45" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="41.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="8.33398" y="45" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="8.33398" y="46.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="11.6665" y="45" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="11.6665" y="46.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" y="45" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" y="46.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" y="45" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" y="46.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.6665" y="45" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.6665" y="46.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" y="45" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" y="46.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="28.3335" y="45" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="28.3335" y="46.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="31.6665" y="45" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="31.6665" y="46.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="35" y="45" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="35" y="46.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="38.3335" y="45" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.9229" y="15" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.9229" y="16.6719" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" y="21.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="16.6665" y="21.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="31.6665" y="21.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="30.2563" y="21.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.9229" y="31.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.9229" y="30" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="16.6665" y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.5898" y="30" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.5898" y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.5898" y="16.6719" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="16.6665" y="18.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.5898" y="18.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="28.3335" y="18.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="28.5898" y="30" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="28.5898" y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="30.2563" y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="30.2563" y="18.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="28.5898" y="16.6719" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="33.3335" y="10" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="33.3335" y="6.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="36.6665" y="6.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="36.6665" y="10" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25.2563" y="15" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25.2563" y="16.6719" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" y="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="16.6665" y="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="31.6665" y="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="30.2563" y="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25.2563" y="31.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25.2563" y="30" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="38.3335" y="46.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="41.6665" y="41.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="41.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="41.6665" y="45" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="31.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="31.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="21.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="21.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="18.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="18.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="15" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="15" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="11.6719" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="11.6719" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="41.6665" y="5" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="5" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="41.6665" y="1.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="8.33398" y="1.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="8.33398" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="11.6665" y="1.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="11.6665" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" y="1.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" y="1.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.6665" y="1.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.6665" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" y="1.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="28.3335" y="1.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="28.3335" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="31.6665" y="1.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="31.6665" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="35" y="1.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="38.3335" y="1.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="38.3335" width="3.33333" height="3.33335" fill="white" />
+                    </svg></Link>
+                  <Link to="https://www.facebook.com/" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
+                      <rect x="5" y="5" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="5" y="1.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="5" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="5" y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="8.33398" y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="8.33398" y="5" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" y="5" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="11.6665" y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="11.6665" y="5" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.6665" y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.6665" y="5" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" y="5" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" y="5" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="11.6719" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="5" y="11.6719" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="8.33398" y="11.6719" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" y="11.6719" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="11.6665" y="11.6719" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.6665" y="11.6719" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" y="11.6719" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" y="11.6719" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="11.6719" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="15" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="5" y="15" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="8.33398" y="15" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" y="15" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="11.6665" y="15" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.6665" y="15" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" y="15" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" y="15" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="15" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="18.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="5" y="18.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="8.33398" y="18.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" y="18.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="11.6665" y="18.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.6665" y="18.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" y="18.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" y="18.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="18.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="21.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="5" y="21.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="8.33398" y="21.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" y="21.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="20" y="21.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="11.6665" y="21.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.6665" y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.6665" y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="38.3335" y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" y="21.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="41.6665" y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="41.6665" y="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="40" y="26.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="21.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="5" y="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="8.33398" y="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" y="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="20" y="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="11.6665" y="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" y="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="5" y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="8.33398" y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="35" y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="11.6665" y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="31.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="5" y="31.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="8.33398" y="31.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" y="31.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" y="31.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="35" y="31.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="11.6665" y="31.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.6665" y="31.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.6665" y="31.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="38.3335" y="31.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" y="31.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" y="31.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" y="31.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="41.6665" y="31.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="31.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="5" y="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="8.33398" y="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" y="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" y="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="35" y="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="35" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="35" y="41.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="11.6665" y="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.6665" y="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.6665" y="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="38.3335" y="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="38.3335" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="38.3335" y="41.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" y="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" y="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" y="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="41.6665" y="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="41.6665" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="5" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="8.33398" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="8.33398" y="41.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" y="41.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="11.6665" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="11.6665" y="41.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.6665" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.6665" y="41.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" y="41.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" y="41.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="5" y="41.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="5" y="45" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="41.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="8.33398" y="45" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="8.33398" y="46.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="11.6665" y="45" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="11.6665" y="46.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" y="45" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" y="46.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" y="45" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" y="46.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.6665" y="45" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.6665" y="46.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" y="45" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" y="46.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="35" y="45" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="35" y="46.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="38.3335" y="45" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="38.3335" y="46.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="41.6665" y="41.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="41.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="41.6665" y="45" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="31.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="31.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="43.3335" y="21.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="41.6665" y="21.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="21.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="18.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="18.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="15" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="15" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="11.6719" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="11.6719" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="41.6665" y="11.6719" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="38.3335" y="15" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="36.6665" y="13.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="40" y="13.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="38.3335" y="18.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="41.6665" y="18.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="35" y="18.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="41.6665" y="5" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="5" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="41.6665" y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="41.6665" y="15" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="35" y="15" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="41.6665" y="1.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="8.33398" y="1.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="8.33398" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="11.6665" y="1.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="11.6665" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" y="1.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" y="1.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.6665" y="1.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.6665" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" y="1.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="28.3335" y="1.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="28.3335" y="5" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" y="9.17188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="28.3335" y="5.83203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="26.6665" y="7.5" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="28.3335" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="31.6665" y="1.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="31.6665" y="5" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="31.6665" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="35" y="1.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="35" y="5" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="38.3335" y="1.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="38.3335" y="5" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="38.3335" width="3.33333" height="3.33335" fill="white" />
+                    </svg>
+                  </Link>
+                  <Link to="https://www.youtube.com/" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
+                      <rect x="5" y="5" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="5" y="1.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="5" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="5" y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="41.6665" y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="11.6719" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="3.33398" y="11.6719" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="5" y="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="40" y="10" width="3.33333" height="3.33335" fill="white" />
+                      <rect width="3.33333" height="3.33335" transform="matrix(-1 0 0 1 10 10)" fill="white" />
+                      <rect width="3.33333" height="3.33335" transform="matrix(-1 0 0 1 45 35)" fill="white" />
+                      <rect x="6.6665" y="36.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="41.6665" y="11.6719" width="3.33333" height="3.33335" fill="white" />
+                      <rect width="3.33333" height="3.33335" transform="matrix(-1 0 0 1 8.33398 11.6719)" fill="white" />
+                      <rect width="3.33333" height="3.33335" transform="matrix(-1 0 0 1 43.3335 36.668)" fill="white" />
+                      <rect x="43.3335" y="11.6719" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="11.6719" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="15" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="3.33398" y="15" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="43.3335" y="15" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="15" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="18.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="3.33398" y="18.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="43.3335" y="18.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="18.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="21.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="3.33398" y="21.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="43.3335" y="21.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="21.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="3.33398" y="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="43.3335" y="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="3.33398" y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="43.3335" y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="31.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="3.33398" y="31.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="43.3335" y="31.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="31.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="3.33398" y="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="43.3335" y="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="5" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="41.6665" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="5" y="41.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="5" y="45" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="1.6665" y="41.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="8.33398" y="43.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="8.33398" y="40" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="8.33398" y="46.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="11.6665" y="43.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="11.6665" y="40" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="11.6665" y="46.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" y="43.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" y="40" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" y="46.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" y="43.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" y="40" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" y="46.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.6665" y="43.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.6665" y="40" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.6665" y="46.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" y="43.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" y="40" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" y="46.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="28.3335" y="43.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="28.3335" y="40" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="28.3335" y="46.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="31.6665" y="43.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="31.6665" y="40" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="31.6665" y="46.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="35" y="43.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="35" y="40" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="35" y="46.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="38.3335" y="43.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="38.3335" y="40" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="38.3335" y="46.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="41.6665" y="41.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="41.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="41.6665" y="45" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="31.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="31.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="21.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="21.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="18.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="18.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="15" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="15" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="11.6719" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="11.6719" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="46.6665" y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="41.6665" y="5" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="45" y="5" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="41.6665" y="1.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="8.33398" y="3.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="8.33398" y="6.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="8.33398" y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="8.33398" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="8.33398" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="11.6665" y="3.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="11.6665" y="6.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="11.6665" y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="11.6665" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="11.6665" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" y="3.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" y="6.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="15" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" y="3.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" y="6.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="20" y="18.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="23.3335" y="20" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="26.6665" y="21.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="30" y="23.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="20" y="21.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="23.3335" y="23.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="26.6665" y="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="20" y="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="23.3335" y="26.668" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="20" y="28.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="18.3335" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.6665" y="3.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.6665" y="6.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.6665" y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.6665" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="21.6665" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" y="3.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" y="6.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="25" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="28.3335" y="3.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="28.3335" y="6.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="28.3335" y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="28.3335" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="28.3335" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="31.6665" y="3.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="31.6665" y="6.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="31.6665" y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="31.6665" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="31.6665" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="35" y="3.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="35" y="6.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="35" y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="35" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="35" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="38.3335" y="3.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="38.3335" y="6.67188" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="38.3335" y="8.33203" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="38.3335" y="38.332" width="3.33333" height="3.33335" fill="white" />
+                      <rect x="38.3335" width="3.33333" height="3.33335" fill="white" />
+                    </svg>
+                  </Link>
+                </div>
+              </div>
+              <div className="footer__copyright">
+                <p>&copy; City of Antwerp</p>
                 <div>
-                  <Link>in</Link>
-                  <Link>fb</Link>
-                  <Link>yt</Link>
+                  <Link className="footer__link" to="https://www.antwerpen.be/privacy-en-gebruik" target="_blank">
+                    <p>Terms & Privacy</p>
+                  </Link>
                 </div>
               </div>
             </div>

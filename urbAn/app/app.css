@@ -776,6 +776,32 @@ h2 {
 }
 
 .footer__info li {
+  width: fit-content;
+  border-bottom: 1px solid var(--colour-white);
+  margin-bottom: var(--space-xs);
+}
+
+.footer__socials {
+  margin: var(--space-m) 0;
+  display: flex;
+  gap: var(--space-s);
+}
+
+.footer__copyright {
+  margin-top: var(--space-m);
+  margin-bottom: var(--space-xl);
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer__copyright div {
+  display: flex;
+  gap: var(--space-2xs);
+}
+
+.footer__link {
+  width: fit-content;
+  border-bottom: 1px solid var(--colour-white);
   margin-bottom: var(--space-xs);
 }
 
