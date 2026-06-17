@@ -774,7 +774,7 @@ const Profile = () => {
         <main className="profile__main">
           <div className="profile__info">
             <div className="info__avatar">
-              <img src={currentUser?.avatar} alt="oo" />
+              <img src={currentUser?.avatar} alt="avatar" />
             </div>
             <div className="info__personal">
               <p className="personal__name">{currentUser?.name}</p>

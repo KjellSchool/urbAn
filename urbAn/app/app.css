@@ -761,8 +761,7 @@ button {
 }
 
 .content__container p,
-li,
-h2 {
+li{
   color: var(--colour-white);
   font-family: "Sun Antwerpen";
   font-size: 16px;
@@ -1404,6 +1403,10 @@ h2 {
   align-items: center;
 }
 
+.social__profile img {
+  max-height: 100%;
+}
+
 .game__navigation {
   grid-column: 1;
   grid-row: 3;
@@ -1826,6 +1829,7 @@ h2 {
 }
 
 .achievements__title {
+  color: var(--colour-black);
   font-family: "Antwerpen Regular";
   font-size: 20px;
 
@@ -1950,6 +1954,7 @@ h2 {
 }
 
 .group__title {
+  color: var(--colour-black);
   font-family: "Antwerpen Regular";
   font-size: 20px;
 }
