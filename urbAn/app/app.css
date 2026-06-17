@@ -607,6 +607,8 @@ button {
 }
 
 .main__app {
+  margin: var(--space-l) 0;
+  
   display: flex;
   flex-direction: column;
 }
@@ -645,11 +647,15 @@ button {
 }
 
 .main__instructions {
+  background-image: url('./assets/background/pacman.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+
   padding: 0 var(--space-l);
 
   display: flex;
   flex-direction: column;
-  gap: var(--space-xl);
+  gap: 5rem;
 }
 
 .instructions__title {
@@ -718,6 +724,7 @@ button {
 
 .story__images {
   margin-top: var(--space-xl);
+  margin-bottom: -12rem;
 }
 
 .story__images img:last-child {
