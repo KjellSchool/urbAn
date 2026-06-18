@@ -25,7 +25,7 @@
   --color-white-dark: #f2f2f2;
   --colour-black-light: #2c2c2c;
   --colour-black: #000;
-  --colour-placeholder: #9CA3AF;
+  --colour-placeholder: #9ca3af;
 
   /* FONTSIZE */
 
@@ -222,7 +222,7 @@ button {
 
 .popup-container {
   background-color: #00000076;
-  
+
   width: 100dvw;
   height: 100dvh;
 
@@ -609,7 +609,7 @@ button {
 
 .main__app {
   margin: var(--space-l) 0;
-  
+
   display: flex;
   flex-direction: column;
 }
@@ -648,7 +648,7 @@ button {
 }
 
 .main__instructions {
-  background-image: url('./assets/background/pacman.svg');
+  background-image: url("./assets/background/pacman.svg");
   background-size: contain;
   background-repeat: no-repeat;
 
@@ -722,7 +722,6 @@ button {
   border-bottom: 6px solid var(--colour-black);
 }
 
-
 .story__images {
   margin-top: var(--space-xl);
   margin-bottom: -16rem;
@@ -773,7 +772,7 @@ button {
 }
 
 .content__container p,
-li{
+li {
   color: var(--colour-white);
   font-family: "Sun Antwerpen";
   font-size: 16px;
@@ -1097,7 +1096,6 @@ li{
   position: relative;
   top: -1rem;
   left: 6rem;
-
 
   transform: rotate(-4deg);
 
@@ -1533,7 +1531,8 @@ li{
   gap: var(--space-l);
 }
 
-.challenges__section:has(.challenges__empty) {
+.challenges__section:has(.challenges__empty),
+.social__section:has(.social__empty) {
   padding-bottom: 0;
 }
 
@@ -1564,7 +1563,8 @@ li{
   margin-bottom: -1rem;
 }
 
-.challenges__empty {
+.challenges__empty,
+.social__empty {
   background: var(--colour-blue) url("./assets/background/drawer-bottom.svg");
   background-position: bottom;
   background-repeat: no-repeat;
@@ -1577,6 +1577,17 @@ li{
   align-items: center;
 }
 
+.social__empty {
+  justify-content: center;
+  gap: var(--space-m);
+}
+
+.empty__error {
+  color: var(--colour-yellow);
+  font-family: "Pixelify Sans";
+  font-size: 32px;
+}
+
 .empty__message {
   color: var(--colour-white);
   font-family: "Antwerpen Regular";
@@ -1584,6 +1595,31 @@ li{
   text-align: center;
 
   margin: auto;
+}
+
+.empty__tumbleweed {
+  height: 6rem;
+  
+  position: absolute;
+  top: 25.2rem;
+
+  animation: rolling 5s infinite;
+}
+
+@keyframes rolling {
+  0% {
+    left: -9rem;
+    transform: rotate(-90deg);
+  }
+  
+  100% {
+    left: 30rem;
+    transform: rotate(270deg);
+  }
+}
+
+.social__empty .empty__message {
+  margin: 0;
 }
 
 .empty__search {
@@ -1728,9 +1764,11 @@ li{
 .profile__header,
 .settings__header,
 .editprofile__header {
-  background: linear-gradient(to bottom,
-      var(--colour-blue-400),
-      var(--colour-blue-300));
+  background: linear-gradient(
+    to bottom,
+    var(--colour-blue-400),
+    var(--colour-blue-300)
+  );
 
   padding: var(--space-s);
   border-bottom: 2px solid var(--colour-black);
@@ -2340,7 +2378,8 @@ input[type="date"] {
 }
 
 /* meetup */
-.game__meetup, .challenge__tip {
+.game__meetup,
+.challenge__tip {
   background-color: var(--colour-white);
 
   width: 80dvw;
@@ -2359,7 +2398,8 @@ input[type="date"] {
   gap: var(--space-xs);
 }
 
-.meetup__sender, .tip__header {
+.meetup__sender,
+.tip__header {
   background-color: var(--colour-black);
 
   padding: var(--space-s);
@@ -2375,7 +2415,8 @@ input[type="date"] {
   gap: var(--space-xs);
 }
 
-.sender__name, .tip__header p {
+.sender__name,
+.tip__header p {
   color: white;
   font-family: "Antwerpen Pixel";
   font-size: 32px;
@@ -2387,7 +2428,8 @@ input[type="date"] {
   text-transform: uppercase;
 }
 
-.meetup__content, .tip__content {
+.meetup__content,
+.tip__content {
   padding: var(--space-s);
 
   display: flex;
@@ -2416,7 +2458,7 @@ input[type="date"] {
   color: var(--colour-white);
   font-family: "Antwerpen Small Caps";
   font-size: 20px;
-  
+
   width: fit-content;
   padding: var(--space-2xs) var(--space-m);
   padding-bottom: var(--space-xs);
@@ -2442,7 +2484,7 @@ input[type="date"] {
 
 .information__info div {
   flex-grow: 1;
-  
+
   background-color: lightgray;
 
   font-family: "Antwerpen Regular";
