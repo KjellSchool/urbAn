@@ -56,7 +56,7 @@ const Home = () => {
   };
 
   const calculateDistance = (user1Coords, user2Coords) => {
-    const [lat1, lon1] = user1Coords;
+    const [lat1, lon1] = user1Coords || [0, 0];
     const [lat2, lon2] = user2Coords?.coordinates;
 
     const R = 6371; // Earth's radius in km
@@ -76,12 +76,14 @@ const Home = () => {
   };
 
   const groupProfiles = (users) => {
+    if(!users) return;
+    
     let newClose = [];
     let newFar = [];
 
     users.map((user) => {
       if (user.profile_id !== currentUser?.profile_id) {
-        const userCoords = user.coordinates;
+        const userCoords = user?.coordinates;
         const userDistance = calculateDistance(userCoords, profileLocation);
 
         if (userDistance < 200) {
