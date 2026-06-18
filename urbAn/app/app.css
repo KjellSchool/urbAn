@@ -20,6 +20,8 @@
 
   --colour-beige: #d8d7c3;
 
+  --colour-purple: #B085FF;
+
   /* neutral colours */
   --colour-white: #fff;
   --color-white-dark: #f2f2f2;
@@ -84,8 +86,7 @@
 
 @font-face {
   font-family: "Pixelify Sans";
-  src: url("./assets/fonts/PixelifySans-VariableFont_wght.ttf")
-    format("truetype");
+  src: url("./assets/fonts/PixelifySans-VariableFont_wght.ttf") format("truetype");
 }
 
 /*! ===== universal ===== */
@@ -155,11 +156,9 @@ button {
 }
 
 .drawer {
-  background: linear-gradient(
-    to bottom,
-    var(--colour-blue-400),
-    var(--colour-blue-300)
-  );
+  background: linear-gradient(to bottom,
+      var(--colour-blue-400),
+      var(--colour-blue-300));
 
   width: 100%;
   height: 80dvh;
@@ -222,7 +221,7 @@ button {
 
 .popup-container {
   background-color: #00000076;
-  
+
   width: 100dvw;
   height: 100dvh;
 
@@ -237,8 +236,7 @@ button {
 /*! ===== landing page ===== */
 .landing {
   /* background-color: var(--colour-blue-300); */
-  background: var(--colour-blue-400)
-    url("./assets/background/sky-color-halftone.png");
+  background: var(--colour-blue-400) url("./assets/background/sky-color-halftone.png");
   background-blend-mode: color-dodge;
   background-size: 200%;
   background-repeat: repeat-y;
@@ -609,7 +607,7 @@ button {
 
 .main__app {
   margin: var(--space-l) 0;
-  
+
   display: flex;
   flex-direction: column;
 }
@@ -773,7 +771,7 @@ button {
 }
 
 .content__container p,
-li{
+li {
   color: var(--colour-white);
   font-family: "Sun Antwerpen";
   font-size: 16px;
@@ -1200,8 +1198,7 @@ li{
   background-color: var(--colour-blue-100);
 }
 
-.question__options:has(label input:checked)
-  .question__option:has(input:checked) {
+.question__options:has(label input:checked) .question__option:has(input:checked) {
   background-color: var(--colour-white);
 }
 
@@ -1957,7 +1954,7 @@ li{
   transform: "";
 }
 
-.achievements__item summary + ul {
+.achievements__item summary+ul {
   margin-top: var(--space-s);
 
   display: flex;
@@ -2121,11 +2118,11 @@ li{
   transition: 0.4s;
 }
 
-input:checked + .slider {
+input:checked+.slider {
   background-color: var(--colour-blue-400);
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
   background-color: var(--colour-blue-100);
   transform: translateX(33px);
 }
@@ -2177,6 +2174,51 @@ input:checked + .slider:before {
 }
 
 /*edit profile*/
+.select__avatar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.read__check {
+  position: absolute;
+  left: 8rem;
+  top: 9.5rem;
+}
+
+.selected__avatar {
+  padding: var(--space-m) var(--space-s);
+  border: 1px solid var(--colour-black);
+  border-radius: 20px;
+  box-shadow: -2px 2px 0 var(--colour-black);
+}
+
+.selected__avatar img {
+  width: 6rem;
+  height: auto;
+}
+
+.avatars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: var(--space-2xs);
+}
+
+.avatar {
+  width: 4rem;
+  height: 4rem;
+  padding: var(--space-xs);
+  border: 1px solid var(--colour-black);
+  border-radius: 16px;
+  box-shadow: -2px 2px 0 var(--colour-black);
+}
+
+.avatar img {
+  width: 100%;
+  object-fit: contain;
+}
+
 .retake__quiz {
   padding: var(--space-xs) var(--space-m);
 }
@@ -2218,7 +2260,7 @@ input[type="date"] {
   color: var(--colour-placeholder);
 }
 
-.form__group--gender select {
+.form__group--gender select, .form__group--nationality select {
   height: 3.5rem;
   padding: 0 1rem;
   background-color: var(--colour-white);
@@ -2340,7 +2382,8 @@ input[type="date"] {
 }
 
 /* meetup */
-.game__meetup, .challenge__tip {
+.game__meetup,
+.challenge__tip {
   background-color: var(--colour-white);
 
   width: 80dvw;
@@ -2359,7 +2402,8 @@ input[type="date"] {
   gap: var(--space-xs);
 }
 
-.meetup__sender, .tip__header {
+.meetup__sender,
+.tip__header {
   background-color: var(--colour-black);
 
   padding: var(--space-s);
@@ -2375,7 +2419,8 @@ input[type="date"] {
   gap: var(--space-xs);
 }
 
-.sender__name, .tip__header p {
+.sender__name,
+.tip__header p {
   color: white;
   font-family: "Antwerpen Pixel";
   font-size: 32px;
@@ -2387,7 +2432,8 @@ input[type="date"] {
   text-transform: uppercase;
 }
 
-.meetup__content, .tip__content {
+.meetup__content,
+.tip__content {
   padding: var(--space-s);
 
   display: flex;
@@ -2416,7 +2462,7 @@ input[type="date"] {
   color: var(--colour-white);
   font-family: "Antwerpen Small Caps";
   font-size: 20px;
-  
+
   width: fit-content;
   padding: var(--space-2xs) var(--space-m);
   padding-bottom: var(--space-xs);
@@ -2442,7 +2488,7 @@ input[type="date"] {
 
 .information__info div {
   flex-grow: 1;
-  
+
   background-color: lightgray;
 
   font-family: "Antwerpen Regular";
