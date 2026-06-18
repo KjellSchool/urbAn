@@ -4306,7 +4306,6 @@ const Landing = () => {
                   />
                   <path d="M14 0H12.25V1.75H14V0Z" fill="black" />
                 </svg>
-
                 <h3 className="title__text">Share Your Layer</h3>
               </div>
               <p className="instructions__description">

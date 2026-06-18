@@ -146,7 +146,7 @@ button {
   width: fit-content;
   padding: var(--space-s) var(--space-s);
   border-radius: 32px;
-  box-shadow: 0 4px 0 0 var(--colour-white);
+  /* box-shadow: 0 4px 0 0 var(--colour-white); */
 
   display: flex;
   align-items: center;
@@ -626,7 +626,7 @@ button {
   font-family: "Antwerpen Pixel";
   font-size: 48px;
 
-  margin-bottom: var(--space-s);
+  margin-bottom: var(--space-m);
 }
 
 .app__description {
@@ -724,14 +724,14 @@ button {
 
 .story__images {
   margin-top: var(--space-xl);
-  margin-bottom: -12rem;
+  margin-bottom: -16rem;
 }
 
 .story__images img:last-child {
   width: 80%;
   position: relative;
   top: -15rem;
-  left: 5rem;
+  left: 4rem;
 }
 
 .landing__footer {
@@ -743,17 +743,21 @@ button {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
+  justify-content: center;
 }
 
 .footer__skyline img {
   grid-column: 1;
   grid-row: 1;
+
+  width: 200dvw;
 }
 
 .footer__skyline svg {
   grid-column: 1;
   grid-row: 1;
   align-self: flex-end;
+  justify-self: center;
 }
 
 .footer__content {
