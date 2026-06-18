@@ -24,4 +24,5 @@ export default [
   route("home", "routes/home.tsx"),
   route("profile", "routes/profile.tsx"),
   route("settings", "routes/settings.tsx"),
+  route("editprofile", "routes/editprofile.tsx"),
 ] satisfies RouteConfig;
