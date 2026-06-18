@@ -2298,7 +2298,7 @@ input[type="date"] {
   color: var(--colour-placeholder);
 }
 
-.form__group--gender select {
+.form__group--gender select, .form__group--nationality select {
   height: 3.5rem;
   padding: 0 1rem;
   background-color: var(--colour-white);
