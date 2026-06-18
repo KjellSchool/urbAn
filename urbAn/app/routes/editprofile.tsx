@@ -693,13 +693,13 @@ const Settings = () => {
                         <label className="form__label" htmlFor="name">Name</label>
                         <input type="text" id="name" name="name" placeholder={currentUser?.name} />
                     </div>
-                    <div className="form__group">
+                    <div className="form__group form__group--gender">
                         <label className="form__label" htmlFor="gender">Gender</label>
-                        <select id="gender" name="gender">
-                            <option value="">Select gender</option>
-                            <option value="man">Man</option>
+                        <select id="gender" name="gender" value={currentUser?.gender}>
+                            <option value="">- Pick one -</option>
                             <option value="woman">Woman</option>
-                            <option value="non-binary">Non-binary</option>
+                            <option value="man">Man</option>
+                            <option value="non-binary">Non-Binary</option>
                         </select>
                     </div>
                     <div className="form__group form__group--descrip">
@@ -707,17 +707,97 @@ const Settings = () => {
                         <textarea id="description" name="description" placeholder={currentUser?.description} />
                         <p>Max. 50 words</p>
                     </div>
-                    <div className="form__group">
-                        <label className="form__label" htmlFor="dateOfBirth">Date of birth</label>
-                        <input type="date" id="dateOfBirth" name="dateOfBirth" placeholder={currentUser?.dateOfBirth} />
+
+                    <div className="form__group form__group--date">
+                        <label className="form__label" htmlFor="dateOfBirth">
+                            Date of birth
+                        </label>
+                        <div className="date-input">
+                            <input
+                                type="date"
+                                id="dateOfBirth"
+                                name="dateOfBirth"
+                                defaultValue={currentUser?.date_of_birth}
+                            />
+                            <svg className="date-input__icon" xmlns="http://www.w3.org/2000/svg" width="29" height="30" viewBox="0 0 29 30" fill="none">
+                                <rect y="27.7734" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="2.22192" y="27.7734" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="4.44385" y="27.7734" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="6.66577" y="27.7734" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="8.88745" y="27.7734" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="11.1094" y="27.7734" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="13.3313" y="27.7734" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="15.5532" y="27.7734" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="17.7751" y="27.7734" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="19.9968" y="27.7734" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="22.2188" y="27.7734" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="24.4407" y="27.7734" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="25.8108" y="27.7734" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="25.8108" y="25.5508" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="25.8108" y="23.3281" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="25.8108" y="21.1055" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="25.8108" y="18.8828" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="25.8108" y="16.6602" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="25.8108" y="14.4414" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="25.8108" y="12.2188" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="25.8108" y="9.99609" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="25.8108" y="7.77344" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="25.8108" y="5.55078" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="25.8108" y="4.44141" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="23.5889" y="2.22266" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="21.3669" y="2.22266" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="19.1453" y="2.22266" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="16.9233" y="2.22266" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="14.7014" y="2.22266" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="12.4795" y="2.22266" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="10.2576" y="2.22266" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="8.03564" y="2.22266" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="5.81396" y="2.22266" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="5.81396" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="19.9968" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="5.81396" y="4.44141" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="2.22192" y="9.99609" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="4.44385" y="9.99609" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="6.66577" y="9.99609" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="8.88745" y="9.99609" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="11.1094" y="9.99609" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="13.3313" y="9.99609" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="15.5532" y="9.99609" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="17.7751" y="9.99609" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="19.9968" y="9.99609" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="22.2188" y="9.99609" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="24.4407" y="9.99609" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="18.5527" y="16.3672" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="6.9248" y="16.3672" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="6.9248" y="22.2188" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="12.7388" y="22.2188" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="18.5527" y="22.2188" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="12.7388" y="16.3672" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="19.9968" y="4.44141" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="3.59204" y="2.22266" width="2.22189" height="2.22189" fill="black" />
+                                <rect x="2.22192" y="2.22266" width="2.22189" height="2.22189" fill="black" />
+                                <rect y="4.44141" width="2.22189" height="2.22189" fill="black" />
+                                <rect y="6.66406" width="2.22189" height="2.22189" fill="black" />
+                                <rect y="8.88672" width="2.22189" height="2.22189" fill="black" />
+                                <rect y="11.1094" width="2.22189" height="2.22189" fill="black" />
+                                <rect y="13.332" width="2.22189" height="2.22189" fill="black" />
+                                <rect y="15.5547" width="2.22189" height="2.22189" fill="black" />
+                                <rect y="17.7734" width="2.22189" height="2.22189" fill="black" />
+                                <rect y="19.9961" width="2.22189" height="2.22189" fill="black" />
+                                <rect y="22.2188" width="2.22189" height="2.22189" fill="black" />
+                                <rect y="24.4375" width="2.22189" height="2.22189" fill="black" />
+                                <rect y="26.6641" width="2.22189" height="2.22189" fill="black" />
+                            </svg>
+                        </div>
                     </div>
+
                     <div className="form__group">
                         <label className="form__label" htmlFor="nationality">Nationality</label>
                         <input type="text" id="nationality" name="nationality" placeholder={currentUser?.nationality} />
                     </div>
                     <div className="form__group">
                         <label className="form__label" htmlFor="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder={currentUser?.email} />
+                        <input type="email" id="email" name="email" placeholder="john.doe@example.com" />
                     </div>
                     <div className="form__group">
                         <label className="form__label" htmlFor="password">Password</label>

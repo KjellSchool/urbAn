@@ -25,6 +25,7 @@
   --color-white-dark: #f2f2f2;
   --colour-black-light: #2c2c2c;
   --colour-black: #000;
+  --colour-placeholder: #9CA3AF;
 
   /* FONTSIZE */
 
@@ -2124,6 +2125,29 @@ input:checked+.slider:before {
   font-size: 16px;
 }
 
+input::placeholder {
+  color: var(--colour-placeholder);
+}
+
+textarea::placeholder {
+  color: var(--colour-placeholder);
+}
+
+select {
+  color: var(--colour-placeholder);
+}
+
+input[type="date"] {
+  color: var(--colour-placeholder);
+}
+
+.form__group--gender select {
+  height: 3.5rem;
+  padding: 0 1rem;
+  background-color: var(--colour-white);
+  font-size: 16px;
+}
+
 .form__group--descrip textarea {
   border-radius: 16px;
   border: none;
@@ -2132,10 +2156,27 @@ input:checked+.slider:before {
   font-size: 16px;
 }
 
-.form__group--descrip p{
+.form__group--descrip p {
   font-size: 12px;
   color: var(--colour-orange);
   align-self: flex-end;
+}
+
+.date-input {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--space-s);
+}
+
+.date-input input {
+  height: 3.5rem;
+  padding: 0 5rem 0 0.5rem;
+  background-color: var(--colour-white);
+}
+
+.date-input__icon {
+  right: 2rem;
 }
 
 .save__profile {
