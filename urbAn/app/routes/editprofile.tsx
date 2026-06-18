@@ -3,15 +3,44 @@ import { useState } from "react";
 
 import { useUser } from "~/contexts/userContext";
 
-const Settings = () => {
+import read_sign from "../assets/icons/read_sign.png";
+
+const Editprofile = () => {
     const { currentUser } = useUser();
 
     const [primaryArchetypeId, setPrimaryArchetypeId] = useState();
     const [primaryArchetype, setPrimaryArchetype] = useState();
-
+    const [selectedAvatar, setSelectedAvatar] = useState(currentUser?.avatar);
     const removeCurrentUser = () => {
         localStorage.removeItem("currentUser");
     }
+
+    const avatars = [
+        {
+            src: "https://oyzvqqbanissrvkjdgek.supabase.co/storage/v1/object/sign/avatars/avatar-alien.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80N2Y1MDEwYy0xNjM2LTRiMGMtYTdmZS05OTU1ZGE0YWJjNzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhdmF0YXJzL2F2YXRhci1hbGllbi5zdmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgxNzE2MDQ1LCJleHAiOjE4MTMyNTIwNDV9.NeHR95v1VBOxONtCwhtYV7LE_nQFjCVqeKKimHrAyME",
+            color: "#46a2ff",
+        },
+        {
+            src: "https://oyzvqqbanissrvkjdgek.supabase.co/storage/v1/object/sign/avatars/avatar-apple.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80N2Y1MDEwYy0xNjM2LTRiMGMtYTdmZS05OTU1ZGE0YWJjNzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhdmF0YXJzL2F2YXRhci1hcHBsZS5zdmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgxNzE2MDU2LCJleHAiOjE4MTMyNTIwNTZ9.6Jr257xWqJSNTcjl7UnceoxC77ftTQ-4gMder4FXrrE",
+            color: "#ff85e4",
+        },
+        {
+            src: "https://oyzvqqbanissrvkjdgek.supabase.co/storage/v1/object/sign/avatars/avatar-cat.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80N2Y1MDEwYy0xNjM2LTRiMGMtYTdmZS05OTU1ZGE0YWJjNzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhdmF0YXJzL2F2YXRhci1jYXQuc3ZnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MTcxNjA2OSwiZXhwIjoxODEzMjUyMDY5fQ.iRAyXPKfJQunHREMPKx9U2CwJPiqYrHBa8k5XTuLQYU",
+            color: "#ff8029",
+        },
+        {
+            src: "https://oyzvqqbanissrvkjdgek.supabase.co/storage/v1/object/sign/avatars/avatar-duck.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80N2Y1MDEwYy0xNjM2LTRiMGMtYTdmZS05OTU1ZGE0YWJjNzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhdmF0YXJzL2F2YXRhci1kdWNrLnN2ZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODE3MTYwODYsImV4cCI6MTgxMzI1MjA4Nn0.oRS1YVUjhvGkvk0If15LqfhZtstrN-k_7VJ87OZjIdM",
+            color: "#cdff10",
+        },
+        {
+            src: "https://oyzvqqbanissrvkjdgek.supabase.co/storage/v1/object/sign/avatars/avatar-potato.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80N2Y1MDEwYy0xNjM2LTRiMGMtYTdmZS05OTU1ZGE0YWJjNzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhdmF0YXJzL2F2YXRhci1wb3RhdG8uc3ZnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MTcxNjA5NiwiZXhwIjoxODEzMjUyMDk2fQ.qKefA72ak0c7Jm8-t2Q1IQS8HHbSk9iG9r5IiwBbaMg",
+            color: "#00e081",
+        },
+        {
+            src: "https://oyzvqqbanissrvkjdgek.supabase.co/storage/v1/object/sign/avatars/avatar-robot.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80N2Y1MDEwYy0xNjM2LTRiMGMtYTdmZS05OTU1ZGE0YWJjNzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhdmF0YXJzL2F2YXRhci1yb2JvdC5zdmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgxNzE2MTAzLCJleHAiOjE4MTMyNTIxMDN9.i7bJ1RX5WlYSD8Mdj4W6CkfS-1a9mF7rhjGZ_6_lePM",
+            color: "#B085FF",
+        },
+    ];
 
     return (
         <>
@@ -34,656 +63,25 @@ const Settings = () => {
                     <h1 className="editprofile__title">Edit Profile</h1>
                 </header>
                 <div className="editprofile__group">
-                    <div className="profile__info">
-                        <div className="info__avatar">
-                            <svg
-                                width="833"
-                                height="833"
-                                viewBox="0 0 833 833"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect
-                                    x="169.5"
-                                    y="833"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 169.5 833)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="117.5"
-                                    y="781"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 117.5 781)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="91.5"
-                                    y="755"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 91.5 755)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="65.5"
-                                    y="729"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 65.5 729)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="13.5"
-                                    y="677"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 13.5 677)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="13.5"
-                                    y="625"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 13.5 625)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="13.5"
-                                    y="573"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 13.5 573)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="13.5"
-                                    y="521"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 13.5 521)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="13.5"
-                                    y="469"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 13.5 469)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="65.5"
-                                    y="417"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 65.5 417)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="117.5"
-                                    y="442"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 117.5 442)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="169.5"
-                                    y="442"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 169.5 442)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="221.5"
-                                    y="442"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 221.5 442)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="169.5"
-                                    y="520"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 169.5 520)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="117.5"
-                                    y="520"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 117.5 520)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="91.5"
-                                    y="572"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 91.5 572)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="91.5"
-                                    y="623"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 91.5 623)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="117.5"
-                                    y="675"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 117.5 675)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="169.5"
-                                    y="701"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 169.5 701)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="221.5"
-                                    y="727"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 221.5 727)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="273.5"
-                                    y="727"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 273.5 727)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="325.5"
-                                    y="727"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 325.5 727)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="377.5"
-                                    y="701"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 377.5 701)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="403.5"
-                                    y="649"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 403.5 649)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="403.5"
-                                    y="597"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 403.5 597)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="403.5"
-                                    y="545"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 403.5 545)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="221.5"
-                                    y="520"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 221.5 520)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="273.5"
-                                    y="520"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 273.5 520)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="325.5"
-                                    y="520"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 325.5 520)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="377.5"
-                                    y="520"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 377.5 520)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="195.5"
-                                    y="416"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 195.5 416)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="169.5"
-                                    y="364"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 169.5 364)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="169.5"
-                                    y="312"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 169.5 312)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="169.5"
-                                    y="260"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 169.5 260)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="169.5"
-                                    y="208"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 169.5 208)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="195.5"
-                                    y="156"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 195.5 156)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="247.5"
-                                    y="104"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 247.5 104)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="273.5"
-                                    y="104"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 273.5 104)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="299.5"
-                                    y="52"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 299.5 52)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="351.5"
-                                    y="52"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 351.5 52)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="403.5"
-                                    y="52"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 403.5 52)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="455.5"
-                                    y="52"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 455.5 52)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="507.5"
-                                    y="52"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 507.5 52)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="559.5"
-                                    y="104"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 559.5 104)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="585.5"
-                                    y="130"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 585.5 130)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="611.5"
-                                    y="156"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 611.5 156)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="637.5"
-                                    y="208"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 637.5 208)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="637.5"
-                                    y="260"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 637.5 260)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="585.5"
-                                    y="286"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 585.5 286)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="637.5"
-                                    y="286"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 637.5 286)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="689.5"
-                                    y="286"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 689.5 286)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="741.5"
-                                    y="312"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 741.5 312)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="767.5"
-                                    y="338"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 767.5 338)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="741.5"
-                                    y="390"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 741.5 390)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="689.5"
-                                    y="416"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 689.5 416)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="637.5"
-                                    y="416"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 637.5 416)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="585.5"
-                                    y="416"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 585.5 416)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="585.5"
-                                    y="442"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 585.5 442)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="637.5"
-                                    y="468"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 637.5 468)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="689.5"
-                                    y="520"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 689.5 520)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="741.5"
-                                    y="572"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 741.5 572)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="741.5"
-                                    y="624"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 741.5 624)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="741.5"
-                                    y="676"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 741.5 676)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="741.5"
-                                    y="728"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 741.5 728)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="689.5"
-                                    y="780"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 689.5 780)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="533.5"
-                                    y="416"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 533.5 416)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="481.5"
-                                    y="364"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 481.5 364)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="405.5"
-                                    y="260"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 405.5 260)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="379.5"
-                                    y="260"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 379.5 260)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="379.5"
-                                    y="234"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 379.5 234)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="405.5"
-                                    y="234"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 405.5 234)"
-                                    fill="black"
-                                />
-                                <path d="M431.5 234H405.5V208H431.5V234Z" fill="black" />
-                                <rect
-                                    x="221.5"
-                                    y="833"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 221.5 833)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="273.5"
-                                    y="833"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 273.5 833)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="325.5"
-                                    y="833"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 325.5 833)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="377.5"
-                                    y="833"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 377.5 833)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="429.5"
-                                    y="833"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 429.5 833)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="481.5"
-                                    y="833"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 481.5 833)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="533.5"
-                                    y="833"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 533.5 833)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="585.5"
-                                    y="833"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 585.5 833)"
-                                    fill="black"
-                                />
-                                <rect
-                                    x="637.5"
-                                    y="806"
-                                    width="52"
-                                    height="52"
-                                    transform="rotate(-90 637.5 806)"
-                                    fill="black"
-                                />
-                            </svg>
+                    <div className="select__avatar">
+                        <img
+                            className="read__check"
+                            src={read_sign}
+                        />
+                        <div className="selected__avatar">
+                            <img src={selectedAvatar} alt="avatar" />
+                        </div>
+                        <div className="avatars">
+                            {avatars.map((avatar, index) => (
+                                <div
+                                    key={index}
+                                    className="avatar"
+                                    style={{ backgroundColor: avatar.color }}
+                                    onClick={() => setSelectedAvatar(avatar.src)}
+                                >
+                                    <img src={avatar.src} alt={`Avatar ${index + 1}`} />
+                                </div>
+                            ))}
                         </div>
                     </div>
                     <Link className="retake__quiz" to={`/`}><button>RETAKE QUIZ</button></Link>
@@ -810,4 +208,4 @@ const Settings = () => {
     )
 }
 
-export default Settings;
+export default Editprofile;
