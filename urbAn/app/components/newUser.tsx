@@ -150,6 +150,68 @@ const NewUser = () => {
               </p>
             </div>
           </div>
+          <div className="user__check">
+            <p>made for You</p>
+            <svg
+              width="36"
+              height="22"
+              viewBox="0 0 36 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M4.27448 14.2458L8.26433 13.9611L8.54899 17.951L4.55913 18.2357L4.27448 14.2458Z"
+                fill="#46A2FF"
+              />
+              <path
+                d="M12.2543 13.6766L16.2441 13.3919L16.5288 17.3818L12.5389 17.6664L12.2543 13.6766Z"
+                fill="#46A2FF"
+              />
+              <path
+                d="M8.54899 17.951L12.5389 17.6664L12.8232 21.6565L8.83336 21.9411L8.54899 17.951Z"
+                fill="#46A2FF"
+              />
+              <path
+                d="M16.5288 17.3818L20.5183 17.0974L20.803 21.0872L16.8131 21.3719L16.5288 17.3818Z"
+                fill="#91C8FF"
+              />
+              <path
+                d="M20.234 13.1073L24.2239 12.8227L24.5085 16.8125L20.5183 17.0974L20.234 13.1073Z"
+                fill="#91C8FF"
+              />
+              <path
+                d="M15.9592 9.40273L19.949 9.11808L20.234 13.1073L16.2441 13.3919L15.9592 9.40273Z"
+                fill="#46A2FF"
+              />
+              <path
+                d="M23.9389 8.83349L27.9288 8.54884L28.2134 12.5387L24.2239 12.8227L23.9389 8.83349Z"
+                fill="#91C8FF"
+              />
+              <path
+                d="M19.6647 5.12803L23.6546 4.84337L23.9389 8.83349L19.949 9.11808L19.6647 5.12803Z"
+                fill="#46A2FF"
+              />
+              <path
+                d="M27.6445 4.55878L31.6343 4.27413L31.919 8.26398L27.9288 8.54884L27.6445 4.55878Z"
+                fill="#91C8FF"
+              />
+              <path
+                d="M23.3698 0.853233L27.3596 0.568578L27.6445 4.55878L23.6546 4.84337L23.3698 0.853233Z"
+                fill="#46A2FF"
+              />
+              <path
+                d="M31.3495 0.283984L35.3394 -0.000671413L35.6241 3.98919L31.6343 4.27413L31.3495 0.283984Z"
+                fill="#91C8FF"
+              />
+              <path
+                d="M9.59942e-05 10.5413L3.98995 10.2566L4.27448 14.2458L0.284751 14.5312L9.59942e-05 10.5413Z"
+                fill="#46A2FF"
+              />
+              <path
+                d="M7.97939 9.97198L11.9692 9.68732L12.2543 13.6766L8.26433 13.9611L7.97939 9.97198Z"
+                fill="#91C8FF"
+              />
+            </svg>
+          </div>
         </div>
         <div className="new__form">
           <label>
@@ -192,7 +254,6 @@ const NewUser = () => {
               <input
                 type="date"
                 name="birthday"
-                value="1999-01-01"
                 onChange={(e) => {
                   const value = e.target.value;
 
@@ -217,10 +278,18 @@ const NewUser = () => {
                     gender: value,
                   }));
                 }}>
-                <option value="">- Pick one -</option>
-                <option value="woman">Woman</option>
-                <option value="man">Man</option>
-                <option value="non-binary">Non-Binary</option>
+                <option key={1} value="">
+                  - Pick one -
+                </option>
+                <option key={2} value="woman">
+                  Woman
+                </option>
+                <option key={3} value="man">
+                  Man
+                </option>
+                <option key={4} value="non-binary">
+                  Non-Binary
+                </option>
               </select>
             </label>
             <label>
@@ -237,7 +306,7 @@ const NewUser = () => {
                   }));
                 }}>
                 {countries?.map((country) => (
-                  <option value={country.country}>
+                  <option key={country.country} value={country.country}>
                     {country.flag}
                   </option>
                 ))}

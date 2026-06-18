@@ -84,7 +84,8 @@
 
 @font-face {
   font-family: "Pixelify Sans";
-  src: url("./assets/fonts/PixelifySans-VariableFont_wght.ttf") format("truetype");
+  src: url("./assets/fonts/PixelifySans-VariableFont_wght.ttf")
+    format("truetype");
 }
 
 /*! ===== universal ===== */
@@ -146,7 +147,7 @@ button {
   width: fit-content;
   padding: var(--space-s) var(--space-s);
   border-radius: 32px;
-  box-shadow: 0 4px 0 0 var(--colour-white);
+  /* box-shadow: 0 4px 0 0 var(--colour-white); */
 
   display: flex;
   align-items: center;
@@ -154,9 +155,11 @@ button {
 }
 
 .drawer {
-  background: linear-gradient(to bottom,
-      var(--colour-blue-400),
-      var(--colour-blue-300));
+  background: linear-gradient(
+    to bottom,
+    var(--colour-blue-400),
+    var(--colour-blue-300)
+  );
 
   width: 100%;
   height: 80dvh;
@@ -217,10 +220,25 @@ button {
   top: -3dvh;
 }
 
+.popup-container {
+  background-color: #00000076;
+  
+  width: 100dvw;
+  height: 100dvh;
+
+  position: fixed;
+  /* top: 0;
+  left: 0; */
+  inset: 0;
+
+  z-index: +2;
+}
+
 /*! ===== landing page ===== */
 .landing {
   /* background-color: var(--colour-blue-300); */
-  background: var(--colour-blue-400) url("./assets/background/sky-color-halftone.png");
+  background: var(--colour-blue-400)
+    url("./assets/background/sky-color-halftone.png");
   background-blend-mode: color-dodge;
   background-size: 200%;
   background-repeat: repeat-y;
@@ -590,6 +608,8 @@ button {
 }
 
 .main__app {
+  margin: var(--space-l) 0;
+  
   display: flex;
   flex-direction: column;
 }
@@ -607,7 +627,7 @@ button {
   font-family: "Antwerpen Pixel";
   font-size: 48px;
 
-  margin-bottom: var(--space-s);
+  margin-bottom: var(--space-m);
 }
 
 .app__description {
@@ -628,11 +648,15 @@ button {
 }
 
 .main__instructions {
+  background-image: url('./assets/background/pacman.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+
   padding: 0 var(--space-l);
 
   display: flex;
   flex-direction: column;
-  gap: var(--space-xl);
+  gap: 5rem;
 }
 
 .instructions__title {
@@ -698,18 +722,19 @@ button {
   border-bottom: 6px solid var(--colour-black);
 }
 
+
 .story__images {
   margin-top: var(--space-xl);
+  margin-bottom: -16rem;
 }
 
 .story__images img:last-child {
   width: 80%;
   position: relative;
   top: -15rem;
-  left: 5rem;
+  left: 4rem;
 }
 
-/*footer*/
 .landing__footer {
   display: flex;
   flex-direction: column;
@@ -719,17 +744,21 @@ button {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
+  justify-content: center;
 }
 
 .footer__skyline img {
   grid-column: 1;
   grid-row: 1;
+
+  width: 200dvw;
 }
 
 .footer__skyline svg {
   grid-column: 1;
   grid-row: 1;
   align-self: flex-end;
+  justify-self: center;
 }
 
 .footer__content {
@@ -744,8 +773,7 @@ button {
 }
 
 .content__container p,
-li,
-h2 {
+li{
   color: var(--colour-white);
   font-family: "Sun Antwerpen";
   font-size: 16px;
@@ -874,6 +902,15 @@ h2 {
   font-size: 20px;
   font-weight: 700;
   text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.selector__description span {
+  width: fit-content;
 }
 
 .selector__users {
@@ -1017,6 +1054,7 @@ h2 {
 
   position: relative;
   top: -2.2rem;
+  left: -0.5rem;
 
   transform: rotate(-8deg);
 }
@@ -1024,6 +1062,7 @@ h2 {
 .user__window {
   width: fit-content;
   border-radius: 6px;
+  box-shadow: -4px 4px 0 var(--colour-black-light);
 }
 
 .user__window--header p {
@@ -1045,6 +1084,36 @@ h2 {
   font-size: 20px;
   text-align: center;
   line-height: 130%;
+}
+
+.user__check {
+  background-color: var(--colour-green-200);
+
+  width: fit-content;
+  padding: var(--space-2xs) var(--space-s);
+  border-radius: 32px;
+  margin-bottom: -1rem;
+
+  position: relative;
+  top: -1rem;
+  left: 6rem;
+
+
+  transform: rotate(-4deg);
+
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
+}
+
+.user__check p {
+  font-family: "Pixelify Sans";
+  font-size: 20px;
+}
+
+.user__check svg {
+  width: auto;
+  height: 1rem;
 }
 
 .new__form {
@@ -1118,6 +1187,7 @@ h2 {
   padding-right: 0;
   padding-bottom: 3.5rem;
   padding-left: 0;
+  margin-bottom: var(--space-xs);
 }
 
 .question__options {
@@ -1130,7 +1200,8 @@ h2 {
   background-color: var(--colour-blue-100);
 }
 
-.question__options:has(label input:checked) .question__option:has(input:checked) {
+.question__options:has(label input:checked)
+  .question__option:has(input:checked) {
   background-color: var(--colour-white);
 }
 
@@ -1230,7 +1301,7 @@ h2 {
 }
 
 .archetype__result {
-  background-image: url('./assets/background/result-bg.svg');
+  background-image: url("./assets/background/result-bg.svg");
   background-size: cover;
   background-position: top center;
   background-repeat: no-repeat;
@@ -1384,6 +1455,10 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.social__profile img {
+  max-height: 100%;
 }
 
 .game__navigation {
@@ -1720,7 +1795,7 @@ h2 {
   box-shadow: -2px 2px 0 var(--colour-black);
 }
 
-.info__avatar svg {
+.info__avatar img {
   width: 6rem;
   height: auto;
 }
@@ -1809,6 +1884,7 @@ h2 {
 }
 
 .achievements__title {
+  color: var(--colour-black);
   font-family: "Antwerpen Regular";
   font-size: 20px;
 
@@ -1881,7 +1957,7 @@ h2 {
   transform: "";
 }
 
-.achievements__item summary+ul {
+.achievements__item summary + ul {
   margin-top: var(--space-s);
 
   display: flex;
@@ -1933,6 +2009,7 @@ h2 {
 }
 
 .group__title {
+  color: var(--colour-black);
   font-family: "Antwerpen Regular";
   font-size: 20px;
 }
@@ -2044,11 +2121,11 @@ h2 {
   transition: 0.4s;
 }
 
-input:checked+.slider {
+input:checked + .slider {
   background-color: var(--colour-blue-400);
 }
 
-input:checked+.slider:before {
+input:checked + .slider:before {
   background-color: var(--colour-blue-100);
   transform: translateX(33px);
 }
@@ -2224,6 +2301,7 @@ input[type="date"] {
 }
 
 .route__title {
+  color: var(--colour-black);
   font-family: "Antwerpen Tall";
   font-size: 24px;
 }
@@ -2262,7 +2340,7 @@ input[type="date"] {
 }
 
 /* meetup */
-.game__meetup {
+.game__meetup, .challenge__tip {
   background-color: var(--colour-white);
 
   width: 80dvw;
@@ -2281,7 +2359,7 @@ input[type="date"] {
   gap: var(--space-xs);
 }
 
-.meetup__sender {
+.meetup__sender, .tip__header {
   background-color: var(--colour-black);
 
   padding: var(--space-s);
@@ -2292,13 +2370,24 @@ input[type="date"] {
   align-items: center;
 }
 
-.sender__name {
+.tip__header {
+  justify-content: flex-start;
+  gap: var(--space-xs);
+}
+
+.sender__name, .tip__header p {
   color: white;
   font-family: "Antwerpen Pixel";
   font-size: 32px;
 }
 
-.meetup__content {
+.tip__header p {
+  font-family: "Pixelify Sans";
+  font-size: 24px;
+  text-transform: uppercase;
+}
+
+.meetup__content, .tip__content {
   padding: var(--space-s);
 
   display: flex;
@@ -2306,8 +2395,61 @@ input[type="date"] {
   gap: var(--space-s);
 }
 
+.content__title {
+  font-family: "Antwerpen Small Caps";
+  font-size: 20px;
+  text-align: center;
+}
+
+.tip__title {
+  color: var(--colour-orange);
+  font-family: "Antwerpen Pixel";
+  font-size: 32px;
+  text-align: center;
+
+  margin-bottom: var(--space-s);
+}
+
+.tip__close {
+  background-color: var(--colour-black);
+
+  color: var(--colour-white);
+  font-family: "Antwerpen Small Caps";
+  font-size: 20px;
+  
+  width: fit-content;
+  padding: var(--space-2xs) var(--space-m);
+  padding-bottom: var(--space-xs);
+  border-radius: 32px;
+  margin: auto;
+}
+
 .meetup__message {
   font-family: "Antwerpen Small Caps";
+}
+
+.sender__information {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
+
+.information__info {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-s);
+}
+
+.information__info div {
+  flex-grow: 1;
+  
+  background-color: lightgray;
+
+  font-family: "Antwerpen Regular";
+  text-align: center;
+
+  padding: var(--space-2xs) var(--space-xs);
+  border-radius: 32px;
 }
 
 .meetup__buttons {

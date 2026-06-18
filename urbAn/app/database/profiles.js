@@ -17,6 +17,7 @@ export const getProfile = async (profileId) => {
 };
 
 export const insertProfile = async (
+  avatar,
   username,
   description,
   birthday,
@@ -28,6 +29,7 @@ export const insertProfile = async (
     .from("profiles")
     .insert([
       {
+        avatar: avatar,
         name: username,
         description: description,
         date_of_birth: birthday,
