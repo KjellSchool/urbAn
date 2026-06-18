@@ -2129,9 +2129,9 @@ const Landing = () => {
                   </p>
                 </div>
                 {imagesState ? (
-                  <button className="window__button" onClick={toggleImages}>
+                  <Link className="window__button" to={'#meet-urban'} >
                     Discover more
-                  </button>
+                  </Link>
                 ) : (
                   <button className="window__button" onClick={toggleImages}>
                     Fix issue
@@ -3517,7 +3517,7 @@ const Landing = () => {
               </defs>
             </svg>
             <div className="app__info">
-              <h2 className="app__title">meet urbAn!</h2>
+              <h2 id="meet-urban" className="app__title">meet urbAn!</h2>
               <p className="app__description">
                 <span className="bold">urbAn</span> is a web app built for{" "}
                 <span className="bold">solo travellers</span> who want to
