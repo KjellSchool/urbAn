@@ -1,9 +1,11 @@
-import { Link, Form } from "react-router";
-import { useState } from "react";
+import { Link, Form, useNavigate } from "react-router";
+import { useEffect, useState } from "react";
 
 import { useUser } from "~/contexts/userContext";
 
 import read_sign from "../assets/icons/read_sign.png";
+
+import { supabase } from "../database/supabase.js";
 
 const Editprofile = () => {
     const { currentUser } = useUser();
@@ -14,6 +16,126 @@ const Editprofile = () => {
     const removeCurrentUser = () => {
         localStorage.removeItem("currentUser");
     }
+
+    const countries = [
+        { country: "Afghanistan", flag: "🇦🇫" },
+        { country: "Albania", flag: "🇦🇱" },
+        { country: "Algeria", flag: "🇩🇿" },
+        { country: "Andorra", flag: "🇦🇩" },
+        { country: "Angola", flag: "🇦🇴" },
+        { country: "Argentina", flag: "🇦🇷" },
+        { country: "Armenia", flag: "🇦🇲" },
+        { country: "Australia", flag: "🇦🇺" },
+        { country: "Austria", flag: "🇦🇹" },
+        { country: "Azerbaijan", flag: "🇦🇿" },
+        { country: "Bahamas", flag: "🇧🇸" },
+        { country: "Bahrain", flag: "🇧🇭" },
+        { country: "Bangladesh", flag: "🇧🇩" },
+        { country: "Belarus", flag: "🇧🇾" },
+        { country: "Belgium", flag: "🇧🇪" },
+        { country: "Belize", flag: "🇧🇿" },
+        { country: "Benin", flag: "🇧🇯" },
+        { country: "Bhutan", flag: "🇧🇹" },
+        { country: "Bolivia", flag: "🇧🇴" },
+        { country: "Bosnia and Herzegovina", flag: "🇧🇦" },
+        { country: "Botswana", flag: "🇧🇼" },
+        { country: "Brazil", flag: "🇧🇷" },
+        { country: "Brunei", flag: "🇧🇳" },
+        { country: "Bulgaria", flag: "🇧🇬" },
+        { country: "Burkina Faso", flag: "🇧🇫" },
+        { country: "Burundi", flag: "🇧🇮" },
+        { country: "Cambodia", flag: "🇰🇭" },
+        { country: "Cameroon", flag: "🇨🇲" },
+        { country: "Canada", flag: "🇨🇦" },
+        { country: "Cape Verde", flag: "🇨🇻" },
+        { country: "Central African Republic", flag: "🇨🇫" },
+        { country: "Chad", flag: "🇹🇩" },
+        { country: "Chile", flag: "🇨🇱" },
+        { country: "China", flag: "🇨🇳" },
+        { country: "Colombia", flag: "🇨🇴" },
+        { country: "Comoros", flag: "🇰🇲" },
+        { country: "Congo", flag: "🇨🇬" },
+        { country: "Costa Rica", flag: "🇨🇷" },
+        { country: "Croatia", flag: "🇭🇷" },
+        { country: "Cuba", flag: "🇨🇺" },
+        { country: "Cyprus", flag: "🇨🇾" },
+        { country: "Czech Republic", flag: "🇨🇿" },
+        { country: "Denmark", flag: "🇩🇰" },
+        { country: "Djibouti", flag: "🇩🇯" },
+        { country: "Dominican Republic", flag: "🇩🇴" },
+        { country: "Ecuador", flag: "🇪🇨" },
+        { country: "Egypt", flag: "🇪🇬" },
+        { country: "El Salvador", flag: "🇸🇻" },
+        { country: "Estonia", flag: "🇪🇪" },
+        { country: "Eswatini", flag: "🇸🇿" },
+        { country: "Ethiopia", flag: "🇪🇹" },
+        { country: "Finland", flag: "🇫🇮" },
+        { country: "France", flag: "🇫🇷" },
+        { country: "Germany", flag: "🇩🇪" },
+        { country: "Ghana", flag: "🇬🇭" },
+        { country: "Greece", flag: "🇬🇷" },
+        { country: "Hungary", flag: "🇭🇺" },
+        { country: "Iceland", flag: "🇮🇸" },
+        { country: "India", flag: "🇮🇳" },
+        { country: "Indonesia", flag: "🇮🇩" },
+        { country: "Iran", flag: "🇮🇷" },
+        { country: "Iraq", flag: "🇮🇶" },
+        { country: "Ireland", flag: "🇮🇪" },
+        { country: "Israel", flag: "🇮🇱" },
+        { country: "Italy", flag: "🇮🇹" },
+        { country: "Jamaica", flag: "🇯🇲" },
+        { country: "Japan", flag: "🇯🇵" },
+        { country: "Jordan", flag: "🇯🇴" },
+        { country: "Kazakhstan", flag: "🇰🇿" },
+        { country: "Kenya", flag: "🇰🇪" },
+        { country: "Kuwait", flag: "🇰🇼" },
+        { country: "Latvia", flag: "🇱🇻" },
+        { country: "Lebanon", flag: "🇱🇧" },
+        { country: "Libya", flag: "🇱🇾" },
+        { country: "Lithuania", flag: "🇱🇹" },
+        { country: "Luxembourg", flag: "🇱🇺" },
+        { country: "Madagascar", flag: "🇲🇬" },
+        { country: "Malaysia", flag: "🇲🇾" },
+        { country: "Mexico", flag: "🇲🇽" },
+        { country: "Mongolia", flag: "🇲🇳" },
+        { country: "Morocco", flag: "🇲🇦" },
+        { country: "Netherlands", flag: "🇳🇱" },
+        { country: "New Zealand", flag: "🇳🇿" },
+        { country: "Nigeria", flag: "🇳🇬" },
+        { country: "North Korea", flag: "🇰🇵" },
+        { country: "Norway", flag: "🇳🇴" },
+        { country: "Pakistan", flag: "🇵🇰" },
+        { country: "Panama", flag: "🇵🇦" },
+        { country: "Peru", flag: "🇵🇪" },
+        { country: "Philippines", flag: "🇵🇭" },
+        { country: "Poland", flag: "🇵🇱" },
+        { country: "Portugal", flag: "🇵🇹" },
+        { country: "Qatar", flag: "🇶🇦" },
+        { country: "Romania", flag: "🇷🇴" },
+        { country: "Russia", flag: "🇷🇺" },
+        { country: "Saudi Arabia", flag: "🇸🇦" },
+        { country: "Serbia", flag: "🇷🇸" },
+        { country: "Singapore", flag: "🇸🇬" },
+        { country: "Slovakia", flag: "🇸🇰" },
+        { country: "Slovenia", flag: "🇸🇮" },
+        { country: "South Africa", flag: "🇿🇦" },
+        { country: "South Korea", flag: "🇰🇷" },
+        { country: "Spain", flag: "🇪🇸" },
+        { country: "Sri Lanka", flag: "🇱🇰" },
+        { country: "Sweden", flag: "🇸🇪" },
+        { country: "Switzerland", flag: "🇨🇭" },
+        { country: "Thailand", flag: "🇹🇭" },
+        { country: "Tunisia", flag: "🇹🇳" },
+        { country: "Turkey", flag: "🇹🇷" },
+        { country: "Ukraine", flag: "🇺🇦" },
+        { country: "United Arab Emirates", flag: "🇦🇪" },
+        { country: "United Kingdom", flag: "🇬🇧" },
+        { country: "United States", flag: "🇺🇸" },
+        { country: "Uruguay", flag: "🇺🇾" },
+        { country: "Venezuela", flag: "🇻🇪" },
+        { country: "Vietnam", flag: "🇻🇳" },
+        { country: "Zimbabwe", flag: "🇿🇼" },
+    ];
 
     const avatars = [
         {
@@ -41,6 +163,55 @@ const Editprofile = () => {
             color: "#B085FF",
         },
     ];
+
+    const navigate = useNavigate();
+
+    const [pendingUser, setPendingUser] = useState({
+        name: "",
+        gender: "",
+        description: "",
+        date_of_birth: "",
+        nationality: "",
+        avatar: "",
+    });
+
+    useEffect(() => {
+        if (!currentUser) return;
+
+        setPendingUser({
+            name: currentUser.name || "",
+            gender: currentUser.gender || "",
+            description: currentUser.description || "",
+            date_of_birth: currentUser.date_of_birth || "",
+            nationality: currentUser.nationality || "",
+            avatar: currentUser.avatar || "",
+        });
+
+        setSelectedAvatar(currentUser.avatar);
+    }, [currentUser]);
+
+    const handleSaveProfile = async () => {
+        if (!currentUser?.id) return;
+
+        const { error } = await supabase
+            .from("profiles")
+            .update({
+                name: pendingUser.name,
+                gender: pendingUser.gender,
+                description: pendingUser.description,
+                date_of_birth: pendingUser.date_of_birth,
+                nationality: pendingUser.nationality,
+                avatar: selectedAvatar,
+            })
+            .eq("id", currentUser.id);
+
+        if (error) {
+            console.error("Error saving profile:", error);
+            return;
+        }
+
+        navigate("/");
+    };
 
     return (
         <>
@@ -77,7 +248,14 @@ const Editprofile = () => {
                                     key={index}
                                     className="avatar"
                                     style={{ backgroundColor: avatar.color }}
-                                    onClick={() => setSelectedAvatar(avatar.src)}
+                                    onClick={() => {
+                                        setSelectedAvatar(avatar.src);
+
+                                        setPendingUser((prev) => ({
+                                            ...prev,
+                                            avatar: avatar.src,
+                                        }));
+                                    }}
                                 >
                                     <img src={avatar.src} alt={`Avatar ${index + 1}`} />
                                 </div>
@@ -86,14 +264,36 @@ const Editprofile = () => {
                     </div>
                     <Link className="retake__quiz" to={`/`}><button>RETAKE QUIZ</button></Link>
                 </div>
-                <Form className="profile__form">
+                <Form action="/updateprofile"
+                    method="post"
+                    className="profile__form">
                     <div className="form__group">
                         <label className="form__label" htmlFor="name">Name</label>
-                        <input type="text" id="name" name="name" placeholder={currentUser?.name} />
-                    </div>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            value={pendingUser.name}
+                            onChange={(e) =>
+                                setPendingUser((prev) => ({
+                                    ...prev,
+                                    name: e.target.value,
+                                }))
+                            }
+                        />                    </div>
                     <div className="form__group form__group--gender">
                         <label className="form__label" htmlFor="gender">Gender</label>
-                        <select id="gender" name="gender" value={currentUser?.gender}>
+                        <select
+                            id="gender"
+                            name="gender"
+                            value={pendingUser.gender}
+                            onChange={(e) =>
+                                setPendingUser((prev) => ({
+                                    ...prev,
+                                    gender: e.target.value,
+                                }))
+                            }
+                        >
                             <option value="">- Pick one -</option>
                             <option value="woman">Woman</option>
                             <option value="man">Man</option>
@@ -102,7 +302,17 @@ const Editprofile = () => {
                     </div>
                     <div className="form__group form__group--descrip">
                         <label className="form__label" htmlFor="description">Description</label>
-                        <textarea id="description" name="description" placeholder={currentUser?.description} />
+                        <textarea
+                            id="description"
+                            name="description"
+                            value={pendingUser.description}
+                            onChange={(e) =>
+                                setPendingUser((prev) => ({
+                                    ...prev,
+                                    description: e.target.value,
+                                }))
+                            }
+                        />
                         <p>Max. 50 words</p>
                     </div>
 
@@ -115,7 +325,13 @@ const Editprofile = () => {
                                 type="date"
                                 id="dateOfBirth"
                                 name="dateOfBirth"
-                                defaultValue={currentUser?.date_of_birth}
+                                value={pendingUser.date_of_birth}
+                                onChange={(e) =>
+                                    setPendingUser((prev) => ({
+                                        ...prev,
+                                        date_of_birth: e.target.value,
+                                    }))
+                                }
                             />
                             <svg className="date-input__icon" xmlns="http://www.w3.org/2000/svg" width="29" height="30" viewBox="0 0 29 30" fill="none">
                                 <rect y="27.7734" width="2.22189" height="2.22189" fill="black" />
@@ -189,9 +405,22 @@ const Editprofile = () => {
                         </div>
                     </div>
 
-                    <div className="form__group">
+                    <div className="form__group form__group--nationality">
                         <label className="form__label" htmlFor="nationality">Nationality</label>
-                        <input type="text" id="nationality" name="nationality" placeholder={currentUser?.nationality} />
+                        <select
+                            id="nationality" name="nationality" value={pendingUser.nationality}
+                            onChange={(e) =>
+                                setPendingUser((prev) => ({
+                                    ...prev,
+                                    nationality: e.target.value,
+                                }))
+                            }>
+                            {countries?.map((country) => (
+                                <option key={country.country} value={country.country}>
+                                    {country.country} {country.flag}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                     <div className="form__group">
                         <label className="form__label" htmlFor="email">Email</label>
@@ -201,7 +430,13 @@ const Editprofile = () => {
                         <label className="form__label" htmlFor="password">Password</label>
                         <input type="password" id="password" name="password" />
                     </div>
-                    <Link className="save__profile" to={`/`}><button type="button">SAVE CHANGES</button></Link>
+                    <button
+                        className="save__profile"
+                        type="button"
+                        onClick={handleSaveProfile}
+                    >
+                        SAVE CHANGES
+                    </button>
                 </Form>
             </div>
         </>
