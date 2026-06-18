@@ -1053,6 +1053,7 @@ li{
 
   position: relative;
   top: -2.2rem;
+  left: -0.5rem;
 
   transform: rotate(-8deg);
 }
@@ -1060,6 +1061,7 @@ li{
 .user__window {
   width: fit-content;
   border-radius: 6px;
+  box-shadow: -4px 4px 0 var(--colour-black-light);
 }
 
 .user__window--header p {
@@ -1081,6 +1083,36 @@ li{
   font-size: 20px;
   text-align: center;
   line-height: 130%;
+}
+
+.user__check {
+  background-color: var(--colour-green-200);
+
+  width: fit-content;
+  padding: var(--space-2xs) var(--space-s);
+  border-radius: 32px;
+  margin-bottom: -1rem;
+
+  position: relative;
+  top: -1rem;
+  left: 6rem;
+
+
+  transform: rotate(-4deg);
+
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
+}
+
+.user__check p {
+  font-family: "Pixelify Sans";
+  font-size: 20px;
+}
+
+.user__check svg {
+  width: auto;
+  height: 1rem;
 }
 
 .new__form {
