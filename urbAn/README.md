@@ -12,9 +12,9 @@
 
 ## Landing Page
 
-- [ ] Feature Promotion
-- [ ] Tutorial
-- [ ] Footer
+- [x] Feature Promotion
+- [x] Tutorial
+- [x] Footer
 - [ ] ! Desktop !
 
 ## Nearby Users
@@ -28,7 +28,7 @@
 
 - [x] Add side quest drawer
 - [x] Fill drawer with side quests that are on the current route
-- [ ] Conplete side quests
+- [x] Conplete side quests
 
 ## Routes
 
