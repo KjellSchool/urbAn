@@ -1186,6 +1186,7 @@ li{
   padding-right: 0;
   padding-bottom: 3.5rem;
   padding-left: 0;
+  margin-bottom: var(--space-xs);
 }
 
 .question__options {
