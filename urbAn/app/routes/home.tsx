@@ -56,8 +56,15 @@ const Home = () => {
   };
 
   const calculateDistance = (user1Coords, user2Coords) => {
+    if (
+      !Array.isArray(user1Coords) ||
+      !Array.isArray(user2Coords?.coordinates)
+    ) {
+      return null;
+    }
+
     const [lat1, lon1] = user1Coords || [0, 0];
-    const [lat2, lon2] = user2Coords?.coordinates;
+    const [lat2, lon2] = user2Coords?.coordinates || [0, 0];
 
     const R = 6371; // Earth's radius in km
 
@@ -76,8 +83,8 @@ const Home = () => {
   };
 
   const groupProfiles = (users) => {
-    if(!users) return;
-    
+    if (!users) return;
+
     let newClose = [];
     let newFar = [];
 
