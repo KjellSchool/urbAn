@@ -1754,6 +1754,9 @@ li {
   background-color: var(--color-white-dark);
 
   min-height: 100dvh;
+
+  overflow-x: hidden;
+
   display: flex;
   flex-direction: column;
 }
