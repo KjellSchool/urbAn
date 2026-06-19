@@ -21,7 +21,7 @@ export const insertProfile = async (
   username,
   description,
   birthday,
-  gender, 
+  gender,
   country,
   archetype,
 ) => {
@@ -42,6 +42,27 @@ export const insertProfile = async (
     .single();
 
   return { data, error };
+};
+
+export const updateProfile = async (
+  profileId,
+  freshUser
+) => {
+  const { data, error } = await supabase
+    .from("profiles")
+    .update({
+      avatar: freshUser.avatar,
+      name: freshUser.name,
+      description: freshUser.description,
+      date_of_birth: freshUser.dob,
+      gender: freshUser.gender,
+      nationality: freshUser.nationality,
+    })
+    .eq("profile_id", profileId)
+    .select("*")
+    .single();
+
+  return { data, error}
 };
 
 export const setProfileLocation = async (profileId, userLocation) => {

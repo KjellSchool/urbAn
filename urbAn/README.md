@@ -9,7 +9,7 @@
 - [ ] How it works
 - [ ] Icons
 - [ ] Share your layer
-- [ ] Footer
+- [ ] Footer w
 
 - [ ] !**Desktop**!
 
