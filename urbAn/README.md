@@ -2,14 +2,14 @@
 
 ## Landing page
 
-- [ ] Fold
-- [ ] Hook (error)
-- [ ] Chat
-- [ ] Meet urbAn
-- [ ] How it works
-- [ ] Icons
-- [ ] Share your layer
-- [ ] Footer w
+- [x] Fold
+- [x] Hook (error)
+- [x] Chat
+- [ ] Meet urbAn (still needs the carousel)
+- [x] How it works
+- [x] Icons
+- [x] Share your layer
+- [x] Footer
 
 - [ ] !**Desktop**!
 
@@ -19,54 +19,57 @@ When going from the desktop landing page to the app, the user should get a warni
 
 ### Onboarding
 
-- [ ] User picker
-- [ ] New user form
-- [ ] Archetype quiz
-- [ ] Archetype outcome
+- [x] User picker
+- [x] New user form
+- [x] Archetype quiz
+- [ ] Archetype outcome (still needs social media sharing, don't focus on this)
 
 ### Home screen
 
 #### Side Quests
 
-- [ ] Empty state
-- [ ] Loading all side quests for the current route
+- [x] Empty state
+- [x] Loading all side quests for the current route
 - [ ] Split up side quests based on completion status
-- [ ] Completing a side quest
-- [ ] Show local tip on side quest completion
+- [x] Completing a side quest
+- [x] Show local tip on side quest completion
 
 #### Meetups
 
-- [ ] Empty state
-- [ ] Load nearby users in their respective list based on distance
-- [ ] Send meetup request
-- [ ] Receive meetup request
-- [ ] See user information when receiving a request
-- [ ] Accept meetup
+- [x] Empty state
+- [x] Load nearby users in their respective list based on distance
+- [ ] Load all data for a nearby user
+- [x] Send meetup request
+- [x] Receive meetup request
+- [x] See user information when receiving a request
+- [ ] User request distance is correct
+- [x] Accept meetup
+- [ ] sending and accepting / declining confirmations
 - [ ] Meetup location is visible for both participants
 - [ ] Meetup location dissapear when both participants reach the location
 - [ ] Filters
 
 #### Routes
 
-- [ ] Display all routes
+- [x] Display all routes
 - [ ] Display routes based on their archetype (do they fit the current user archetype)
 - [ ] Be able to like the route (heart needs to change, no actual functionality needed)
 - [ ] See route details
-- [ ] Start a route
+- [x] Start a route
 - [ ] Starting a route gives the user a popup with the route title
 - [ ] Cancel current route (confirmation)
 - [ ] Filters
 
 ### Profile page
 
-- [ ] Load profile information
+- [x] Load profile information
 - [ ] Load profile achievements (does everything load in when the profile page loads)
-- [ ] Unique profile avatar for the user is displayed
+- [x] Unique profile avatar for the user is displayed
 
 ### Settings page
 
 - [ ] User information is loaded
-- [ ] All settings have a toggle input (checkbox with fancy CSS)
+- [x] All settings have a toggle input (checkbox with fancy CSS)
 - [ ] Visibility toggle works
 - [ ] Dark mode toggle works
 - [ ] Log out sends user back to user picker page (confirmation)
@@ -75,8 +78,8 @@ When going from the desktop landing page to the app, the user should get a warni
 ### Edit profile page
 
 - [ ] User can pick a new avatar
-- [ ] Current user information is loaded 
-- [ ] User edits are updated in the database upon saving (confirmation)
+- [x] Current user information is loaded 
+- [x] User edits are updated in the database upon saving (confirmation)
 
 ## Before submission
 
