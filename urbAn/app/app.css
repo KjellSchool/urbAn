@@ -732,6 +732,7 @@ button {
 .share__stories img {
   width: 80%;
   border-radius: 32px;
+  margin-top: var(--space-l);
   border: 1px solid var(--colour-black);
   border-left: 6px solid var(--colour-black);
   border-bottom: 6px solid var(--colour-black);
@@ -740,17 +741,14 @@ button {
 .story__images {
   margin-top: var(--space-xl);
   margin-bottom: -16rem;
-}
-
-.story__images img:last-child {
-  display: none
-}
-
-.story__images img:last-child {
   width: 80%;
   position: relative;
   top: -15rem;
   left: 4rem;
+}
+
+.story__image--end {
+  display: none
 }
 
 .landing__footer {
@@ -799,6 +797,7 @@ li {
 
 .footer__title {
   font-family: "Antwerpen Pixel";
+  color: var(--colour-white);
   font-size: 32px;
   font-style: normal;
   font-weight: 400;
@@ -893,6 +892,13 @@ li {
   .landing {
     height: auto;
     overflow: visible;
+    background: var(--colour-blue-400) url("./assets/background/sky-color-halftone-desktop.png");
+    background-blend-mode: color-dodge;
+    background-size: 200%;
+    background-repeat: repeat-y;
+    max-width: 100dvw;
+    height: fit-content;
+    overflow: hidden;
   }
 
   .header__title--tabs {
@@ -1131,7 +1137,7 @@ li {
     display: flex;
     justify-content: center;
     gap: var(--space-xl);
-    scale:0.8;
+    scale: 0.8;
   }
 
   .story__image--middle {
@@ -1156,6 +1162,41 @@ li {
     top: -15rem;
     left: 4rem;
   } */
+
+  /*footer*/
+  .footer__styling {
+    margin: 0 5rem;
+  }
+
+  .content__container--design {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .footer__title {
+    padding-top: 5rem;
+    color: var(--colour-white);
+    font-size: 48px;
+  }
+
+  .footer__logo {
+    width: 15%;
+    transform: rotate(5deg);
+    position: relative;
+    align-self: flex-start;
+    left: -6rem;
+    top: -6rem;
+    margin-bottom: 0;
+  }
+
+  .footers__container {
+    display: flex;
+    gap: 3rem;
+  }
+
+  .footer__container p {
+    margin-bottom: var(--space-m);
+  }
 }
 
 /*! ===== onboarding ===== */
