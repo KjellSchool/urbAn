@@ -686,6 +686,7 @@ button {
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
+  margin-bottom: var(--space-l);
 }
 
 .instruction__title {
@@ -739,6 +740,10 @@ button {
 .story__images {
   margin-top: var(--space-xl);
   margin-bottom: -16rem;
+}
+
+.story__images img:last-child {
+  display: none
 }
 
 .story__images img:last-child {
@@ -1070,17 +1075,87 @@ li {
     height: auto
   }
 
+  .app__top,
+  .app__bottom {
+    display: none;
+  }
+
   .app__info {
+    background: none;
     background-image: url("./assets/background/app-desktop.png");
     background-size: cover;
     background-position: top center;
     background-repeat: no-repeat;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-l);
+
+    padding: 20rem 0;
   }
 
-  .app__showcase{
+  .app__info div {
+    padding: var(--space-xl);
+  }
+
+  .app__info div:first-child {
+    width: 50%;
+  }
+
+  .app__cta {
+    margin-top: var(--space-m);
+    margin-left: 0;
+  }
+
+  .app__showcase {
+    display: flex;
+  }
+
+  /*Main instructions*/
+  .instructions {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-2xl);
+  }
+
+  .instructions__section p {
+    max-width: 65%;
+  }
+
+  .icon__feature {
+    width: 80%;
+  }
+
+  .story__images {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xl);
+    scale:0.8;
+  }
+
+  .story__image--middle {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .story__images img:last-child {
     display: block;
+    top: 0;
+    left: 0;
   }
 
+  /* .story__images {
+    margin-top: var(--space-xl);
+    margin-bottom: -16rem;
+  }
+
+  .story__images img:last-child {
+    width: 80%;
+    position: relative;
+    top: -15rem;
+    left: 4rem;
+  } */
 }
 
 /*! ===== onboarding ===== */
