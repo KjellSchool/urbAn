@@ -20,6 +20,7 @@ import headerTabsDesktop from "../assets/background/header-tabs-desktop.png";
 import antwerp_logo from "../assets/logos/antwerp-red.png";
 
 import header_folders from "../assets/images/header-folders.png";
+import intro__bg from "../assets/background/intro-bg-desktop.svg";
 
 const Landing = () => {
   const [imagesState, setImagesState] = useState(false);
@@ -1978,6 +1979,12 @@ const Landing = () => {
         </header>
         <main className="landing__main">
           <div className="main__intro">
+            {/* <img
+              className="intro__background"
+              src={intro__bg}
+              alt=""
+              aria-hidden="true"
+            /> */}
             <div className="intro__window intro__window--1">
               <div className="window__header">
                 <div className="header__close">
@@ -2076,7 +2083,11 @@ const Landing = () => {
             </div>
             <div className="intro__window intro__window--5">
               <div className="window__header">
-                <p className="window--error">Error 404</p>
+                <p className="window--error">{imagesState ? (
+                  "Error Fixed"
+                ) : (
+                    "Error 404"
+                )}</p>
                 <div className="header__close">
                   <svg
                     width="10"
@@ -2644,6 +2655,9 @@ const Landing = () => {
               </filter>
             </defs>
           </svg>
+
+
+          
           <div className="main__chat">
             <div className="chat__sender">
               <p className="sender__text">
