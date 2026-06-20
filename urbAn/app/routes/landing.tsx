@@ -1,6 +1,12 @@
 import { Link } from "react-router";
 import { useState } from "react";
 
+import { useEffect } from "react";
+import { gsap } from "gsap";
+import { Draggable } from "gsap/Draggable";
+
+gsap.registerPlugin(Draggable);
+
 import qr from "../assets/qr-code.png";
 
 import image1 from "../assets/images/image-1.png";
@@ -35,6 +41,79 @@ const Landing = () => {
     setImagesState(!imagesState);
     console.log(imagesState);
   };
+
+  /*GSAP*/
+  useEffect(() => {
+    const images = gsap.utils.toArray(".app__showcase img");
+    const dots = gsap.utils.toArray(".app__dot");
+
+    let currentIndex = 0;
+    let autoSlide;
+
+    gsap.set(images, {
+      xPercent: 100,
+      opacity: 0,
+      scale: 0.9,
+    });
+
+    gsap.set(images[0], {
+      xPercent: 0,
+      opacity: 1,
+      scale: 1,
+    });
+
+    function updateDots(index) {
+      dots.forEach((dot, i) => {
+        dot.classList.toggle("app__dot--active", i === index);
+      });
+    }
+
+    function goToSlide(index) {
+      const nextIndex = gsap.utils.wrap(0, images.length, index);
+
+      if (nextIndex === currentIndex) return;
+
+      const direction = nextIndex > currentIndex ? 1 : -1;
+
+      gsap.to(images[currentIndex], {
+        xPercent: -100 * direction,
+        opacity: 0,
+        scale: 0.9,
+        duration: 0.6,
+        ease: "power2.inOut",
+      });
+
+      gsap.fromTo(
+        images[nextIndex],
+        {
+          xPercent: 100 * direction,
+          opacity: 0,
+          scale: 0.9,
+        },
+        {
+          xPercent: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.6,
+          ease: "power2.inOut",
+        }
+      );
+
+      currentIndex = nextIndex;
+      updateDots(currentIndex);
+    }
+
+    function nextSlide() {
+      goToSlide(currentIndex + 1);
+    }
+
+    autoSlide = setInterval(nextSlide, 2500);
+
+    return () => {
+      clearInterval(autoSlide);
+    };
+  }, []);
+  /**/
 
   return (
     <>
@@ -3616,10 +3695,25 @@ const Landing = () => {
                   </svg>
                 </Link>
               </div>
-              <div className="app__showcase">
-                <img src={app_img1} alt="" />
-                <img src={app_img2} alt="" />
-                <img src={app_img3} alt="" />
+              <div className="app__showcase-section">
+                <div className="app__showcase">
+                  <img src={app_img1} alt="" />
+                  <img src={app_img2} alt="" />
+                  <img src={app_img3} alt="" />
+                </div>
+
+                <div className="app__dots">
+                  <span className="app__dot app__dot--active"></span>
+                  <span className="app__dot"></span>
+                  <span className="app__dot"></span>
+                </div>
+              </div>
+              <div className="app__showcase-section--desktop">
+                <div className="app__showcase--desktop">
+                  <img src={app_img1} alt="" />
+                  <img src={app_img2} alt="" />
+                  <img src={app_img3} alt="" />
+                </div>
               </div>
             </div>
             <svg
