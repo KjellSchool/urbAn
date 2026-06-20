@@ -22,6 +22,10 @@ import antwerp_logo from "../assets/logos/antwerp-red.png";
 import header_folders from "../assets/images/header-folders.png";
 import intro__bg from "../assets/background/intro-bg-desktop.svg";
 
+import app_img1 from "../assets/images/app-pic1.png";
+import app_img2 from "../assets/images/app-pic2.png";
+import app_img3 from "../assets/images/app-pic3.png";
+
 const Landing = () => {
   const [imagesState, setImagesState] = useState(false);
 
@@ -2086,7 +2090,7 @@ const Landing = () => {
                 <p className="window--error">{imagesState ? (
                   "Error Fixed"
                 ) : (
-                    "Error 404"
+                  "Error 404"
                 )}</p>
                 <div className="header__close">
                   <svg
@@ -2655,9 +2659,6 @@ const Landing = () => {
               </filter>
             </defs>
           </svg>
-
-
-          
           <div className="main__chat">
             <div className="chat__sender">
               <p className="sender__text">
@@ -3243,6 +3244,9 @@ const Landing = () => {
               </svg>
             </div>
           </div>
+
+
+
           <div className="main__app">
             <svg
               className="app__top"
@@ -3555,7 +3559,11 @@ const Landing = () => {
                 explore beyond algorithms, connect with people, and uncover the
                 many layers of <span className="bold">Anwerp</span>.
               </p>
-              <div className="app__showcase">images will go here</div>
+              <div className="app__showcase">
+                <img src={app_img1} alt="" /> 
+                <img src={app_img2} alt="" /> 
+                <img src={app_img3} alt="" /> 
+              </div>
               <Link className="app__cta cta" to={`user`}>
                 Join urbAn now
                 <svg
