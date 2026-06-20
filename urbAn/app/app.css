@@ -654,7 +654,7 @@ button {
 }
 
 .app__showcase {
-  margin: var(--space-s) 0;
+  display: none;
 }
 
 .app__cta {
@@ -1070,6 +1070,18 @@ li {
     width: 40px;
     height: auto
   }
+
+  .app__info {
+    background-image: url("./assets/background/app-desktop.png");
+    background-size: cover;
+    background-position: top center;
+    background-repeat: no-repeat;
+  }
+
+  .app__showcase{
+    display: block;
+  }
+
 }
 
 /*! ===== onboarding ===== */
