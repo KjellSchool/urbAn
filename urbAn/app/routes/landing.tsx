@@ -15,6 +15,7 @@ import imagestory1 from "../assets/images/image-story1.png";
 import imagestory2 from "../assets/images/image-story2.png";
 
 import antwerp from "../assets/background/antwerp.png";
+import headerTabsDesktop from "../assets/background/header-tabs-desktop.png";
 
 import antwerp_logo from "../assets/logos/antwerp-red.png";
 
@@ -531,10 +532,18 @@ const Landing = () => {
           </div>
           <h1 className="header__title">
             <div className="header__title--tabs">
-              There is
-              <br />a version
-              <br />
-              <span className="highlight-pink-200">of Antwerp</span>
+              <img
+                className="header__title--tabs-image"
+                src={headerTabsDesktop}
+                alt=""
+                aria-hidden="true"
+              />
+              <span className="header__title--tabs-content">
+                There is
+                <br />a version of
+                <br />
+                <span className="highlight-pink-200">Antwerp</span>
+              </span>
             </div>
             <div className="header__title--balloon">
               <span>for every version</span>
@@ -6097,13 +6106,13 @@ const Landing = () => {
           </div>
         </footer>
       </div>
-      <div id="responsive-redirect">
+      {/* <div id="responsive-redirect">
         <p>
           This page is under development, please continue on your mobile device
           by scanning the QR-code
         </p>
         <img src={qr} alt="qr-code that links to this website" />
-      </div>
+      </div> */}
     </>
   );
 };
