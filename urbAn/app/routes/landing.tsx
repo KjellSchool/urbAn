@@ -19,6 +19,8 @@ import headerTabsDesktop from "../assets/background/header-tabs-desktop.png";
 
 import antwerp_logo from "../assets/logos/antwerp-red.png";
 
+import header_folders from "../assets/images/header-folders.png";
+
 const Landing = () => {
   const [imagesState, setImagesState] = useState(false);
 
@@ -531,6 +533,12 @@ const Landing = () => {
             </svg>
           </div>
           <h1 className="header__title">
+            <img
+              className="header__folders"
+              src={header_folders}
+              alt=""
+              aria-hidden="true"
+            />
             <div className="header__title--tabs">
               <img
                 className="header__title--tabs-image"
