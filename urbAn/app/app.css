@@ -308,6 +308,10 @@ button {
   display: none;
 }
 
+.header__folders {
+  display: none;
+}
+
 .header__title--tabs-content {
   position: relative;
   z-index: 1;
@@ -885,13 +889,8 @@ li {
     overflow: visible;
   }
 
-  #hourglass-sticker {
-    width: 8rem;
-    left: -15rem;
-    transform: rotate(25deg);
-  }
-
   .header__title--tabs {
+    padding-top: 0rem;
     background-image: none;
     justify-self: flex-start;
     left: 15rem;
@@ -900,6 +899,19 @@ li {
   .header__title--tabs span {
     left: 18rem;
     line-height: 130%;
+    top: 6rem;
+  }
+
+  .header__folders {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 8%;
+    height: auto;
+    pointer-events: none;
+    justify-self: flex-end;
+    top: 10rem;
+    margin-right: 10rem;
   }
 
   .header__title--tabs-image {
@@ -915,7 +927,6 @@ li {
   .header__title--balloon,
   .header__title--check {
     justify-self: center;
-    top: -4rem;
     left: 10rem;
   }
 
@@ -928,11 +939,45 @@ li {
     background-position: center;
     font-size: 32px;
     text-align: center;
+    top: 2rem;
   }
 
   .header__title--check {
     left: 14rem;
-    top: -7rem;
+    top: -0.5rem;
+  }
+
+  .header__cta {
+    margin-top: var(--space-xl);
+    border-radius: 40px;
+    box-shadow: -4px 4px 0 0 var(--colour-black-light);
+  }
+
+  #hourglass-sticker,
+  #globe-sticker,
+  #camera-sticker {
+    width: 8rem;
+  }
+
+  #hourglass-sticker {
+    align-self: center;
+    left: -20rem;
+    top: 10rem;
+    transform: rotate(25deg);
+  }
+
+  #globe-sticker {
+    position: relative;
+    left: 8rem;
+    top: -5rem;
+  }
+
+  #camera-sticker {
+    width: 9rem;
+    transform: rotate(-25deg);
+    position: relative;
+    left: -20rem;
+    top: -5rem;
   }
 }
 
