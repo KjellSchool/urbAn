@@ -653,12 +653,52 @@ button {
   font-weight: 700;
 }
 
-.app__showcase {
+.app__showcase-section--desktop {
   display: none;
+}
+
+.app__showcase-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.app__showcase {
+  position: relative;
+}
+
+.app__showcase img {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.app__showcase img:first-child {
+  position: relative;
+}
+
+.app__dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.app__dot {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background-color: var(--colour-pink-200);
+  display: block;
+}
+
+.app__dot--active {
+  background-color: var(--colour-pink-400);
 }
 
 .app__cta {
   margin: auto;
+  margin-top: var(--space-m);
 }
 
 .main__instructions {
@@ -1115,7 +1155,15 @@ li {
     margin-left: 0;
   }
 
-  .app__showcase {
+  .app__showcase-section {
+    display: none;
+  }
+
+  .app__showcase-section--desktop {
+    display: block;
+  }
+
+  .app__showcase--desktop {
     display: flex;
   }
 
