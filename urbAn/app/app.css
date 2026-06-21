@@ -2501,7 +2501,10 @@ li {
 }
 
 .achievement__entry {
+  color: var(--colour-black);
+  
   margin-left: var(--space-s);
+  
   display: flex;
   align-items: center;
   gap: var(--space-xs);
