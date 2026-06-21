@@ -257,7 +257,7 @@ const Settings = () => {
           <div className="group__setting">
             <label htmlFor="">Visibility</label>
             <label className="switch">
-              <input className="switch visibility" type="checkbox" />
+              <input className="switch visibility" type="checkbox" defaultChecked={true} />
               <span className="slider round"></span>
             </label>
           </div>
