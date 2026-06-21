@@ -193,8 +193,8 @@ const Landing = () => {
                   width="92"
                   height="92"
                   filterUnits="userSpaceOnUse"
-                  color-interpolation-filters="sRGB">
-                  <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                  colorInterpolationFilters="sRGB">
+                  <feFlood floodOpacity="0" result="BackgroundImageFix" />
                   <feColorMatrix
                     in="SourceAlpha"
                     type="matrix"
@@ -237,7 +237,7 @@ const Landing = () => {
                 <path
                   d="M13.9463 17.4691V19.5301C13.9463 20.8892 15.0481 21.991 16.4072 21.991C17.7664 21.991 18.8682 23.0928 18.8682 24.4519V30.6703C18.8682 32.9771 19.7864 35.189 21.4202 36.8175L24.9252 40.3111C29.0018 44.3746 29.1071 50.9435 25.1628 55.1356L21.217 59.3292C19.7082 60.9327 18.8682 63.0514 18.8682 65.2531V71.4369C18.8682 72.796 17.7664 73.8978 16.4072 73.8978C15.0481 73.8978 13.9463 74.9996 13.9463 76.3588L13.9463 78.3356C13.9463 80.7865 15.9331 82.7733 18.384 82.7733H59.0218C61.4727 82.7733 63.4595 80.7865 63.4595 78.3356V76.2115C63.4595 74.9337 62.4236 73.8978 61.1458 73.8978C59.868 73.8978 58.8321 72.8619 58.8321 71.5841V65.3029C58.8321 63.0724 57.9651 60.9293 56.4141 59.3264L52.4664 55.2462C48.3837 51.0265 48.4917 44.2971 52.7075 40.2104L56.2089 36.8164C57.8857 35.1911 58.8321 32.9555 58.8321 30.6203V24.2837C58.8321 23.0175 59.8586 21.991 61.1248 21.991C62.391 21.991 63.4174 20.9645 63.4174 19.6983V17.4691C63.4174 14.9718 61.3929 12.9473 58.8956 12.9473L18.4682 12.9473C15.9708 12.9473 13.9463 14.9718 13.9463 17.4691Z"
                   stroke="#CDFF10"
-                  stroke-width="25.893"
+                  strokeWidth="25.893"
                 />
               </g>
               <path
@@ -588,8 +588,8 @@ const Landing = () => {
                   width="77.4062"
                   height="97.7207"
                   filterUnits="userSpaceOnUse"
-                  color-interpolation-filters="sRGB">
-                  <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                  colorInterpolationFilters="sRGB">
+                  <feFlood floodOpacity="0" result="BackgroundImageFix" />
                   <feColorMatrix
                     in="SourceAlpha"
                     type="matrix"
@@ -977,7 +977,7 @@ const Landing = () => {
                 <path
                   d="M10.9586 19.5194C10.9586 19.5194 13.0936 21.4956 14.0339 23.071C16.5567 27.2984 21.2852 30.0275 24.9488 26.7391L34.66 18.0224C35.8514 16.953 35.2046 14.9775 33.6114 14.8199L32.9917 14.7585C30.6564 14.5274 28.3909 13.8316 26.3285 12.712L25.0013 11.9915C23.9363 11.4134 22.9897 10.6399 22.211 9.71144L21.9708 9.42503C20.703 7.91345 18.954 6.88385 17.0171 6.50897C14.6473 6.05031 12.1939 6.6089 10.2563 8.04827L9.27701 8.77573C7.97362 9.74397 7.13038 11.2096 6.94841 12.823C6.72174 14.8329 7.54753 16.8175 9.13299 18.0733L10.9586 19.5194Z"
                   stroke="#CDFF10"
-                  stroke-width="12.5944"
+                  strokeWidth="12.5944"
                 />
               </g>
               <g filter="url(#filter1_d_935_1620)">
@@ -988,7 +988,7 @@ const Landing = () => {
                 <path
                   d="M83.3423 28.4388C83.0009 31.0016 82.4443 34.5317 81.8643 35.5034C80.5914 37.6364 77.6666 37.3723 75.8181 35.7131L60.5019 21.9654C59.3104 20.896 59.9573 18.9205 61.5504 18.7629L64.4539 18.4756C65.2787 18.3939 66.1111 18.5078 66.8836 18.808L67.0573 18.8756C70.4309 20.1865 74.068 17.6978 74.068 14.0785C74.068 12.0198 75.2949 10.1591 77.1872 9.34816L77.6455 9.15174C79.8769 8.19542 82.4663 8.70287 84.1717 10.4307L86.113 12.3976C87.2935 13.5936 88.0699 15.129 88.3335 16.7886L88.4835 17.7331C88.8611 20.1102 87.8875 22.5003 85.9564 23.937C84.5076 25.0149 83.5808 26.6488 83.3423 28.4388Z"
                   stroke="#CDFF10"
-                  stroke-width="12.5944"
+                  strokeWidth="12.5944"
                 />
               </g>
               <g filter="url(#filter2_d_935_1620)">
@@ -999,7 +999,7 @@ const Landing = () => {
                 <path
                   d="M66.4438 85.2685H26.0749C24.831 85.2685 23.8226 84.2601 23.8226 83.0162C23.8226 81.7723 22.7927 80.764 21.5488 80.764C20.281 80.764 19.2313 79.7362 19.2313 78.4683V77.4377C19.2313 76.4696 19.6531 75.5495 20.3866 74.9176L21.3263 74.1081C24.0463 71.7651 24.1301 67.5796 21.5061 65.1296L20.2349 63.9426C19.5712 63.3229 19.0241 62.5892 18.6195 61.7763L17.216 58.9563C15.4933 55.4947 14.5967 51.6809 14.5967 47.8143V42.3791C14.5967 38.0017 15.6413 33.6876 17.6437 29.7951C18.6979 27.7458 20.0055 25.8372 21.5356 24.114L23.6927 21.6847L25.4735 20.1094C27.2815 18.51 29.292 17.1552 31.4531 16.0798C35.2657 14.1827 39.4663 13.1953 43.7249 13.1953L48.6187 13.1953C52.9065 13.1953 57.1353 14.1936 60.9704 16.1111C63.0802 17.1659 65.0461 18.4867 66.8202 20.0411L68.6961 21.6847L70.7425 23.8826C72.4876 25.757 73.9513 27.8748 75.0878 30.1698C76.8951 33.8194 77.8354 37.837 77.8354 41.9097V48.0934C77.8354 51.7796 77.0086 55.4189 75.4159 58.7434L73.9953 61.7087C73.5848 62.5654 73.0153 63.3364 72.3171 63.9806L71.0802 65.1218C68.4308 67.5662 68.515 71.777 71.26 74.1135L72.2066 74.9192C72.9472 75.5496 73.374 76.4733 73.374 77.4459V78.425C73.374 79.7168 72.3268 80.764 71.035 80.764H70.9484C69.7045 80.764 68.6961 81.7723 68.6961 83.0162C68.6961 84.2601 67.6877 85.2685 66.4438 85.2685Z"
                   stroke="#CDFF10"
-                  stroke-width="26.3903"
+                  strokeWidth="26.3903"
                 />
               </g>
               <path
@@ -1370,8 +1370,8 @@ const Landing = () => {
                   width="42.1936"
                   height="35.6643"
                   filterUnits="userSpaceOnUse"
-                  color-interpolation-filters="sRGB">
-                  <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                  colorInterpolationFilters="sRGB">
+                  <feFlood floodOpacity="0" result="BackgroundImageFix" />
                   <feColorMatrix
                     in="SourceAlpha"
                     type="matrix"
@@ -1404,8 +1404,8 @@ const Landing = () => {
                   width="42.507"
                   height="42.1799"
                   filterUnits="userSpaceOnUse"
-                  color-interpolation-filters="sRGB">
-                  <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                  colorInterpolationFilters="sRGB">
+                  <feFlood floodOpacity="0" result="BackgroundImageFix" />
                   <feColorMatrix
                     in="SourceAlpha"
                     type="matrix"
@@ -1438,8 +1438,8 @@ const Landing = () => {
                   width="91.6289"
                   height="100.463"
                   filterUnits="userSpaceOnUse"
-                  color-interpolation-filters="sRGB">
-                  <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                  colorInterpolationFilters="sRGB">
+                  <feFlood floodOpacity="0" result="BackgroundImageFix" />
                   <feColorMatrix
                     in="SourceAlpha"
                     type="matrix"
@@ -1482,7 +1482,7 @@ const Landing = () => {
                 <path
                   d="M121.347 84.7272H25.7903C22.8079 84.7272 20.3887 82.3126 20.3828 79.3303L20.3357 55.2082C20.3322 53.4053 18.8697 51.9456 17.0668 51.9456C15.2614 51.9456 13.7979 50.4821 13.7979 48.6767V35.6055C13.7979 33.8019 15.26 32.3397 17.0636 32.3397C18.8672 32.3397 20.3293 30.8714 20.3293 29.0678C20.3293 27.2573 21.797 25.7834 23.6075 25.7834H57.1681C58.9611 25.7834 60.4147 24.3299 60.4147 22.5368C60.4147 20.7437 61.8683 19.2901 63.6614 19.2901H63.9557C65.7488 19.2901 67.2023 17.8366 67.2023 16.0435C67.2023 14.2504 68.6559 12.7969 70.449 12.7969L97.0929 12.7969C98.8685 12.7969 100.308 14.2363 100.308 16.012C100.308 17.7877 101.747 19.2271 103.523 19.2271H103.658C105.486 19.2271 106.968 20.7089 106.968 22.5368C106.968 24.3647 108.449 25.8465 110.277 25.8465H123.476C125.286 25.8465 126.754 27.3141 126.754 29.1246C126.754 30.9351 128.222 32.4028 130.032 32.4028H130.276C132.221 32.4028 133.798 33.9796 133.798 35.9247V48.6129C133.798 50.558 132.221 52.1348 130.276 52.1348C128.331 52.1348 126.754 53.7116 126.754 55.6566V79.3198C126.754 82.3062 124.333 84.7272 121.347 84.7272Z"
                   stroke="#CDFF10"
-                  stroke-width="25.5953"
+                  strokeWidth="25.5953"
                 />
               </g>
               <path
@@ -1897,7 +1897,7 @@ const Landing = () => {
                 d="M113.809 71.6152V65.1875H120.236V71.6152H113.809Z"
                 fill="#1E1E1E"
                 stroke="#1E1E1E"
-                stroke-width="0.180248"
+                strokeWidth="0.180248"
               />
               <path
                 d="M67.1012 71.7051H73.709V65.0974H67.1012V71.7051Z"
@@ -2031,8 +2031,8 @@ const Landing = () => {
                   width="147.596"
                   height="99.5254"
                   filterUnits="userSpaceOnUse"
-                  color-interpolation-filters="sRGB">
-                  <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                  colorInterpolationFilters="sRGB">
+                  <feFlood floodOpacity="0" result="BackgroundImageFix" />
                   <feColorMatrix
                     in="SourceAlpha"
                     type="matrix"
@@ -2711,8 +2711,8 @@ const Landing = () => {
                 width="82"
                 height="82"
                 filterUnits="userSpaceOnUse"
-                color-interpolation-filters="sRGB">
-                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                colorInterpolationFilters="sRGB">
+                <feFlood floodOpacity="0" result="BackgroundImageFix" />
                 <feColorMatrix
                   in="SourceAlpha"
                   type="matrix"
@@ -3333,7 +3333,7 @@ const Landing = () => {
               viewBox="0 0 393 217"
               fill="none"
               xmlns="http://www.w3.org/2000/svg">
-              <g clip-path="url(#clip0_967_4119)">
+              <g clipPath="url(#clip0_967_4119)">
                 <mask
                   id="mask0_967_4119"
                   style={{ maskType: "alpha" }}
@@ -3723,7 +3723,7 @@ const Landing = () => {
               viewBox="0 0 393 217"
               fill="none"
               xmlns="http://www.w3.org/2000/svg">
-              <g clip-path="url(#clip0_967_4120)">
+              <g clipPath="url(#clip0_967_4120)">
                 <mask
                   id="mask0_967_4120"
                   style={{ maskType: "alpha" }}
@@ -5451,7 +5451,7 @@ const Landing = () => {
                 viewBox="0 0 393 216"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg">
-                <g clip-path="url(#clip0_986_9365)">
+                <g clipPath="url(#clip0_986_9365)">
                   <mask
                     id="mask0_986_9365"
                     style={{ maskType: "alpha" }}
