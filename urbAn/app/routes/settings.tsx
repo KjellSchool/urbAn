@@ -4,16 +4,16 @@ import { useEffect, useState } from "react";
 import { useUser } from "~/contexts/userContext";
 import { getArchetype } from "../database/archetypes.js";
 
+import { updateProfile } from "../database/profiles.js";
+
 
 const Settings = () => {
-  const { currentUser } = useUser();
+  const {currentUser, setCurrentUser} = useUser();
 
   const [primaryArchetypeId, setPrimaryArchetypeId] = useState();
   const [primaryArchetype, setPrimaryArchetype] = useState();
   const [userAge, setUserAge] = useState(0);
-  const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem("darkMode") === "true";
-  });
+  const [darkMode, setDarkMode] = useState(false);
 
   const calculateAge = (dob) => {
     const dobFormatted = dob.toString().replaceAll("-", "");
@@ -34,6 +34,28 @@ const Settings = () => {
     }
 
     setUserAge(age);
+  };
+
+  const handleVisibilityChange = async (e) => {
+    const visible = e.target.checked;
+
+    const freshUser = {
+      ...currentUser,
+      dob: currentUser.date_of_birth,
+      is_visible: visible,
+    };
+
+    const { data, error } = await updateProfile(
+      currentUser.profile_id,
+      freshUser
+    );
+
+    if (error) {
+      console.log(error);
+      return;
+    }
+
+    setCurrentUser(data);
   };
 
   const loadProfiles = async () => {
@@ -64,6 +86,18 @@ const Settings = () => {
 
     loadProfiles();
   }, [currentUser]);
+
+  // useEffect(() => {
+  //   const savedDarkMode = localStorage.getItem("darkMode");
+
+  //   if (savedDarkMode !== null) {
+  //     setDarkMode(savedDarkMode === "true");
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   localStorage.setItem("darkMode", darkMode);
+  // }, [darkMode]);
 
   return (
     <>
@@ -267,7 +301,12 @@ const Settings = () => {
           <div className="group__setting">
             <label htmlFor="">Visibility</label>
             <label className="switch">
-              <input className="switch visibility" type="checkbox" defaultChecked={true} />
+              <input
+                className="switch visibility"
+                type="checkbox"
+                checked={currentUser?.is_visible ?? true}
+                onChange={handleVisibilityChange}
+              />
               <span className="slider round"></span>
             </label>
           </div>

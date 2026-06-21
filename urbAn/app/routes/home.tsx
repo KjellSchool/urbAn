@@ -1628,7 +1628,7 @@ const Home = () => {
         </div>
         <div className="social__section drawer">
           <h2 className="drawer__title">Nearby Explorers</h2>
-          {closeProfiles.length + farProfiles.length > 0 ? (
+          {closeProfiles.length + farProfiles.length > 0 || currentUser?.is_visible === false ? (
             <>
               {closeProfiles.length > 0 ? (
                 <div className="drawer__section">
