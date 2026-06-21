@@ -1,7 +1,9 @@
 import { Link } from "react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useUser } from "~/contexts/userContext";
+import { getArchetype } from "../database/archetypes.js";
+
 
 const Settings = () => {
   const { currentUser } = useUser();
@@ -31,9 +33,27 @@ const Settings = () => {
     setUserAge(age);
   };
 
+  const loadProfiles = async () => {
+
+    calculateAge(currentUser?.date_of_birth);
+
+    if (currentUser?.primary_archetype) {
+      const { data: primaryArchetype, error } = await getArchetype(
+        currentUser.primary_archetype,
+      );
+      setPrimaryArchetype(primaryArchetype);
+    }
+  };
+
   const removeCurrentUser = () => {
     localStorage.removeItem("currentUser");
   }
+
+  useEffect(() => {
+    if (!currentUser) return;
+
+    loadProfiles();
+  }, [currentUser]);
 
   return (
     <>
@@ -228,7 +248,7 @@ const Settings = () => {
             </div>
             <div className="element__setting">
               <p>Archetype</p>
-              <p>{currentUser?.archetype}</p>
+              <p className="archetype-tag" style={{ backgroundColor: `#${primaryArchetype?.colour}` }}>{primaryArchetype?.tag}</p>
             </div>
           </div>
         </div>
