@@ -36,19 +36,6 @@ import app_img2 from "../assets/images/app-pic2.png";
 import app_img3 from "../assets/images/app-pic3.png";
 
 const Landing = () => {
-  useEffect(() => {
-    async function initGSAP() {
-      const { default: gsap } = await import("gsap");
-      const { default: Draggable } = await import("gsap/Draggable");
-
-      gsap.registerPlugin(Draggable);
-
-      // your draggable setup here
-    }
-
-    initGSAP();
-  }, []);
-
   const [imagesState, setImagesState] = useState(false);
 
   const toggleImages = () => {
@@ -58,70 +45,76 @@ const Landing = () => {
 
   /*GSAP*/
   useEffect(() => {
-    const images = gsap.utils.toArray(".app__showcase img");
-    const dots = gsap.utils.toArray(".app__dot");
-
-    let currentIndex = 0;
     let autoSlide;
 
-    gsap.set(images, {
-      xPercent: 100,
-      opacity: 0,
-      scale: 0.9,
-    });
+    async function init() {
+      const { default: gsap } = await import("gsap");
 
-    gsap.set(images[0], {
-      xPercent: 0,
-      opacity: 1,
-      scale: 1,
-    });
+      const images = gsap.utils.toArray(".app__showcase img");
+      const dots = gsap.utils.toArray(".app__dot");
 
-    function updateDots(index) {
-      dots.forEach((dot, i) => {
-        dot.classList.toggle("app__dot--active", i === index);
-      });
-    }
+      let currentIndex = 0;
 
-    function goToSlide(index) {
-      const nextIndex = gsap.utils.wrap(0, images.length, index);
-
-      if (nextIndex === currentIndex) return;
-
-      const direction = nextIndex > currentIndex ? 1 : -1;
-
-      gsap.to(images[currentIndex], {
-        xPercent: -100 * direction,
+      gsap.set(images, {
+        xPercent: 100,
         opacity: 0,
         scale: 0.9,
-        duration: 0.6,
-        ease: "power2.inOut",
       });
 
-      gsap.fromTo(
-        images[nextIndex],
-        {
-          xPercent: 100 * direction,
+      gsap.set(images[0], {
+        xPercent: 0,
+        opacity: 1,
+        scale: 1,
+      });
+
+      function updateDots(index) {
+        dots.forEach((dot, i) => {
+          dot.classList.toggle("app__dot--active", i === index);
+        });
+      }
+
+      function goToSlide(index) {
+        const nextIndex = gsap.utils.wrap(0, images.length, index);
+        if (nextIndex === currentIndex) return;
+
+        const direction = nextIndex > currentIndex ? 1 : -1;
+
+        gsap.to(images[currentIndex], {
+          xPercent: -100 * direction,
           opacity: 0,
           scale: 0.9,
-        },
-        {
-          xPercent: 0,
-          opacity: 1,
-          scale: 1,
           duration: 0.6,
           ease: "power2.inOut",
-        },
-      );
+        });
 
-      currentIndex = nextIndex;
-      updateDots(currentIndex);
+        gsap.fromTo(
+          images[nextIndex],
+          {
+            xPercent: 100 * direction,
+            opacity: 0,
+            scale: 0.9,
+          },
+          {
+            xPercent: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 0.6,
+            ease: "power2.inOut",
+          },
+        );
+
+        currentIndex = nextIndex;
+        updateDots(currentIndex);
+      }
+
+      function nextSlide() {
+        goToSlide(currentIndex + 1);
+      }
+
+      autoSlide = setInterval(nextSlide, 2500);
     }
 
-    function nextSlide() {
-      goToSlide(currentIndex + 1);
-    }
-
-    autoSlide = setInterval(nextSlide, 2500);
+    init();
 
     return () => {
       clearInterval(autoSlide);
