@@ -3,10 +3,10 @@ import { useState } from "react";
 
 import { useEffect } from "react";
 
-import gsap from "gsap";
-import Draggable from "gsap/Draggable";
+// import gsap from "gsap";
+// import Draggable from "gsap/Draggable";
 
-gsap.registerPlugin(Draggable);
+// gsap.registerPlugin(Draggable);
 
 import qr from "../assets/qr-code.png";
 
@@ -36,6 +36,19 @@ import app_img2 from "../assets/images/app-pic2.png";
 import app_img3 from "../assets/images/app-pic3.png";
 
 const Landing = () => {
+  useEffect(() => {
+    async function initGSAP() {
+      const { default: gsap } = await import("gsap");
+      const { default: Draggable } = await import("gsap/Draggable");
+
+      gsap.registerPlugin(Draggable);
+
+      // your draggable setup here
+    }
+
+    initGSAP();
+  }, []);
+
   const [imagesState, setImagesState] = useState(false);
 
   const toggleImages = () => {
