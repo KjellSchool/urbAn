@@ -26,6 +26,8 @@ import {
 
 import { getChallengeTip } from "../database/tips.js";
 
+import tumbleweed from "../assets/icons/tumbleweed.svg";
+
 const Home = () => {
   const { currentUser } = useUser();
   const [profileLocation, setProfileLocation] = useState(
@@ -1626,176 +1628,212 @@ const Home = () => {
         </div>
         <div className="social__section drawer">
           <h2 className="drawer__title">Nearby Explorers</h2>
-          <div className="drawer__section">
-            <h3 className="drawer__subtitle">200m radius</h3>
-            <ul className="social__nearby">
-              {closeProfiles?.map((profile) => {
-                if (profile?.profile_id !== currentUser?.profile_id) {
-                  return (
-                    <li className="nearby__user" key={profile?.profile_id}>
-                      <div className="nearby__info">
-                        <div
-                          className="nearby__avater"
-                          style={{
-                            backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
-                          }}>
-                          pfp
-                        </div>
-                        <div className="info__text">
-                          <p className="nearby__name">{profile?.name}, XX</p>
-                          <p
-                            className="nearby__archetype archetype-tag"
-                            style={{
-                              backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
-                            }}>
-                            {profileArchetypes[profile?.primary_archetype]?.tag}
-                          </p>
-                        </div>
-                      </div>
-                      <p>{profile?.description}</p>
-                      <div className="nearby__stats">
-                        <div
-                          className="stats__routes"
-                          style={{
-                            backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}1a`,
-                          }}>
-                          <p
-                            className="stat__number"
-                            style={{
-                              color: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
-                            }}>
-                            3
-                          </p>
-                          <p className="stat__label">Routes</p>
-                        </div>
-                        <div
-                          className="stats__challenges"
-                          style={{
-                            backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}1a`,
-                          }}>
-                          <p
-                            className="stat__number"
-                            style={{
-                              color: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
-                            }}>
-                            5
-                          </p>
-                          <p className="stat__label">Side Quests</p>
-                        </div>
-                        <div
-                          className="stats__meets"
-                          style={{
-                            backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}1a`,
-                          }}>
-                          <p
-                            className="stat__number"
-                            style={{
-                              color: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
-                            }}>
-                            1
-                          </p>
-                          <p className="stat__label">Meet Ups</p>
-                        </div>
-                      </div>
-                      <button
-                        className="nearby__meet"
-                        onClick={() => {
-                          sendMeetRequest(profile?.profile_id);
-                          closeAllTabs();
-                        }}>
-                        Ask to meet up!
-                      </button>
-                    </li>
-                  );
-                }
-              })}
-            </ul>
-          </div>
-          <div className="drawer__section">
-            <h3 className="drawer__subtitle">500m radius</h3>
-            <ul className="social__nearby">
-              {farProfiles?.map((profile) => {
-                if (profile?.profile_id !== currentUser?.profile_id) {
-                  return (
-                    <li className="nearby__user" key={profile?.profile_id}>
-                      <div className="nearby__info">
-                        <div
-                          className="nearby__avater"
-                          style={{
-                            backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
-                          }}>
-                          pfp
-                        </div>
-                        <div className="info__text">
-                          <p className="nearby__name">{profile?.name}, XX</p>
-                          <p
-                            className="nearby__archetype archetype-tag"
-                            style={{
-                              backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
-                            }}>
-                            {profileArchetypes[profile?.primary_archetype]?.tag}
-                          </p>
-                        </div>
-                      </div>
-                      <p>{profile?.description}</p>
-                      <div className="nearby__stats">
-                        <div
-                          className="stats__routes"
-                          style={{
-                            backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}1a`,
-                          }}>
-                          <p
-                            className="stat__number"
-                            style={{
-                              color: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
-                            }}>
-                            3
-                          </p>
-                          <p className="stat__label">Routes</p>
-                        </div>
-                        <div
-                          className="stats__challenges"
-                          style={{
-                            backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}1a`,
-                          }}>
-                          <p
-                            className="stat__number"
-                            style={{
-                              color: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
-                            }}>
-                            5
-                          </p>
-                          <p className="stat__label">Side Quests</p>
-                        </div>
-                        <div
-                          className="stats__meets"
-                          style={{
-                            backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}1a`,
-                          }}>
-                          <p
-                            className="stat__number"
-                            style={{
-                              color: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
-                            }}>
-                            1
-                          </p>
-                          <p className="stat__label">Meet Ups</p>
-                        </div>
-                      </div>
-                      <button
-                        className="nearby__meet"
-                        onClick={() => {
-                          sendMeetRequest(profile?.profile_id);
-                          closeAllTabs();
-                        }}>
-                        Ask to meet up!
-                      </button>
-                    </li>
-                  );
-                }
-              })}
-            </ul>
-          </div>
+          {closeProfiles.length + farProfiles.length > 0 ? (
+            <>
+              {closeProfiles.length > 0 ? (
+                <div className="drawer__section">
+                  <h3 className="drawer__subtitle">200m radius</h3>
+                  <ul className="social__nearby">
+                    {closeProfiles?.map((profile) => {
+                      if (profile?.profile_id !== currentUser?.profile_id) {
+                        return (
+                          <li
+                            className="nearby__user"
+                            key={profile?.profile_id}>
+                            <div className="nearby__info">
+                              <div
+                                className="nearby__avater"
+                                style={{
+                                  backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
+                                }}>
+                                pfp
+                              </div>
+                              <div className="info__text">
+                                <p className="nearby__name">
+                                  {profile?.name}, XX
+                                </p>
+                                <p
+                                  className="nearby__archetype archetype-tag"
+                                  style={{
+                                    backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
+                                  }}>
+                                  {
+                                    profileArchetypes[
+                                      profile?.primary_archetype
+                                    ]?.tag
+                                  }
+                                </p>
+                              </div>
+                            </div>
+                            <p>{profile?.description}</p>
+                            <div className="nearby__stats">
+                              <div
+                                className="stats__routes"
+                                style={{
+                                  backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}1a`,
+                                }}>
+                                <p
+                                  className="stat__number"
+                                  style={{
+                                    color: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
+                                  }}>
+                                  3
+                                </p>
+                                <p className="stat__label">Routes</p>
+                              </div>
+                              <div
+                                className="stats__challenges"
+                                style={{
+                                  backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}1a`,
+                                }}>
+                                <p
+                                  className="stat__number"
+                                  style={{
+                                    color: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
+                                  }}>
+                                  5
+                                </p>
+                                <p className="stat__label">Side Quests</p>
+                              </div>
+                              <div
+                                className="stats__meets"
+                                style={{
+                                  backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}1a`,
+                                }}>
+                                <p
+                                  className="stat__number"
+                                  style={{
+                                    color: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
+                                  }}>
+                                  1
+                                </p>
+                                <p className="stat__label">Meet Ups</p>
+                              </div>
+                            </div>
+                            <button
+                              className="nearby__meet"
+                              onClick={() => {
+                                sendMeetRequest(profile?.profile_id);
+                                closeAllTabs();
+                              }}>
+                              Ask to meet up!
+                            </button>
+                          </li>
+                        );
+                      }
+                    })}
+                  </ul>
+                </div>
+              ) : (
+                ""
+              )}
+              {farProfiles.length > 0 ? (
+                <div className="drawer__section">
+                  <h3 className="drawer__subtitle">500m radius</h3>
+                  <ul className="social__nearby">
+                    {farProfiles?.map((profile) => {
+                      if (profile?.profile_id !== currentUser?.profile_id) {
+                        return (
+                          <li
+                            className="nearby__user"
+                            key={profile?.profile_id}>
+                            <div className="nearby__info">
+                              <div
+                                className="nearby__avater"
+                                style={{
+                                  backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
+                                }}>
+                                pfp
+                              </div>
+                              <div className="info__text">
+                                <p className="nearby__name">
+                                  {profile?.name}, XX
+                                </p>
+                                <p
+                                  className="nearby__archetype archetype-tag"
+                                  style={{
+                                    backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
+                                  }}>
+                                  {
+                                    profileArchetypes[
+                                      profile?.primary_archetype
+                                    ]?.tag
+                                  }
+                                </p>
+                              </div>
+                            </div>
+                            <p>{profile?.description}</p>
+                            <div className="nearby__stats">
+                              <div
+                                className="stats__routes"
+                                style={{
+                                  backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}1a`,
+                                }}>
+                                <p
+                                  className="stat__number"
+                                  style={{
+                                    color: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
+                                  }}>
+                                  3
+                                </p>
+                                <p className="stat__label">Routes</p>
+                              </div>
+                              <div
+                                className="stats__challenges"
+                                style={{
+                                  backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}1a`,
+                                }}>
+                                <p
+                                  className="stat__number"
+                                  style={{
+                                    color: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
+                                  }}>
+                                  5
+                                </p>
+                                <p className="stat__label">Side Quests</p>
+                              </div>
+                              <div
+                                className="stats__meets"
+                                style={{
+                                  backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}1a`,
+                                }}>
+                                <p
+                                  className="stat__number"
+                                  style={{
+                                    color: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
+                                  }}>
+                                  1
+                                </p>
+                                <p className="stat__label">Meet Ups</p>
+                              </div>
+                            </div>
+                            <button
+                              className="nearby__meet"
+                              onClick={() => {
+                                sendMeetRequest(profile?.profile_id);
+                                closeAllTabs();
+                              }}>
+                              Ask to meet up!
+                            </button>
+                          </li>
+                        );
+                      }
+                    })}
+                  </ul>
+                </div>
+              ) : (
+                ""
+              )}
+            </>
+          ) : (
+            <>
+              <div className="social__empty">
+                <p className="empty__error">Error 404</p>
+                <h3 className="empty__message">Nearby explorers not found</h3>
+                <img className="empty__tumbleweed" src={tumbleweed} alt="tumbleweed" />
+              </div>
+            </>
+          )}
         </div>
         <div className="navigation__section drawer">
           <h2 className="drawer__title">Exploring Routes</h2>
