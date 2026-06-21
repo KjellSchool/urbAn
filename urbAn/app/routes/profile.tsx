@@ -83,15 +83,15 @@ const Profile = () => {
       currentUser?.profile_id,
     );
 
-    let challenges = [];
+    let challenges = await Promise.all(
+      (challengeProgress ?? []).map(async (progress) => {
+        const { data: challenge, error: challengeError } = await getChallenge(
+          progress?.challenge_id,
+        );
 
-    challengeProgress.forEach(async (progress) => {
-      const { data: challenge, error: challengeError } = await getChallenge(
-        progress?.challenge_id,
-      );
-
-      challenges.push(challenge);
-    });
+        return challenge;
+      }),
+    );
 
     console.log(challenges);
     setCompletedChallenges(challengeProgress);
@@ -108,21 +108,23 @@ const Profile = () => {
 
     setConcludedMeetups(meetups);
 
-    let people = [];
+    let people = await Promise.all(
+      meetups?.map(async (meetup) => {
+        if (meetup.sender_id !== currentUser?.profile_id) {
+          const { data: sender, error } = await getProfile(meetup.sender_id);
 
-    meetups?.forEach(async (meetup) => {
-      if (meetup.sender_id !== currentUser?.profile_id) {
-        const { data: sender, error } = await getProfile(meetup.sender_id);
+          return sender;
+        }
 
-        people.push(sender);
-      }
+        if (meetup.receiver_id !== currentUser?.profile_id) {
+          const { data: receiver, error } = await getProfile(
+            meetup.receiver_id,
+          );
 
-      if (meetup.receiver_id !== currentUser?.profile_id) {
-        const { data: receiver, error } = await getProfile(meetup.receiver_id);
-
-        people.push(receiver);
-      }
-    });
+          return receiver;
+        }
+      }),
+    );
 
     console.log(people);
     setMeetupPeople(people);
