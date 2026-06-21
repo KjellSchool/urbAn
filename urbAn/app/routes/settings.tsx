@@ -11,6 +11,9 @@ const Settings = () => {
   const [primaryArchetypeId, setPrimaryArchetypeId] = useState();
   const [primaryArchetype, setPrimaryArchetype] = useState();
   const [userAge, setUserAge] = useState(0);
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem("darkMode") === "true";
+  });
 
   const calculateAge = (dob) => {
     const dobFormatted = dob.toString().replaceAll("-", "");
@@ -48,6 +51,13 @@ const Settings = () => {
   const removeCurrentUser = () => {
     localStorage.removeItem("currentUser");
   }
+
+  const handleDarkModeChange = (e) => {
+    const value = e.target.checked;
+
+    setDarkMode(value);
+    localStorage.setItem("darkMode", value);
+  };
 
   useEffect(() => {
     if (!currentUser) return;
@@ -265,9 +275,14 @@ const Settings = () => {
         <div className="settings__group">
           <h2 className="group__title">Appearance</h2>
           <div className="group__setting">
-            <label htmlFor="">Dark mode</label>
+            <label>Dark mode</label>
             <label className="switch">
-              <input className="switch darkmode" type="checkbox" />
+              <input
+                className="switch darkmode"
+                type="checkbox"
+                checked={darkMode}
+                onChange={handleDarkModeChange}
+              />
               <span className="slider round"></span>
             </label>
           </div>
