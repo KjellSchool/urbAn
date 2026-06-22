@@ -9370,14 +9370,14 @@ const Landing = () => {
           <div className="share__stories">
             <h2 className="stories__title">Share your layer</h2>
             <div className="story__images">
-              <img className="story__archetype" src={imagestory1} alt="story" />
+              <img className="story__archetype story__image--first" src={imagestory1} alt="story" />
               <img
-                className="story__friends"
+                className="story__friends story__image--middle"
                 src={imagestory2}
                 alt="story"
               />
               <img
-                className="story__recap"
+                className="story__recap story__image--end"
                 src={imagestory3}
                 alt="story"
               />
