@@ -1824,6 +1824,20 @@ const Home = () => {
               ) : (
                 ""
               )}
+              {currentUser?.is_visible === false ? (
+                <div className="social__empty">
+                  <p className="empty__error">Error 404</p>
+                  <h3 className="empty__message empty__message--visible">Allow visibility to see nearby explorers</h3>
+                  <Link
+                    className=" empty__button--visibile"
+                    to="/settings">
+                    <button>Update Privacy Settings</button>
+                  </Link>
+                  <img className="empty__tumbleweed" src={tumbleweed} alt="tumbleweed" />
+                </div>
+              ) : (
+                ""
+              )}
             </>
           ) : (
             <>
