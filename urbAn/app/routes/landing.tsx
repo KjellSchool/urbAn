@@ -28,9 +28,9 @@ import antwerp_logo from "../assets/logos/antwerp-red.png";
 
 import intro__bg from "../assets/background/intro-bg-desktop.svg";
 
-import app_img1 from "../assets/images/app-pic1.png";
-import app_img2 from "../assets/images/app-pic2.png";
-import app_img3 from "../assets/images/app-pic3.png";
+import app_img1 from "../assets/images/app-pic1-test.png";
+import app_img2 from "../assets/images/app-pic2-test.png";
+import app_img3 from "../assets/images/app-pic3-test.png";
 
 const Landing = () => {
   const [imagesState, setImagesState] = useState(false);
@@ -631,7 +631,7 @@ const Landing = () => {
               </span>
             </div>
             <div className="header__title--balloon">
-              <span>for every version</span>
+              <span>For every version</span>
             </div>
             <div className="header__title--check">
               <span>of you</span>
@@ -9370,14 +9370,14 @@ const Landing = () => {
           <div className="share__stories">
             <h2 className="stories__title">Share your layer</h2>
             <div className="story__images">
-              <img className="story__archetype" src={imagestory1} alt="story" />
+              <img className="story__archetype story__image--first" src={imagestory1} alt="story" />
               <img
-                className="story__friends"
+                className="story__friends story__image--middle"
                 src={imagestory2}
                 alt="story"
               />
               <img
-                className="story__recap"
+                className="story__recap story__image--end"
                 src={imagestory3}
                 alt="story"
               />
