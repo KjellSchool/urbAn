@@ -4,10 +4,17 @@ let ctx;
 let poses = [];
 
 let $canvas;
+const $container = document.querySelector(".poster");
+let $poster;
 
 const preload = async () => {
   bodyPose = await ml5.bodyPose("BlazePose");
   console.log("model ready", bodyPose);
+
+  $poster = document.createElement("img");
+  $poster.src = "./src/assets/poster-default.png";
+  $container.appendChild($poster);
+
   setup();
 };
 
@@ -38,10 +45,12 @@ const setup = async () => {
 
       if (nose.x < $canvas.width / 2) {
         // Head on left side
-        document.querySelector("body").style.backgroundColor = "red";
+        // document.querySelector("body").style.backgroundColor = "red";
+        $poster.src = "./src/assets/poster-default.png";
       } else {
         // ff
-        document.querySelector("body").style.backgroundColor = "blue";
+        // document.querySelector("body").style.backgroundColor = "blue";
+        $poster.src = "./src/assets/poster-pink.png";
       }
     }
   });

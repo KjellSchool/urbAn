@@ -1,0 +1,16 @@
+.poster {
+  max-height: 100dvh;
+  padding: 0;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#video-canvas {
+  display: none;
+}
+.poster img {
+  transform: rotate(-90deg);
+  width: 100dvh;
+}
