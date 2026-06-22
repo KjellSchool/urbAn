@@ -120,7 +120,7 @@ const Profile = () => {
           const { data: receiver, error } = await getProfile(
             meetup.receiver_id,
           );
-
+arch
           return receiver;
         }
       }),

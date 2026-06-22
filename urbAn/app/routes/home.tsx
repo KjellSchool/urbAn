@@ -76,8 +76,8 @@ const Home = () => {
     const a =
       Math.sin(dLat / 2) ** 2 +
       Math.cos((lat1 * Math.PI) / 180) *
-        Math.cos((lat2 * Math.PI) / 180) *
-        Math.sin(dLon / 2) ** 2;
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLon / 2) ** 2;
 
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
@@ -1628,7 +1628,7 @@ const Home = () => {
         </div>
         <div className="social__section drawer">
           <h2 className="drawer__title">Nearby Explorers</h2>
-          {closeProfiles.length + farProfiles.length > 0 ? (
+          {closeProfiles.length + farProfiles.length > 0 || currentUser?.is_visible === false ? (
             <>
               {closeProfiles.length > 0 ? (
                 <div className="drawer__section">

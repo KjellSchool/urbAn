@@ -57,12 +57,13 @@ export const updateProfile = async (
       date_of_birth: freshUser.dob,
       gender: freshUser.gender,
       nationality: freshUser.nationality,
+      is_visible: freshUser.is_visible,
     })
     .eq("profile_id", profileId)
     .select("*")
     .single();
 
-  return { data, error}
+  return { data, error };
 };
 
 export const setProfileLocation = async (profileId, userLocation) => {

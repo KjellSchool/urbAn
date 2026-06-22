@@ -1,14 +1,19 @@
 import { Link } from "react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useUser } from "~/contexts/userContext";
+import { getArchetype } from "../database/archetypes.js";
+
+import { updateProfile } from "../database/profiles.js";
+
 
 const Settings = () => {
-  const { currentUser } = useUser();
+  const {currentUser, setCurrentUser} = useUser();
 
   const [primaryArchetypeId, setPrimaryArchetypeId] = useState();
   const [primaryArchetype, setPrimaryArchetype] = useState();
   const [userAge, setUserAge] = useState(0);
+  const [darkMode, setDarkMode] = useState(false);
 
   const calculateAge = (dob) => {
     const dobFormatted = dob.toString().replaceAll("-", "");
@@ -31,9 +36,68 @@ const Settings = () => {
     setUserAge(age);
   };
 
+  const handleVisibilityChange = async (e) => {
+    const visible = e.target.checked;
+
+    const freshUser = {
+      ...currentUser,
+      dob: currentUser.date_of_birth,
+      is_visible: visible,
+    };
+
+    const { data, error } = await updateProfile(
+      currentUser.profile_id,
+      freshUser
+    );
+
+    if (error) {
+      console.log(error);
+      return;
+    }
+
+    setCurrentUser(data);
+  };
+
+  const loadProfiles = async () => {
+
+    calculateAge(currentUser?.date_of_birth);
+
+    if (currentUser?.primary_archetype) {
+      const { data: primaryArchetype, error } = await getArchetype(
+        currentUser.primary_archetype,
+      );
+      setPrimaryArchetype(primaryArchetype);
+    }
+  };
+
   const removeCurrentUser = () => {
     localStorage.removeItem("currentUser");
   }
+
+  const handleDarkModeChange = (e) => {
+    const value = e.target.checked;
+
+    setDarkMode(value);
+    localStorage.setItem("darkMode", value);
+  };
+
+  useEffect(() => {
+    if (!currentUser) return;
+
+    loadProfiles();
+  }, [currentUser]);
+
+  // useEffect(() => {
+  //   const savedDarkMode = localStorage.getItem("darkMode");
+
+  //   if (savedDarkMode !== null) {
+  //     setDarkMode(savedDarkMode === "true");
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   localStorage.setItem("darkMode", darkMode);
+  // }, [darkMode]);
 
   return (
     <>
@@ -228,7 +292,7 @@ const Settings = () => {
             </div>
             <div className="element__setting">
               <p>Archetype</p>
-              <p>{currentUser?.archetype}</p>
+              <p className="archetype-tag" style={{ backgroundColor: `#${primaryArchetype?.colour}` }}>{primaryArchetype?.tag}</p>
             </div>
           </div>
         </div>
@@ -237,7 +301,12 @@ const Settings = () => {
           <div className="group__setting">
             <label htmlFor="">Visibility</label>
             <label className="switch">
-              <input className="switch visibility" type="checkbox" />
+              <input
+                className="switch visibility"
+                type="checkbox"
+                checked={currentUser?.is_visible ?? true}
+                onChange={handleVisibilityChange}
+              />
               <span className="slider round"></span>
             </label>
           </div>
@@ -245,9 +314,14 @@ const Settings = () => {
         <div className="settings__group">
           <h2 className="group__title">Appearance</h2>
           <div className="group__setting">
-            <label htmlFor="">Dark mode</label>
+            <label>Dark mode</label>
             <label className="switch">
-              <input className="switch darkmode" type="checkbox" />
+              <input
+                className="switch darkmode"
+                type="checkbox"
+                checked={darkMode}
+                onChange={handleDarkModeChange}
+              />
               <span className="slider round"></span>
             </label>
           </div>
