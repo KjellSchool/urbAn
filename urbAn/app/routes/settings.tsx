@@ -346,8 +346,8 @@ const Settings = () => {
           </div>
         </div>
         <div className="settings__links">
-          <Link className="settings__log login" to={`/`}><button onClick={removeCurrentUser}>LOG OUT</button></Link>
-          <Link className="settings__log delete" to={`/`}><button onClick={removeCurrentUser}>DELETE ACCOUNT</button></Link>
+          <Link className="settings__log login" to={`/`}><button onClick={removeCurrentUser}>Log out</button></Link>
+          <Link className="settings__log delete" to={`/`}><button onClick={removeCurrentUser}>Delete account</button></Link>
         </div>
         <p className="id">My id: {currentUser?.profile_id}</p>
       </div>

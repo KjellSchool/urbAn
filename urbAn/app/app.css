@@ -302,6 +302,7 @@ button {
 
   position: relative;
   left: 4rem;
+  line-height: 130%;
 }
 
 .header__title--tabs-content {
@@ -1010,6 +1011,7 @@ li {
 
     top: 0;
     left: 0;
+    line-height: 110%;
   }
 
   .header__title--tabs>span {
@@ -2750,7 +2752,7 @@ input:checked+.slider:before {
 .settings__log,
 .retake__quiz,
 .save__profile {
-  font-family: "Antwerpen Regular";
+  font-family: "Antwerpen Small Caps";
   font-size: 24px;
   text-transform: uppercase;
   margin-top: var(--space-s);
