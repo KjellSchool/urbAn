@@ -316,7 +316,8 @@ button {
   background-repeat: no-repeat;
 
   color: var(--colour-blue-400);
-  font-family: "Antwerpen Small Caps";
+  font-family: "Antwerpen Regular";
+  text-transform: uppercase;
   font-size: 24px;
   line-height: 120%;
 
@@ -580,6 +581,7 @@ button {
 
   position: relative;
   top: -2px;
+  line-height: 120%;
 }
 
 .sender__check {

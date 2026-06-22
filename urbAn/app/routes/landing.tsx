@@ -631,7 +631,7 @@ const Landing = () => {
               </span>
             </div>
             <div className="header__title--balloon">
-              <span>for every version</span>
+              <span>For every version</span>
             </div>
             <div className="header__title--check">
               <span>of you</span>
