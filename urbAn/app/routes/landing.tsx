@@ -28,9 +28,9 @@ import antwerp_logo from "../assets/logos/antwerp-red.png";
 
 import intro__bg from "../assets/background/intro-bg-desktop.svg";
 
-import app_img1 from "../assets/images/app-pic1.png";
-import app_img2 from "../assets/images/app-pic2.png";
-import app_img3 from "../assets/images/app-pic3.png";
+import app_img1 from "../assets/images/app-pic1-test.png";
+import app_img2 from "../assets/images/app-pic2-test.png";
+import app_img3 from "../assets/images/app-pic3-test.png";
 
 const Landing = () => {
   const [imagesState, setImagesState] = useState(false);

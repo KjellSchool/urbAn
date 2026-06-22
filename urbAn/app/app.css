@@ -674,10 +674,17 @@ button {
   position: relative;
 }
 
+.app__showcase img:first-child,
+.app__showcase img:nth-child(2),
+.app__showcase img:last-child {
+  width: 100%;
+}
+
 .app__dots {
   display: flex;
   justify-content: center;
   gap: 0.6rem;
+
 }
 
 .app__dot {
@@ -686,6 +693,9 @@ button {
   border-radius: 50%;
   background-color: var(--colour-pink-200);
   display: block;
+  border: 1px solid var(--colour-black);
+  background: var(--color-white-dark);
+  box-shadow: 1px 1px 0 0 var(--colour-black);
 }
 
 .app__dot--active {
@@ -1231,7 +1241,10 @@ li {
     grid-row: 1/4;
   }
 
-  .app__showcase-section img {
+  .app__showcase-section img,
+  .app__showcase img:first-child,
+  .app__showcase img:nth-child(2),
+  .app__showcase img:last-child {
     width: 33%;
   }
 
