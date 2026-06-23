@@ -242,7 +242,7 @@ button {
   background-repeat: repeat-y;
   max-width: 100dvw;
   height: fit-content;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .landing__header {
