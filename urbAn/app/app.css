@@ -307,14 +307,30 @@ button {
 
 /*! ===== landing page ===== */
 .landing {
-  /* background-color: var(--colour-blue-300); */
-  background: var(--colour-blue-400) url("./assets/background/sky-color-halftone.png");
+  position: relative;
+  background-color: var(--colour-blue-300);
+  background-image: url("./assets/background/sky-color-halftone.png");
   background-blend-mode: color-dodge;
+  max-width: 100dvw;
+  min-height: 100dvh;
+    background-size: 150%;
+}
+
+.landing::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("./assets/background/sky-color-halftone.png");
   background-size: 200%;
   background-repeat: repeat-y;
-  max-width: 100dvw;
-  height: fit-content;
-  overflow-x: hidden;
+  opacity: 0.2;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.landing>* {
+  position: relative;
+  z-index: 20;
 }
 
 .landing__header {
