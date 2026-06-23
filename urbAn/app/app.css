@@ -312,6 +312,7 @@ button {
   max-width: 100dvw;
   min-height: 100dvh;
   background-size: 150%;
+  overflow-x: hidden;
 }
 
 .landing::before {
