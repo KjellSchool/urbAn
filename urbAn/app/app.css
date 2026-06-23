@@ -2865,10 +2865,11 @@ input:checked+.slider:before {
   font-size: 20px;
 }
 
-.id {
-  text-align: center;
-  margin-bottom: var(--space-m);
+.login,
+.delete, .save__profile {
+  letter-spacing: normal;
 }
+
 
 /*edit profile*/
 .select__avatar {
@@ -3080,8 +3081,20 @@ input[type="date"] {
 }
 
 /* meetup */
+.popup__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9998;
+}
+
+.logout__popup {
+  z-index: 9999;
+}
+
 .game__meetup,
-.challenge__tip {
+.challenge__tip,
+.logout__popup {
   background-color: var(--colour-white);
 
   width: 80dvw;
@@ -3101,7 +3114,8 @@ input[type="date"] {
 }
 
 .meetup__sender,
-.tip__header {
+.tip__header,
+.logout__header {
   background-color: var(--colour-black);
 
   padding: var(--space-s);
@@ -3112,6 +3126,10 @@ input[type="date"] {
   align-items: center;
 }
 
+.logout__popup {
+  position: fixed;
+}
+
 .tip__header {
   justify-content: flex-start;
   gap: var(--space-xs);
@@ -3119,9 +3137,15 @@ input[type="date"] {
 
 .sender__name,
 .tip__header p {
-  color: white;
+  color: var(--colour-white);
   font-family: "Antwerpen Pixel";
   font-size: 32px;
+}
+
+.logout__title {
+  color: var(--colour-yellow);
+  font-family: "Antwerpen Pixel";
+  font-size: 24px;
 }
 
 .tip__header p {
@@ -3131,7 +3155,8 @@ input[type="date"] {
 }
 
 .meetup__content,
-.tip__content {
+.tip__content,
+.logout__content {
   padding: var(--space-s);
 
   display: flex;
@@ -3172,6 +3197,11 @@ input[type="date"] {
   font-family: "Antwerpen Small Caps";
 }
 
+.logout__message {
+  font-size: 20px;
+  font-family: "Antwerpen Small Caps";
+}
+
 .sender__information {
   display: flex;
   flex-direction: column;
@@ -3196,7 +3226,8 @@ input[type="date"] {
   border-radius: 32px;
 }
 
-.meetup__buttons {
+.meetup__buttons,
+.logout__buttons {
   font-family: "Antwerpen Small Caps";
 
   display: flex;
@@ -3204,18 +3235,21 @@ input[type="date"] {
   gap: var(--space-l);
 }
 
-.meetup__buttons button {
+.meetup__buttons button,
+.logout__buttons button {
   padding: var(--space-xs) var(--space-m);
   border: 1px solid var(--colour-black);
   border-radius: 32px;
 }
 
-.meetup__decline {
+.meetup__decline,
+.logout__cancel {
   background-color: var(--colour-white);
 }
 
-.meetup__accept {
+.meetup__accept,
+.logout__confirm {
   background-color: var(--colour-black);
 
-  color: white;
+  color: var(--colour-white);
 }
