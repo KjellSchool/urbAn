@@ -109,6 +109,10 @@ body {
   overscroll-behavior: none;
 }
 
+body:has(.landing) {
+  overflow-y: scroll;
+}
+
 a {
   color: inherit;
   text-decoration: none;
