@@ -120,7 +120,7 @@ const Profile = () => {
           const { data: receiver, error } = await getProfile(
             meetup.receiver_id,
           );
-arch
+          arch
           return receiver;
         }
       }),
@@ -808,57 +808,113 @@ arch
           <div className="profile__achievements">
             <h2 className="achievements__title">Your Achievements</h2>
             <div className="achievements__container">
-              <details className="achievements__item">
-                <summary>
-                  <span className="achievement__stat stat--pink">
-                    {completedRoutes.length}
-                  </span>{" "}
-                  Routes
-                </summary>
-                <ul>
-                  {completedRoutes.map((completedRoute) => (
-                    <li
-                      className="achievement__entry entry--pink"
-                      key={completedRoute?.route_id}>
-                      {completedRoute?.title}
-                    </li>
-                  ))}
-                </ul>
-              </details>
-              <details className="achievements__item">
-                <summary>
-                  <span className="achievement__stat stat--blue">
-                    {completedChallenges?.length}
-                  </span>{" "}
-                  Side Quests
-                </summary>
-                <ul>
-                  {challenges.map((challenge) => (
-                    <li
-                      className="achievement__entry entry--blue"
-                      key={challenge?.challenge_id}>
-                      {challenge?.title}
-                    </li>
-                  ))}
-                </ul>
-              </details>
-              <details className="achievements__item">
-                <summary>
-                  <span className="achievement__stat stat--green">
-                    {meetupPeople?.length}
-                  </span>
-                  Meetups
-                </summary>
-                <ul>
-                  {meetupPeople.map((person) => (
-                    <li
-                      className="achievement__entry entry--green"
-                      key={person?.profile_id}>
-                      {person?.name}
-                    </li>
-                  ))}
-                </ul>
-              </details>
+              {completedRoutes.length === 0 ? (
+                <div className="achievements__item achievements__item--empty">
+                  <div className="achievement__header">
+                    <p>
+                      <span className="achievement__stat stat--pink">
+                        0
+                      </span>
+                      Routes</p>
+                  </div>
+
+                  <p className="achievement__empty">
+                    Follow our routes
+                  </p>
+                </div>
+              ) : (
+                <details className="achievements__item">
+                  <summary>
+                    <span className="achievement__stat stat--pink">
+                      {completedRoutes.length}
+                    </span>{" "}
+                    Routes
+                  </summary>
+
+                  <ul>
+                    {completedRoutes.map((completedRoute) => (
+                      <li
+                        className="achievement__entry entry--pink"
+                        key={completedRoute?.route_id}
+                      >
+                        {completedRoute?.title}
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              )}
+              {completedChallenges.length === 0 ? (
+                <div className="achievements__item achievements__item--empty">
+                  <div className="achievement__header">
+                    <p>
+                      <span className="achievement__stat stat--blue">
+                        0
+                      </span>
+                      Side Quests
+                    </p>
+                  </div>
+
+                  <p className="achievement__empty">
+                    Complete a side quest
+                  </p>
+                </div>
+              ) : (
+                <details className="achievements__item">
+                  <summary>
+                    <span className="achievement__stat stat--blue">
+                      {completedChallenges.length}
+                    </span>{" "}
+                    Side Quests
+                  </summary>
+
+                  <ul>
+                    {challenges.map((challenge) => (
+                      <li
+                        className="achievement__entry entry--blue"
+                        key={challenge?.challenge_id}
+                      >
+                        {challenge?.title}
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              )}
+              {meetupPeople.length === 0 ? (
+                <div className="achievements__item achievements__item--empty">
+                  <div className="achievement__header">
+                    <p>
+                      <span className="achievement__stat stat--green">
+                        0
+                      </span>
+                      Meet Ups
+                    </p>
+                  </div>
+
+                  <p className="achievement__empty">
+                    Meet fellow explorers
+                  </p>
+                </div>
+              ) : (
+                <details className="achievements__item">
+                  <summary>
+                    <span className="achievement__stat stat--green">
+                      {meetupPeople.length}
+                    </span>{" "}
+                    Meet Ups
+                  </summary>
+
+                  <ul>
+                    {meetupPeople.map((person) => (
+                      <li
+                        className="achievement__entry entry--green"
+                        key={person?.profile_id}
+                      >
+                        {person?.name}
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              )}
             </div>
           </div>
         </main>

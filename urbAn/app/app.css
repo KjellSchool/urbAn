@@ -2484,7 +2484,7 @@ li {
 
 .personal__name {
   font-family: "Antwerpen Pixel";
-  font-size: 32px;
+  font-size: 38px;
 }
 
 .profile__description {
@@ -2581,10 +2581,28 @@ li {
   align-items: center;
 }
 
+.achievement__header p {
+  font-size: 25px;
+  width: 4rem;
+  padding-top: 0;
+  padding-bottom: var(--space-xs);
+  border-radius: 32px;
+  display: flex;
+  font-family: "Antwerpen Small Caps";
+  justify-content: flex-start;
+  align-self: center;
+}
+
+.achievement__empty {
+  font-family: "Sun Antwerpen";
+  font-size: 16px;
+  margin-left: 5rem;
+}
+
 .achievement__stat {
   font-size: 32px;
-
-  width: 4rem;
+  color: var(--colour-white);
+  width: 5rem;
   padding: var(--space-m);
   padding-top: 0;
   padding-bottom: var(--space-xs);
