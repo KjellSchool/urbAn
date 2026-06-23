@@ -1403,12 +1403,25 @@ const Home = () => {
             </button>
           )}
         </div>
-        <div className="challenges__section drawer">
+        <div
+          className="challenges__section drawer"
+          onTouchStart={handleDrawerTouchStart}
+          onTouchMove={handleDrawerTouchMove}
+          onTouchEnd={handleDrawerTouchEnd}
+          style={
+            {
+              "--drag-y": `${drawerDragY}px`,
+            } as React.CSSProperties
+          }
+        >
           <div>
-            <h2 className="drawer__title challenges__title">Side Quests</h2>
-            <p className="drawer__description">
-              Complete to unlock local tips!
-            </p>
+            <div className="drawer__header">
+              <img className="drawer__slider" src={closePopup} alt="Close Popup" />
+              <h2 className="drawer__title">Side Quests</h2>
+              <p className="drawer__description">
+                Complete to unlock local tips!
+              </p>
+            </div>
           </div>
           {activeRoute?.route ? (
             <div className="drawer__section">
@@ -1655,8 +1668,21 @@ const Home = () => {
             </div>
           )}
         </div>
-        <div className="social__section drawer">
-          <h2 className="drawer__title">Nearby Explorers</h2>
+        <div
+          className="social__section drawer"
+          onTouchStart={handleDrawerTouchStart}
+          onTouchMove={handleDrawerTouchMove}
+          onTouchEnd={handleDrawerTouchEnd}
+          style={
+            {
+              "--drag-y": `${drawerDragY}px`,
+            } as React.CSSProperties
+          }
+        >
+          <div className="drawer__header">
+            <img className="drawer__slider" src={closePopup} alt="Close Popup" />
+            <h2 className="drawer__title">Nearby Explorers</h2>
+          </div>
           {closeProfiles.length + farProfiles.length > 0 || currentUser?.is_visible === false ? (
             <>
               {closeProfiles.length > 0 ? (
@@ -1883,9 +1909,11 @@ const Home = () => {
           onTouchStart={handleDrawerTouchStart}
           onTouchMove={handleDrawerTouchMove}
           onTouchEnd={handleDrawerTouchEnd}
-          style={{
-            "--drag-y": `${drawerDragY}px`,
-          }}
+          style={
+            {
+              "--drag-y": `${drawerDragY}px`,
+            } as React.CSSProperties
+          }
         >
           <div className="drawer__header">
             <img className="drawer__slider" src={closePopup} alt="Close Popup" />
