@@ -3929,7 +3929,7 @@ const Home = () => {
                 <button
                   className="tip__close"
                   onClick={() => setTipActive(false)}>
-                  Git it!
+                  Got it!
                 </button>
               </div>
             </div>

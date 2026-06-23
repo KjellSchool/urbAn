@@ -2358,12 +2358,12 @@ li {
 
 .stat__number {
   font-family: "Antwerpen Small Caps";
-  font-size: 24px;
+  font-size: 30px;
 }
 
 .stat__label {
   font-family: "Antwerpen Small Caps";
-  font-size: 10px;
+  font-size: 15px;
 }
 
 .nearby__meet,
@@ -2866,7 +2866,8 @@ input:checked+.slider:before {
 }
 
 .login,
-.delete, .save__profile {
+.delete,
+.save__profile {
   letter-spacing: normal;
 }
 
