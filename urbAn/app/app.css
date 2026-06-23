@@ -185,7 +185,6 @@ button {
 
   display: flex;
   flex-direction: column;
-  gap: var(--space-xl);
 }
 
 .navigation__section--active {
@@ -207,6 +206,7 @@ button {
   color: var(--colour-white);
   font-family: "Antwerpen Regular";
   font-size: 32px;
+  margin-bottom: var(--space-l);
 }
 
 .drawer__description {
@@ -214,6 +214,59 @@ button {
   font-family: "Antwerpen Regular";
   font-size: 20px;
   text-align: center;
+}
+
+.search__bar {
+  align-self: center;
+  background-color: var(--colour-white);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10rem;
+  border-radius: 53px;
+  border: 1px solid var(--colour-black);
+  box-shadow: -3px 3px 0 0 var(--colour-black);
+  padding: var(--space-xs) var(--space-s);
+  margin-bottom: var(--space-m);
+}
+
+.search__bar--search {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
+}
+
+.specifics {
+  display: flex;
+  align-self: center;
+  gap: var(--space-s);
+  margin-bottom: var(--space-xl);
+}
+
+.specifics svg {
+  width: 30px;
+  height: 30px;
+  padding: var(--space-2xs);
+  border-radius: 20px;
+  background: var(--colour-green-200);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10);
+  position: relative;
+  top: 0.5rem;
+  left: 5rem;
+}
+
+.specifics p {
+  border-radius: 20px;
+  background: var(--sky-blue-200, #82C4FF);
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.05);
+  padding: var(--space-xs) var(--space-s);
+  color: var(--colour-white);
+  font-family: "Antwerpen Regular";
+  font-size: 16px;
+}
+
+.specifics--women svg {
+  left: 4rem;
 }
 
 .drawer__section {
@@ -2270,12 +2323,11 @@ li {
 }
 
 .archetype-tag {
-  font-family: "Antwerpen Regular";
-  font-size: 14px;
-
+  font-family: "Antwerpen Pixel";
+  font-size: 16px;
   width: fit-content;
   height: fit-content;
-  padding: var(--space-2xs) var(--space-s);
+  padding: var(--space-xs) var(--space-s);
   border-radius: 32px;
 }
 
