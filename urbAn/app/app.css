@@ -99,6 +99,7 @@ html {
   font-family: "Sun Antwerpen";
 
   overflow-y: hidden;
+  overflow-x: hidden;
   overscroll-behavior: none;
 }
 
