@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { useNavigate, Link } from "react-router";
 import { useEffect, useState } from "react";
 
 import { useUser } from "~/contexts/userContext";
@@ -8,12 +8,16 @@ import { updateProfile } from "../database/profiles.js";
 
 
 const Settings = () => {
-  const {currentUser, setCurrentUser} = useUser();
+  const { currentUser, setCurrentUser } = useUser();
+  const navigate = useNavigate();
 
   const [primaryArchetypeId, setPrimaryArchetypeId] = useState();
   const [primaryArchetype, setPrimaryArchetype] = useState();
   const [userAge, setUserAge] = useState(0);
   const [darkMode, setDarkMode] = useState(false);
+
+  const [showLogoutPopup, setShowLogoutPopup] = useState(false);
+  const [showDeletePopup, setShowDeletePopup] = useState(false);
 
   const calculateAge = (dob) => {
     const dobFormatted = dob.toString().replaceAll("-", "");
@@ -346,11 +350,95 @@ const Settings = () => {
           </div>
         </div>
         <div className="settings__links">
-          <Link className="settings__log login" to={`/`}><button onClick={removeCurrentUser}>Log out</button></Link>
-          <Link className="settings__log delete" to={`/`}><button onClick={removeCurrentUser}>Delete account</button></Link>
+          <button
+            className="settings__log login"
+            onClick={() => setShowLogoutPopup(true)}
+          >
+            Log out
+          </button>
+          {showLogoutPopup && (
+            <>
+              <div
+                className="popup__overlay"
+                onClick={() => setShowLogoutPopup(false)}
+              />
+
+              <div className="logout__popup">
+                <div className="logout__header">
+                  <p className="logout__title">Warning</p>
+                </div>
+
+                <div className="logout__content">
+                  <p className="logout__message">
+                    Are you sure you want to log out?
+                  </p>
+
+                  <div className="logout__buttons">
+                    <button
+                      className="logout__cancel"
+                      onClick={() => setShowLogoutPopup(false)}
+                    >
+                      Cancel
+                    </button>
+
+                    <button
+                      className="logout__confirm"
+                      onClick={() => navigate("/user")}
+                    >
+                      I'm sure
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+          <button
+            className="settings__log delete"
+            onClick={() => setShowDeletePopup(true)}
+          >
+            Delete account
+          </button>
+          {showDeletePopup && (
+            <>
+              <div
+                className="popup__overlay"
+                onClick={() => setShowDeletePopup(false)}
+              />
+
+              <div className="logout__popup">
+                <div className="logout__header">
+                  <p className="logout__title">Warning</p>
+                </div>
+
+                <div className="logout__content">
+                  <p className="logout__message">
+                    Are you sure you want to delete your account?
+                  </p>
+
+                  <div className="logout__buttons">
+                    <button
+                      className="logout__cancel"
+                      onClick={() => setShowDeletePopup(false)}
+                    >
+                      Cancel
+                    </button>
+
+                    <button
+                      className="logout__confirm"
+                      onClick={() => {
+                        removeCurrentUser();
+                        navigate("/");
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
         </div>
-        <p className="id">My id: {currentUser?.profile_id}</p>
-      </div>
+      </div >
     </>
   )
 }

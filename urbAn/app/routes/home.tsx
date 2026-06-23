@@ -28,6 +28,8 @@ import { getChallengeTip } from "../database/tips.js";
 
 import tumbleweed from "../assets/icons/tumbleweed.svg";
 
+import closePopup from "../assets/icons/close-popup.png";
+
 const Home = () => {
   const { currentUser } = useUser();
   const [profileLocation, setProfileLocation] = useState(
@@ -49,6 +51,9 @@ const Home = () => {
   const [senderProfile, setSenderProfile] = useState(null);
   const [senderArchetype, setSenderArchetype] = useState(null);
   const [meetinInterest, setMeetingInterest] = useState(false);
+
+  const [drawerStartY, setDrawerStartY] = useState(null);
+  const [drawerDragY, setDrawerDragY] = useState(0);
 
   const getCurrentUserLocation = async () => {
     const { data: location } = await getProfileLocation(
@@ -194,6 +199,30 @@ const Home = () => {
     );
 
     setRouteArchetypes(Object.fromEntries(result));
+  };
+
+  const handleDrawerTouchStart = (e) => {
+    setDrawerStartY(e.touches[0].clientY);
+  };
+
+  const handleDrawerTouchMove = (e) => {
+    if (drawerStartY === null) return;
+
+    const currentY = e.touches[0].clientY;
+    const dragDistance = currentY - drawerStartY;
+
+    if (dragDistance > 0) {
+      setDrawerDragY(dragDistance);
+    }
+  };
+
+  const handleDrawerTouchEnd = () => {
+    if (drawerDragY > 80) {
+      closeAllTabs();
+    }
+
+    setDrawerStartY(null);
+    setDrawerDragY(0);
   };
 
   const [profileArchetypes, setProfileArchetypes] = useState({});
@@ -1374,12 +1403,25 @@ const Home = () => {
             </button>
           )}
         </div>
-        <div className="challenges__section drawer">
+        <div
+          className="challenges__section drawer"
+          onTouchStart={handleDrawerTouchStart}
+          onTouchMove={handleDrawerTouchMove}
+          onTouchEnd={handleDrawerTouchEnd}
+          style={
+            {
+              "--drag-y": `${drawerDragY}px`,
+            } as React.CSSProperties
+          }
+        >
           <div>
-            <h2 className="drawer__title challenges__title">Side Quests</h2>
-            <p className="drawer__description">
-              Complete to unlock local tips!
-            </p>
+            <div className="drawer__header">
+              <img className="drawer__slider" src={closePopup} alt="Close Popup" />
+              <h2 className="drawer__title">Side Quests</h2>
+              <p className="drawer__description">
+                Complete to unlock local tips!
+              </p>
+            </div>
           </div>
           {activeRoute?.route ? (
             <div className="drawer__section">
@@ -1626,10 +1668,191 @@ const Home = () => {
             </div>
           )}
         </div>
-        <div className="social__section drawer">
-          <h2 className="drawer__title">Nearby Explorers</h2>
-          {closeProfiles.length + farProfiles.length > 0 || currentUser?.is_visible === false ? (
+        <div
+          className="social__section drawer"
+          onTouchStart={handleDrawerTouchStart}
+          onTouchMove={handleDrawerTouchMove}
+          onTouchEnd={handleDrawerTouchEnd}
+          style={
+            {
+              "--drag-y": `${drawerDragY}px`,
+            } as React.CSSProperties
+          }
+        >
+          <div className="drawer__header">
+            <img className="drawer__slider" src={closePopup} alt="Close Popup" />
+            <h2 className="drawer__title">Nearby Explorers</h2>
+          </div>
+          {currentUser?.is_visible === false ? (
+            <div className="social__empty">
+              <p className="empty__error">Error 404</p>
+              <h3 className="empty__message empty__message--visible">Allow visibility to see nearby explorers</h3>
+              <Link
+                className=" empty__button--visibile"
+                to="/settings">
+                <button>Update Privacy Settings</button>
+              </Link>
+              <img className="empty__tumbleweed" src={tumbleweed} alt="tumbleweed" />
+            </div>
+          ) : closeProfiles.length + farProfiles.length > 0 ? (
             <>
+              <div className="search__bar">
+                <div className="search__bar--search">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="21" height="19" viewBox="0 0 21 19" fill="none">
+                    <path d="M17.6402 16.2891H16.2832V17.6461H17.6402V16.2891Z" fill="black" />
+                    <path d="M18.9976 17.6406H17.6406V18.9977H18.9976V17.6406Z" fill="black" />
+                    <path d="M17.6402 13.5703H16.2832V14.9274H17.6402V13.5703Z" fill="black" />
+                    <path d="M16.2837 13.5703H14.9268V14.9274H16.2837V13.5703Z" fill="black" />
+                    <path d="M14.9273 13.5703H13.5703V14.9274H14.9273V13.5703Z" fill="black" />
+                    <path d="M14.9273 12.2109H13.5703V13.568H14.9273V12.2109Z" fill="black" />
+                    <path d="M16.2837 12.2109H14.9268V13.568H16.2837V12.2109Z" fill="black" />
+                    <path d="M16.2837 14.9297H14.9268V16.2868H16.2837V14.9297Z" fill="black" />
+                    <path d="M17.6402 14.9297H16.2832V16.2868H17.6402V14.9297Z" fill="black" />
+                    <path d="M18.9976 16.2891H17.6406V17.6461H18.9976V16.2891Z" fill="black" />
+                    <path d="M18.9976 14.9297H17.6406V16.2868H18.9976V14.9297Z" fill="black" />
+                    <path d="M20.355 16.2891H18.998V17.6461H20.355V16.2891Z" fill="black" />
+                    <path d="M20.355 17.6406H18.998V18.9977H20.355V17.6406Z" fill="black" />
+                    <path d="M12.2125 12.2109H10.8555V13.568H12.2125V12.2109Z" fill="black" />
+                    <path d="M14.9273 10.8594H13.5703V12.2164H14.9273V10.8594Z" fill="black" />
+                    <path d="M14.9273 9.5H13.5703V10.8571H14.9273V9.5Z" fill="black" />
+                    <path d="M16.2837 8.14062H14.9268V9.4977H16.2837V8.14062Z" fill="black" />
+                    <path d="M16.2837 6.78906H14.9268V8.14613H16.2837V6.78906Z" fill="black" />
+                    <path d="M16.2837 5.42969H14.9268V6.78676H16.2837V5.42969Z" fill="black" />
+                    <path d="M13.5699 1.35938H12.2129V2.71645H13.5699V1.35938Z" fill="black" />
+                    <path d="M12.2125 1.35938H10.8555V2.71645H12.2125V1.35938Z" fill="black" />
+                    <path d="M10.855 3.39062H9.49805V4.7477H10.855V3.39062Z" fill="black" />
+                    <path d="M12.2125 4.75H10.8555V6.10707H12.2125V4.75Z" fill="black" />
+                    <path d="M12.2125 6.10938H10.8555V7.46645H12.2125V6.10938Z" fill="black" />
+                    <path d="M10.855 0H9.49805V1.35707H10.855V0Z" fill="black" />
+                    <path d="M9.49956 0H8.14258V1.35707H9.49956V0Z" fill="black" />
+                    <path d="M8.14214 0H6.78516V1.35707H8.14214V0Z" fill="black" />
+                    <path d="M6.78472 0H5.42773V1.35707H6.78472V0Z" fill="black" />
+                    <path d="M5.42828 1.35938H4.07129V2.71645H5.42828V1.35938Z" fill="black" />
+                    <path d="M2.71484 5.42738V4.07031H1.35786V5.42738H2.71484Z" fill="black" />
+                    <path d="M14.9268 5.42738V4.07031H13.5698V5.42738H14.9268Z" fill="black" />
+                    <path d="M4.07183 1.35938H2.71484V2.71645H4.07183V1.35938Z" fill="black" />
+                    <path d="M2.71484 4.06801V2.71094H1.35786V4.06801H2.71484Z" fill="black" />
+                    <path d="M14.9268 4.06801V2.71094H13.5698V4.06801H14.9268Z" fill="black" />
+                    <path d="M1.35699 5.42969H0V6.78676H1.35699V5.42969Z" fill="black" />
+                    <path d="M1.35699 6.78906H0V8.14613H1.35699V6.78906Z" fill="black" />
+                    <path d="M1.35699 8.14062H0V9.4977H1.35699V8.14062Z" fill="black" />
+                    <path d="M2.71441 9.5H1.35742V10.8571H2.71441V9.5Z" fill="black" />
+                    <path d="M2.71441 10.8594H1.35742V12.2164H2.71441V10.8594Z" fill="black" />
+                    <path d="M4.07183 12.2109H2.71484V13.568H4.07183V12.2109Z" fill="black" />
+                    <path d="M5.42828 12.2109H4.07129V13.568H5.42828V12.2109Z" fill="black" />
+                    <path d="M6.78472 13.5703H5.42773V14.9274H6.78472V13.5703Z" fill="black" />
+                    <path d="M8.14214 13.5703H6.78516V14.9274H8.14214V13.5703Z" fill="black" />
+                    <path d="M9.49956 13.5703H8.14258V14.9274H9.49956V13.5703Z" fill="black" />
+                    <path d="M10.855 13.5703H9.49805V14.9274H10.855V13.5703Z" fill="black" />
+                    <path d="M13.5699 12.2109H12.2129V13.568H13.5699V12.2109Z" fill="black" />
+                  </svg>
+                  <p>Search</p>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <rect width="1.2501" height="1.2501" fill="black" />
+                  <rect x="1.25" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="2.5" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="3.75" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="5" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="6.25098" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="7.50098" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="8.75098" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="10.001" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="11.251" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="12.501" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="13.751" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="15.002" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="16.252" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="17.502" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="18.752" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="18.752" y="1.25" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="17.502" y="2.5" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="16.252" y="3.75" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="15.002" y="5" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="13.751" y="6.25" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="12.501" y="7.5" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="11.251" y="8.75" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="11.251" y="10" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="11.251" y="11.25" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="11.251" y="12.5" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="11.251" y="13.75" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="11.251" y="15" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="11.251" y="16.25" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="10.001" y="17.5" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="8.75098" y="18.75" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="7.50098" y="18.75" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="7.50098" y="17.5" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="7.50098" y="16.25" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="7.50098" y="15" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="7.50098" y="13.75" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="7.50098" y="12.5" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="7.50098" y="11.25" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="7.50098" y="10" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="7.50098" y="8.75" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="6.25098" y="7.5" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="5" y="6.25" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="3.75" y="5" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="2.5" y="3.75" width="1.2501" height="1.2501" fill="black" />
+                  <rect x="1.25" y="2.5" width="1.2501" height="1.2501" fill="black" />
+                  <rect y="1.25" width="1.2501" height="1.2501" fill="black" />
+                </svg>
+              </div>
+              <div className="specifics">
+                <div>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
+                    <path d="M1.55797 4.80845L3.11377 4.8062L3.11596 6.40305L1.56016 6.4053L1.55797 4.80845Z" fill="#047AF4" />
+                    <path d="M4.66959 4.80397L6.2254 4.80172L6.22759 6.39857L4.67179 6.40082L4.66959 4.80397Z" fill="#047AF4" />
+                    <path d="M3.11596 6.40305L4.67179 6.40082L4.67384 7.99775L3.11804 8L3.11596 6.40305Z" fill="#047AF4" />
+                    <path d="M6.22759 6.39857L7.78328 6.39642L7.78547 7.99327L6.22967 7.99552L6.22759 6.39857Z" fill="#047AF4" />
+                    <path d="M7.78122 4.79949L9.33702 4.79724L9.33922 6.39409L7.78328 6.39642L7.78122 4.79949Z" fill="#047AF4" />
+                    <path d="M6.22307 3.20513L7.77887 3.20288L7.78122 4.79949L6.2254 4.80172L6.22307 3.20513Z" fill="#047AF4" />
+                    <path d="M9.33469 3.20065L10.8905 3.1984L10.8927 4.79525L9.33702 4.79724L9.33469 3.20065Z" fill="#047AF4" />
+                    <path d="M7.77681 1.60595L9.33262 1.6037L9.33469 3.20065L7.77887 3.20288L7.77681 1.60595Z" fill="#047AF4" />
+                    <path d="M10.8884 1.60148L12.4442 1.59922L12.4464 3.19608L10.8905 3.1984L10.8884 1.60148Z" fill="#047AF4" />
+                    <path d="M9.33037 0.00673268L10.8862 0.00447977L10.8884 1.60148L9.33262 1.6037L9.33037 0.00673268Z" fill="#047AF4" />
+                    <path d="M12.442 0.00225291L13.9978 0L14 1.59685L12.4442 1.59922L12.442 0.00225291Z" fill="#047AF4" />
+                    <path d="M0 3.21413L1.5558 3.21188L1.55797 4.80845L0.00219499 4.81098L0 3.21413Z" fill="#047AF4" />
+                    <path d="M3.11144 3.20961L4.66724 3.20735L4.66959 4.80397L3.11377 4.8062L3.11144 3.20961Z" fill="#047AF4" />
+                  </svg>
+                  <p>nearest by</p>
+                </div>
+                <div className="specifics--women">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
+                    <path d="M1.55797 4.80845L3.11377 4.8062L3.11596 6.40305L1.56016 6.4053L1.55797 4.80845Z" fill="#047AF4" />
+                    <path d="M4.66959 4.80397L6.2254 4.80172L6.22759 6.39857L4.67179 6.40082L4.66959 4.80397Z" fill="#047AF4" />
+                    <path d="M3.11596 6.40305L4.67179 6.40082L4.67384 7.99775L3.11804 8L3.11596 6.40305Z" fill="#047AF4" />
+                    <path d="M6.22759 6.39857L7.78328 6.39642L7.78547 7.99327L6.22967 7.99552L6.22759 6.39857Z" fill="#047AF4" />
+                    <path d="M7.78122 4.79949L9.33702 4.79724L9.33922 6.39409L7.78328 6.39642L7.78122 4.79949Z" fill="#047AF4" />
+                    <path d="M6.22307 3.20513L7.77887 3.20288L7.78122 4.79949L6.2254 4.80172L6.22307 3.20513Z" fill="#047AF4" />
+                    <path d="M9.33469 3.20065L10.8905 3.1984L10.8927 4.79525L9.33702 4.79724L9.33469 3.20065Z" fill="#047AF4" />
+                    <path d="M7.77681 1.60595L9.33262 1.6037L9.33469 3.20065L7.77887 3.20288L7.77681 1.60595Z" fill="#047AF4" />
+                    <path d="M10.8884 1.60148L12.4442 1.59922L12.4464 3.19608L10.8905 3.1984L10.8884 1.60148Z" fill="#047AF4" />
+                    <path d="M9.33037 0.00673268L10.8862 0.00447977L10.8884 1.60148L9.33262 1.6037L9.33037 0.00673268Z" fill="#047AF4" />
+                    <path d="M12.442 0.00225291L13.9978 0L14 1.59685L12.4442 1.59922L12.442 0.00225291Z" fill="#047AF4" />
+                    <path d="M0 3.21413L1.5558 3.21188L1.55797 4.80845L0.00219499 4.81098L0 3.21413Z" fill="#047AF4" />
+                    <path d="M3.11144 3.20961L4.66724 3.20735L4.66959 4.80397L3.11377 4.8062L3.11144 3.20961Z" fill="#047AF4" />
+                  </svg>
+                  <p>women</p>
+                </div>
+                <div>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
+                    <path d="M1.55797 4.80845L3.11377 4.8062L3.11596 6.40305L1.56016 6.4053L1.55797 4.80845Z" fill="#047AF4" />
+                    <path d="M4.66959 4.80397L6.2254 4.80172L6.22759 6.39857L4.67179 6.40082L4.66959 4.80397Z" fill="#047AF4" />
+                    <path d="M3.11596 6.40305L4.67179 6.40082L4.67384 7.99775L3.11804 8L3.11596 6.40305Z" fill="#047AF4" />
+                    <path d="M6.22759 6.39857L7.78328 6.39642L7.78547 7.99327L6.22967 7.99552L6.22759 6.39857Z" fill="#047AF4" />
+                    <path d="M7.78122 4.79949L9.33702 4.79724L9.33922 6.39409L7.78328 6.39642L7.78122 4.79949Z" fill="#047AF4" />
+                    <path d="M6.22307 3.20513L7.77887 3.20288L7.78122 4.79949L6.2254 4.80172L6.22307 3.20513Z" fill="#047AF4" />
+                    <path d="M9.33469 3.20065L10.8905 3.1984L10.8927 4.79525L9.33702 4.79724L9.33469 3.20065Z" fill="#047AF4" />
+                    <path d="M7.77681 1.60595L9.33262 1.6037L9.33469 3.20065L7.77887 3.20288L7.77681 1.60595Z" fill="#047AF4" />
+                    <path d="M10.8884 1.60148L12.4442 1.59922L12.4464 3.19608L10.8905 3.1984L10.8884 1.60148Z" fill="#047AF4" />
+                    <path d="M9.33037 0.00673268L10.8862 0.00447977L10.8884 1.60148L9.33262 1.6037L9.33037 0.00673268Z" fill="#047AF4" />
+                    <path d="M12.442 0.00225291L13.9978 0L14 1.59685L12.4442 1.59922L12.442 0.00225291Z" fill="#047AF4" />
+                    <path d="M0 3.21413L1.5558 3.21188L1.55797 4.80845L0.00219499 4.81098L0 3.21413Z" fill="#047AF4" />
+                    <path d="M3.11144 3.20961L4.66724 3.20735L4.66959 4.80397L3.11377 4.8062L3.11144 3.20961Z" fill="#047AF4" />
+                  </svg>
+                  <p>25-35 yo</p>
+                </div>
+              </div>
               {closeProfiles.length > 0 ? (
                 <div className="drawer__section">
                   <h3 className="drawer__subtitle">200m radius</h3>
@@ -1655,12 +1878,10 @@ const Home = () => {
                                 <p
                                   className="nearby__archetype archetype-tag"
                                   style={{
-                                    backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
+                                    backgroundColor: `#${profileArchetypes[profile?.primary_archetype]?.colour}`
                                   }}>
                                   {
-                                    profileArchetypes[
-                                      profile?.primary_archetype
-                                    ]?.tag
+                                    profileArchetypes[profile?.primary_archetype]?.tag
                                   }
                                 </p>
                               </div>
@@ -1824,20 +2045,6 @@ const Home = () => {
               ) : (
                 ""
               )}
-              {currentUser?.is_visible === false ? (
-                <div className="social__empty">
-                  <p className="empty__error">Error 404</p>
-                  <h3 className="empty__message empty__message--visible">Allow visibility to see nearby explorers</h3>
-                  <Link
-                    className=" empty__button--visibile"
-                    to="/settings">
-                    <button>Update Privacy Settings</button>
-                  </Link>
-                  <img className="empty__tumbleweed" src={tumbleweed} alt="tumbleweed" />
-                </div>
-              ) : (
-                ""
-              )}
             </>
           ) : (
             <>
@@ -1849,8 +2056,178 @@ const Home = () => {
             </>
           )}
         </div>
-        <div className="navigation__section drawer">
-          <h2 className="drawer__title">Exploring Routes</h2>
+        <div
+          className="navigation__section drawer"
+          onTouchStart={handleDrawerTouchStart}
+          onTouchMove={handleDrawerTouchMove}
+          onTouchEnd={handleDrawerTouchEnd}
+          style={
+            {
+              "--drag-y": `${drawerDragY}px`,
+            } as React.CSSProperties
+          }
+        >
+          <div className="drawer__header">
+            <img className="drawer__slider" src={closePopup} alt="Close Popup" />
+            <h2 className="drawer__title">Exploring Routes</h2>
+          </div>
+          <div className="search__bar">
+            <div className="search__bar--search">
+              <svg xmlns="http://www.w3.org/2000/svg" width="21" height="19" viewBox="0 0 21 19" fill="none">
+                <path d="M17.6402 16.2891H16.2832V17.6461H17.6402V16.2891Z" fill="black" />
+                <path d="M18.9976 17.6406H17.6406V18.9977H18.9976V17.6406Z" fill="black" />
+                <path d="M17.6402 13.5703H16.2832V14.9274H17.6402V13.5703Z" fill="black" />
+                <path d="M16.2837 13.5703H14.9268V14.9274H16.2837V13.5703Z" fill="black" />
+                <path d="M14.9273 13.5703H13.5703V14.9274H14.9273V13.5703Z" fill="black" />
+                <path d="M14.9273 12.2109H13.5703V13.568H14.9273V12.2109Z" fill="black" />
+                <path d="M16.2837 12.2109H14.9268V13.568H16.2837V12.2109Z" fill="black" />
+                <path d="M16.2837 14.9297H14.9268V16.2868H16.2837V14.9297Z" fill="black" />
+                <path d="M17.6402 14.9297H16.2832V16.2868H17.6402V14.9297Z" fill="black" />
+                <path d="M18.9976 16.2891H17.6406V17.6461H18.9976V16.2891Z" fill="black" />
+                <path d="M18.9976 14.9297H17.6406V16.2868H18.9976V14.9297Z" fill="black" />
+                <path d="M20.355 16.2891H18.998V17.6461H20.355V16.2891Z" fill="black" />
+                <path d="M20.355 17.6406H18.998V18.9977H20.355V17.6406Z" fill="black" />
+                <path d="M12.2125 12.2109H10.8555V13.568H12.2125V12.2109Z" fill="black" />
+                <path d="M14.9273 10.8594H13.5703V12.2164H14.9273V10.8594Z" fill="black" />
+                <path d="M14.9273 9.5H13.5703V10.8571H14.9273V9.5Z" fill="black" />
+                <path d="M16.2837 8.14062H14.9268V9.4977H16.2837V8.14062Z" fill="black" />
+                <path d="M16.2837 6.78906H14.9268V8.14613H16.2837V6.78906Z" fill="black" />
+                <path d="M16.2837 5.42969H14.9268V6.78676H16.2837V5.42969Z" fill="black" />
+                <path d="M13.5699 1.35938H12.2129V2.71645H13.5699V1.35938Z" fill="black" />
+                <path d="M12.2125 1.35938H10.8555V2.71645H12.2125V1.35938Z" fill="black" />
+                <path d="M10.855 3.39062H9.49805V4.7477H10.855V3.39062Z" fill="black" />
+                <path d="M12.2125 4.75H10.8555V6.10707H12.2125V4.75Z" fill="black" />
+                <path d="M12.2125 6.10938H10.8555V7.46645H12.2125V6.10938Z" fill="black" />
+                <path d="M10.855 0H9.49805V1.35707H10.855V0Z" fill="black" />
+                <path d="M9.49956 0H8.14258V1.35707H9.49956V0Z" fill="black" />
+                <path d="M8.14214 0H6.78516V1.35707H8.14214V0Z" fill="black" />
+                <path d="M6.78472 0H5.42773V1.35707H6.78472V0Z" fill="black" />
+                <path d="M5.42828 1.35938H4.07129V2.71645H5.42828V1.35938Z" fill="black" />
+                <path d="M2.71484 5.42738V4.07031H1.35786V5.42738H2.71484Z" fill="black" />
+                <path d="M14.9268 5.42738V4.07031H13.5698V5.42738H14.9268Z" fill="black" />
+                <path d="M4.07183 1.35938H2.71484V2.71645H4.07183V1.35938Z" fill="black" />
+                <path d="M2.71484 4.06801V2.71094H1.35786V4.06801H2.71484Z" fill="black" />
+                <path d="M14.9268 4.06801V2.71094H13.5698V4.06801H14.9268Z" fill="black" />
+                <path d="M1.35699 5.42969H0V6.78676H1.35699V5.42969Z" fill="black" />
+                <path d="M1.35699 6.78906H0V8.14613H1.35699V6.78906Z" fill="black" />
+                <path d="M1.35699 8.14062H0V9.4977H1.35699V8.14062Z" fill="black" />
+                <path d="M2.71441 9.5H1.35742V10.8571H2.71441V9.5Z" fill="black" />
+                <path d="M2.71441 10.8594H1.35742V12.2164H2.71441V10.8594Z" fill="black" />
+                <path d="M4.07183 12.2109H2.71484V13.568H4.07183V12.2109Z" fill="black" />
+                <path d="M5.42828 12.2109H4.07129V13.568H5.42828V12.2109Z" fill="black" />
+                <path d="M6.78472 13.5703H5.42773V14.9274H6.78472V13.5703Z" fill="black" />
+                <path d="M8.14214 13.5703H6.78516V14.9274H8.14214V13.5703Z" fill="black" />
+                <path d="M9.49956 13.5703H8.14258V14.9274H9.49956V13.5703Z" fill="black" />
+                <path d="M10.855 13.5703H9.49805V14.9274H10.855V13.5703Z" fill="black" />
+                <path d="M13.5699 12.2109H12.2129V13.568H13.5699V12.2109Z" fill="black" />
+              </svg>
+              <p>Search</p>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <rect width="1.2501" height="1.2501" fill="black" />
+              <rect x="1.25" width="1.2501" height="1.2501" fill="black" />
+              <rect x="2.5" width="1.2501" height="1.2501" fill="black" />
+              <rect x="3.75" width="1.2501" height="1.2501" fill="black" />
+              <rect x="5" width="1.2501" height="1.2501" fill="black" />
+              <rect x="6.25098" width="1.2501" height="1.2501" fill="black" />
+              <rect x="7.50098" width="1.2501" height="1.2501" fill="black" />
+              <rect x="8.75098" width="1.2501" height="1.2501" fill="black" />
+              <rect x="10.001" width="1.2501" height="1.2501" fill="black" />
+              <rect x="11.251" width="1.2501" height="1.2501" fill="black" />
+              <rect x="12.501" width="1.2501" height="1.2501" fill="black" />
+              <rect x="13.751" width="1.2501" height="1.2501" fill="black" />
+              <rect x="15.002" width="1.2501" height="1.2501" fill="black" />
+              <rect x="16.252" width="1.2501" height="1.2501" fill="black" />
+              <rect x="17.502" width="1.2501" height="1.2501" fill="black" />
+              <rect x="18.752" width="1.2501" height="1.2501" fill="black" />
+              <rect x="18.752" y="1.25" width="1.2501" height="1.2501" fill="black" />
+              <rect x="17.502" y="2.5" width="1.2501" height="1.2501" fill="black" />
+              <rect x="16.252" y="3.75" width="1.2501" height="1.2501" fill="black" />
+              <rect x="15.002" y="5" width="1.2501" height="1.2501" fill="black" />
+              <rect x="13.751" y="6.25" width="1.2501" height="1.2501" fill="black" />
+              <rect x="12.501" y="7.5" width="1.2501" height="1.2501" fill="black" />
+              <rect x="11.251" y="8.75" width="1.2501" height="1.2501" fill="black" />
+              <rect x="11.251" y="10" width="1.2501" height="1.2501" fill="black" />
+              <rect x="11.251" y="11.25" width="1.2501" height="1.2501" fill="black" />
+              <rect x="11.251" y="12.5" width="1.2501" height="1.2501" fill="black" />
+              <rect x="11.251" y="13.75" width="1.2501" height="1.2501" fill="black" />
+              <rect x="11.251" y="15" width="1.2501" height="1.2501" fill="black" />
+              <rect x="11.251" y="16.25" width="1.2501" height="1.2501" fill="black" />
+              <rect x="10.001" y="17.5" width="1.2501" height="1.2501" fill="black" />
+              <rect x="8.75098" y="18.75" width="1.2501" height="1.2501" fill="black" />
+              <rect x="7.50098" y="18.75" width="1.2501" height="1.2501" fill="black" />
+              <rect x="7.50098" y="17.5" width="1.2501" height="1.2501" fill="black" />
+              <rect x="7.50098" y="16.25" width="1.2501" height="1.2501" fill="black" />
+              <rect x="7.50098" y="15" width="1.2501" height="1.2501" fill="black" />
+              <rect x="7.50098" y="13.75" width="1.2501" height="1.2501" fill="black" />
+              <rect x="7.50098" y="12.5" width="1.2501" height="1.2501" fill="black" />
+              <rect x="7.50098" y="11.25" width="1.2501" height="1.2501" fill="black" />
+              <rect x="7.50098" y="10" width="1.2501" height="1.2501" fill="black" />
+              <rect x="7.50098" y="8.75" width="1.2501" height="1.2501" fill="black" />
+              <rect x="6.25098" y="7.5" width="1.2501" height="1.2501" fill="black" />
+              <rect x="5" y="6.25" width="1.2501" height="1.2501" fill="black" />
+              <rect x="3.75" y="5" width="1.2501" height="1.2501" fill="black" />
+              <rect x="2.5" y="3.75" width="1.2501" height="1.2501" fill="black" />
+              <rect x="1.25" y="2.5" width="1.2501" height="1.2501" fill="black" />
+              <rect y="1.25" width="1.2501" height="1.2501" fill="black" />
+            </svg>
+          </div>
+          <div className="specifics">
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
+                <path d="M1.55797 4.80845L3.11377 4.8062L3.11596 6.40305L1.56016 6.4053L1.55797 4.80845Z" fill="#047AF4" />
+                <path d="M4.66959 4.80397L6.2254 4.80172L6.22759 6.39857L4.67179 6.40082L4.66959 4.80397Z" fill="#047AF4" />
+                <path d="M3.11596 6.40305L4.67179 6.40082L4.67384 7.99775L3.11804 8L3.11596 6.40305Z" fill="#047AF4" />
+                <path d="M6.22759 6.39857L7.78328 6.39642L7.78547 7.99327L6.22967 7.99552L6.22759 6.39857Z" fill="#047AF4" />
+                <path d="M7.78122 4.79949L9.33702 4.79724L9.33922 6.39409L7.78328 6.39642L7.78122 4.79949Z" fill="#047AF4" />
+                <path d="M6.22307 3.20513L7.77887 3.20288L7.78122 4.79949L6.2254 4.80172L6.22307 3.20513Z" fill="#047AF4" />
+                <path d="M9.33469 3.20065L10.8905 3.1984L10.8927 4.79525L9.33702 4.79724L9.33469 3.20065Z" fill="#047AF4" />
+                <path d="M7.77681 1.60595L9.33262 1.6037L9.33469 3.20065L7.77887 3.20288L7.77681 1.60595Z" fill="#047AF4" />
+                <path d="M10.8884 1.60148L12.4442 1.59922L12.4464 3.19608L10.8905 3.1984L10.8884 1.60148Z" fill="#047AF4" />
+                <path d="M9.33037 0.00673268L10.8862 0.00447977L10.8884 1.60148L9.33262 1.6037L9.33037 0.00673268Z" fill="#047AF4" />
+                <path d="M12.442 0.00225291L13.9978 0L14 1.59685L12.4442 1.59922L12.442 0.00225291Z" fill="#047AF4" />
+                <path d="M0 3.21413L1.5558 3.21188L1.55797 4.80845L0.00219499 4.81098L0 3.21413Z" fill="#047AF4" />
+                <path d="M3.11144 3.20961L4.66724 3.20735L4.66959 4.80397L3.11377 4.8062L3.11144 3.20961Z" fill="#047AF4" />
+              </svg>
+              <p>outdoors</p>
+            </div>
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
+                <path d="M1.55797 4.80845L3.11377 4.8062L3.11596 6.40305L1.56016 6.4053L1.55797 4.80845Z" fill="#047AF4" />
+                <path d="M4.66959 4.80397L6.2254 4.80172L6.22759 6.39857L4.67179 6.40082L4.66959 4.80397Z" fill="#047AF4" />
+                <path d="M3.11596 6.40305L4.67179 6.40082L4.67384 7.99775L3.11804 8L3.11596 6.40305Z" fill="#047AF4" />
+                <path d="M6.22759 6.39857L7.78328 6.39642L7.78547 7.99327L6.22967 7.99552L6.22759 6.39857Z" fill="#047AF4" />
+                <path d="M7.78122 4.79949L9.33702 4.79724L9.33922 6.39409L7.78328 6.39642L7.78122 4.79949Z" fill="#047AF4" />
+                <path d="M6.22307 3.20513L7.77887 3.20288L7.78122 4.79949L6.2254 4.80172L6.22307 3.20513Z" fill="#047AF4" />
+                <path d="M9.33469 3.20065L10.8905 3.1984L10.8927 4.79525L9.33702 4.79724L9.33469 3.20065Z" fill="#047AF4" />
+                <path d="M7.77681 1.60595L9.33262 1.6037L9.33469 3.20065L7.77887 3.20288L7.77681 1.60595Z" fill="#047AF4" />
+                <path d="M10.8884 1.60148L12.4442 1.59922L12.4464 3.19608L10.8905 3.1984L10.8884 1.60148Z" fill="#047AF4" />
+                <path d="M9.33037 0.00673268L10.8862 0.00447977L10.8884 1.60148L9.33262 1.6037L9.33037 0.00673268Z" fill="#047AF4" />
+                <path d="M12.442 0.00225291L13.9978 0L14 1.59685L12.4442 1.59922L12.442 0.00225291Z" fill="#047AF4" />
+                <path d="M0 3.21413L1.5558 3.21188L1.55797 4.80845L0.00219499 4.81098L0 3.21413Z" fill="#047AF4" />
+                <path d="M3.11144 3.20961L4.66724 3.20735L4.66959 4.80397L3.11377 4.8062L3.11144 3.20961Z" fill="#047AF4" />
+              </svg>
+              <p>historical</p>
+            </div>
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
+                <path d="M1.55797 4.80845L3.11377 4.8062L3.11596 6.40305L1.56016 6.4053L1.55797 4.80845Z" fill="#047AF4" />
+                <path d="M4.66959 4.80397L6.2254 4.80172L6.22759 6.39857L4.67179 6.40082L4.66959 4.80397Z" fill="#047AF4" />
+                <path d="M3.11596 6.40305L4.67179 6.40082L4.67384 7.99775L3.11804 8L3.11596 6.40305Z" fill="#047AF4" />
+                <path d="M6.22759 6.39857L7.78328 6.39642L7.78547 7.99327L6.22967 7.99552L6.22759 6.39857Z" fill="#047AF4" />
+                <path d="M7.78122 4.79949L9.33702 4.79724L9.33922 6.39409L7.78328 6.39642L7.78122 4.79949Z" fill="#047AF4" />
+                <path d="M6.22307 3.20513L7.77887 3.20288L7.78122 4.79949L6.2254 4.80172L6.22307 3.20513Z" fill="#047AF4" />
+                <path d="M9.33469 3.20065L10.8905 3.1984L10.8927 4.79525L9.33702 4.79724L9.33469 3.20065Z" fill="#047AF4" />
+                <path d="M7.77681 1.60595L9.33262 1.6037L9.33469 3.20065L7.77887 3.20288L7.77681 1.60595Z" fill="#047AF4" />
+                <path d="M10.8884 1.60148L12.4442 1.59922L12.4464 3.19608L10.8905 3.1984L10.8884 1.60148Z" fill="#047AF4" />
+                <path d="M9.33037 0.00673268L10.8862 0.00447977L10.8884 1.60148L9.33262 1.6037L9.33037 0.00673268Z" fill="#047AF4" />
+                <path d="M12.442 0.00225291L13.9978 0L14 1.59685L12.4442 1.59922L12.442 0.00225291Z" fill="#047AF4" />
+                <path d="M0 3.21413L1.5558 3.21188L1.55797 4.80845L0.00219499 4.81098L0 3.21413Z" fill="#047AF4" />
+                <path d="M3.11144 3.20961L4.66724 3.20735L4.66959 4.80397L3.11377 4.8062L3.11144 3.20961Z" fill="#047AF4" />
+              </svg>
+              <p>aesthetic</p>
+            </div>
+          </div>
           <div className="drawer__section">
             <h3 className="drawer__subtitle">For you</h3>
             <ul className="routes__list">
@@ -2873,7 +3250,9 @@ const Home = () => {
               ))}
             </ul>
           </div>
-          <Link to={`/home`}>Cancel routes</Link>
+          <Link to={`/home`}>
+            Cancel routes
+          </Link>
           <button className="" onClick={revealRoutes}>
             Close
           </button>
@@ -3521,7 +3900,7 @@ const Home = () => {
         ) : (
           ""
         )}
-      </div>
+      </div >
     </>
   );
 };
