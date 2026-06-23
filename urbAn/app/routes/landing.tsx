@@ -1284,8 +1284,8 @@ const Landing = () => {
                     width="108"
                     height="88"
                     filterUnits="userSpaceOnUse"
-                    color-interpolation-filters="sRGB">
-                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                    colorInterpolationFilters="sRGB">
+                    <feFlood floodOpacity="0" result="BackgroundImageFix" />
                     <feColorMatrix
                       in="SourceAlpha"
                       type="matrix"
@@ -1902,8 +1902,8 @@ const Landing = () => {
                     width="108"
                     height="88"
                     filterUnits="userSpaceOnUse"
-                    color-interpolation-filters="sRGB">
-                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                    colorInterpolationFilters="sRGB">
+                    <feFlood floodOpacity="0" result="BackgroundImageFix" />
                     <feColorMatrix
                       in="SourceAlpha"
                       type="matrix"
@@ -2520,8 +2520,8 @@ const Landing = () => {
                     width="108"
                     height="88"
                     filterUnits="userSpaceOnUse"
-                    color-interpolation-filters="sRGB">
-                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                    colorInterpolationFilters="sRGB">
+                    <feFlood floodOpacity="0" result="BackgroundImageFix" />
                     <feColorMatrix
                       in="SourceAlpha"
                       type="matrix"
@@ -5475,7 +5475,7 @@ const Landing = () => {
               viewBox="0 0 1441 271"
               fill="none"
               xmlns="http://www.w3.org/2000/svg">
-              <g clip-path="url(#clip0_2281_5911)">
+              <g clipPath="url(#clip0_2281_5911)">
                 <path
                   d="M720.496 270.517V300.574H690.476V270.517H720.496Z"
                   fill="#CDFF10"
@@ -6912,7 +6912,7 @@ const Landing = () => {
               viewBox="0 0 1441 271"
               fill="none"
               xmlns="http://www.w3.org/2000/svg">
-              <g clip-path="url(#clip0_2281_6631)">
+              <g clipPath="url(#clip0_2281_6631)">
                 <path
                   d="M720.504 0.478674V-29.5781H750.524V0.478674H720.504Z"
                   fill="#CDFF10"
@@ -9644,7 +9644,7 @@ const Landing = () => {
               viewBox="0 0 1441 271"
               fill="none"
               xmlns="http://www.w3.org/2000/svg">
-              <g clip-path="url(#clip0_2285_9016)">
+              <g clipPath="url(#clip0_2285_9016)">
                 <path
                   d="M720.496 270.521V300.578H690.476V270.521H720.496Z"
                   fill="black"
