@@ -109,7 +109,7 @@ body {
   overscroll-behavior: none;
 }
 
-body:has(.landing) {
+html:has(.landing), body:has(.landing) {
   overflow-y: scroll;
 }
 
