@@ -78,12 +78,6 @@ export function Map({ meetRequests, onRouteLoaded }) {
     const routeChallenges = challenges.filter(
       (challenge) => challenge.route_id === routeId,
     );
-
-    // onRouteLoaded?.({
-    //   route,
-    //   locations: allLocations,
-    //   challenges: routeChallenges,
-    // });
   };
 
   const loadChallenges = async () => {
@@ -96,7 +90,6 @@ export function Map({ meetRequests, onRouteLoaded }) {
   }, []);
 
   useEffect(() => {
-    // 1. Route removed → immediately reset parent
     if (!routeId) {
       onRouteLoaded?.({
         route: null,
@@ -112,7 +105,6 @@ export function Map({ meetRequests, onRouteLoaded }) {
       return;
     }
 
-    // 2. Wait for GPS before loading route
     if (!userLocation) return;
 
     loadRoute(routeId);
@@ -120,7 +112,7 @@ export function Map({ meetRequests, onRouteLoaded }) {
 
   useEffect(() => {
     if (!navigator.geolocation) {
-      // console.error("Geolocation is not supported by this browser.");
+      console.error("Geolocation is not supported by this browser.");
       return;
     }
 
@@ -143,8 +135,6 @@ export function Map({ meetRequests, onRouteLoaded }) {
       },
       {
         enableHighAccuracy: true,
-        // timeout: 10000,
-        // maximumAge: 0,
       },
     );
   }, []);
@@ -156,13 +146,10 @@ export function Map({ meetRequests, onRouteLoaded }) {
       userLocationRef.current.latitude,
       userLocationRef.current.longitude,
     ];
-    console.log(currentUser?.name, profileLocation);
-    // console.log(currentUser?.profile_id)
     const { data: updatedUser, error } = await setProfileLocation(
       currentUser?.profile_id,
       profileLocation,
     );
-    // console.log(updatedUser);
   };
 
   useEffect(() => {
@@ -189,7 +176,7 @@ export function Map({ meetRequests, onRouteLoaded }) {
       container: mapContainer.current,
       style: "mapbox://styles/antwerpurbanteam/cmq7z64tc000d01s53xpofty6",
       zoom: 10,
-      center: [3.0, 51.0], // fallback center (IMPORTANT FIX)
+      center: [3.0, 51.0],
     });
 
     const geolocate = new mapboxgl.GeolocateControl({
@@ -220,7 +207,6 @@ export function Map({ meetRequests, onRouteLoaded }) {
     });
   }, [userLocation]);
 
-  // CREATING ROUTES
   useEffect(() => {
     const getRoute = async (coordinates) => {
       if (!coordinates) return;
@@ -254,25 +240,6 @@ export function Map({ meetRequests, onRouteLoaded }) {
         challenges: routeChallenges,
       });
 
-      // challenges.map((challenge) => {
-      //   if (challenge.route_id === routeId) {
-      //     const randomPoint = Math.floor(
-      //       Math.random() * route.coordinates?.length,
-      //     );
-      //     const randomCoordinate = route.coordinates[randomPoint];
-      //     // console.log("added: ", challenge.title, randomCoordinate);
-
-      //     challengesRef.current.push({
-      //       challenge,
-      //       coordinate: randomCoordinate,
-      //       discovered: false,
-      //     });
-      //   } else {
-      //     // console.log("not you");
-      //   }
-      // });
-
-      // this line gives an error everytime the map is loaded
       if (map.current.getSource("route")) {
         map.current.getSource("route").setData({
           type: "Feature",
@@ -306,7 +273,6 @@ export function Map({ meetRequests, onRouteLoaded }) {
   const renderWaypoints = (coords) => {
     if (!map.current) return;
 
-    // remove old markers
     markersRef.current.forEach((m) => m.remove());
     markersRef.current = [];
 
@@ -345,11 +311,9 @@ export function Map({ meetRequests, onRouteLoaded }) {
     if (!map.current) return;
 
     if (!routeId) {
-      // remove waypoint markers
       markersRef.current.forEach((m) => m.remove());
       markersRef.current = [];
 
-      // remove route line
       if (map.current.getLayer("route-line")) {
         map.current.removeLayer("route-line");
       }
@@ -370,7 +334,6 @@ export function Map({ meetRequests, onRouteLoaded }) {
 
     const meetup = meetRequests?.find((r) => r.status !== "concluded");
 
-    // 🧹 ALWAYS CLEAN FIRST
     meetupMarkersRef.current.forEach((m) => m.remove());
     meetupMarkersRef.current = [];
 
@@ -382,7 +345,6 @@ export function Map({ meetRequests, onRouteLoaded }) {
       map.current.removeSource("meetup-circle");
     }
 
-    // ❌ nothing to render
     if (!meetup || !meetup.location) return;
 
     const middle = meetup.location;
@@ -428,7 +390,7 @@ export function Map({ meetRequests, onRouteLoaded }) {
 
       if (!sender?.coordinates || !receiver?.coordinates) return;
 
-      const center = activeMeetup.location; // [lat, lng]
+      const center = activeMeetup.location;
 
       const distance = (a, b) => {
         const [lat1, lon1] = a;
@@ -456,15 +418,11 @@ export function Map({ meetRequests, onRouteLoaded }) {
         if (!insideStartTime) insideStartTime = Date.now();
 
         if (Date.now() - insideStartTime >= 5000) {
-          console.log("✅ Meetup concluded");
-
-          // 1. update DB
           await supabase
             .from("meet_requests")
             .update({ status: "concluded" })
             .eq("meet_id", activeMeetup.meet_id);
 
-          // 2. cleanup map visuals
           meetupMarkersRef.current.forEach((m) => m.remove());
           meetupMarkersRef.current = [];
 

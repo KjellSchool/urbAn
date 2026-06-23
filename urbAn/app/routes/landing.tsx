@@ -3,11 +3,6 @@ import { useState } from "react";
 
 import { useEffect } from "react";
 
-// import gsap from "gsap";
-// import Draggable from "gsap/Draggable";
-
-// gsap.registerPlugin(Draggable);
-
 import qr from "../assets/qr-code.png";
 
 import image1 from "../assets/images/image-1.png";
@@ -40,7 +35,6 @@ const Landing = () => {
     console.log(imagesState);
   };
 
-  /*GSAP*/
   useEffect(() => {
     let autoSlide;
 

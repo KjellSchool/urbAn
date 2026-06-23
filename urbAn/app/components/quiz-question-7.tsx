@@ -172,9 +172,6 @@ const SeventhQuestion = () => {
       .flatMap((o) => o.value);
 
     setPendingAnswer(payload);
-
-    console.log("Selected options:", updated);
-    console.log("Archetype payload:", payload);
   };
 
   return (

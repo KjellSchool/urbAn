@@ -77,7 +77,7 @@ const Home = () => {
     const [lat1, lon1] = user1Coords || [0, 0];
     const [lat2, lon2] = user2Coords?.coordinates || [0, 0];
 
-    const R = 6371; // Earth's radius in km
+    const R = 6371;
 
     const dLat = ((lat2 - lat1) * Math.PI) / 180;
     const dLon = ((lon2 - lon1) * Math.PI) / 180;
@@ -379,7 +379,6 @@ const Home = () => {
 
     if (!request) return;
 
-    // optimistic UI update (optional but good UX)
     setPendingMeetRequests((prev) =>
       prev.map((r) => (r.meet_id === meetupId ? { ...r, status } : r)),
     );
@@ -395,7 +394,7 @@ const Home = () => {
         return;
       }
 
-      const senderCoords = sender.coordinates; // [lat, lng]
+      const senderCoords = sender.coordinates; 
       const receiverCoords = receiver.coordinates;
 
       const middle = [
@@ -403,7 +402,7 @@ const Home = () => {
         (senderCoords[1] + receiverCoords[1]) / 2,
       ];
 
-      updatePayload.location = middle; // [lat, lng]
+      updatePayload.location = middle; 
     }
 
     const { data: freshMeet, error } = await supabase

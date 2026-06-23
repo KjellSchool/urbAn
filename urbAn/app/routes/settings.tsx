@@ -91,18 +91,6 @@ const Settings = () => {
     loadProfiles();
   }, [currentUser]);
 
-  // useEffect(() => {
-  //   const savedDarkMode = localStorage.getItem("darkMode");
-
-  //   if (savedDarkMode !== null) {
-  //     setDarkMode(savedDarkMode === "true");
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   localStorage.setItem("darkMode", darkMode);
-  // }, [darkMode]);
-
   return (
     <>
       <div className="settings">

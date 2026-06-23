@@ -5,7 +5,6 @@ import { useUser } from "~/contexts/userContext";
 
 import read_sign from "../assets/icons/read_sign.png";
 
-// import { supabase } from "../database/supabase.js";
 import { updateProfile } from "../database/profiles.js";
 
 const Editprofile = () => {
@@ -15,10 +14,6 @@ const Editprofile = () => {
   const [primaryArchetype, setPrimaryArchetype] = useState();
 
   const [selectedAvatar, setSelectedAvatar] = useState(currentUser?.avatar);
-
-  //   const removeCurrentUser = () => {
-  //     localStorage.removeItem("currentUser");
-  //   };
 
   const countries = [
     { country: "Afghanistan", flag: "🇦🇫" },
@@ -194,9 +189,7 @@ const Editprofile = () => {
   }, [currentUser]);
 
   const handleSaveProfile = async () => {
-    console.log("run");
     if (!currentUser?.profile_id) return;
-    console.log(currentUser);
 
     const { data: freshProfile, error } = await updateProfile(
       currentUser?.profile_id,
@@ -207,7 +200,6 @@ const Editprofile = () => {
       console.log(error);
     }
 
-    console.log(freshProfile);
     setCurrentUser(freshProfile);
     navigate("/profile");
   };
