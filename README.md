@@ -34,6 +34,11 @@ Mapbox allows us to add routes / points on the map and serves as a live map for 
 **ML5**: detect movement to simulate lenticular poster based on user position.  
 **GSAP**: animations on the landing page.  
 
+## Requirements
+
+- Internet required
+- Works on iPhone (landing page also works on mac)
+
 ## Features
 
 - User receives an archetype that fits their travel habits after completing a quiz in the onboarding.
