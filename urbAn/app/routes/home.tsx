@@ -25,10 +25,12 @@ import {
 } from "../database/challenges.js";
 
 import { getChallengeTip } from "../database/tips.js";
-
 import tumbleweed from "../assets/icons/tumbleweed.svg";
-
 import closePopup from "../assets/icons/close-popup.png";
+
+import { getCompletedRoutesForUser } from "../database/routes.js";
+import { getCompletedChallenges } from "../database/challenges.js";
+import { getConcludedMeetups } from "../database/meetup.js";
 
 const Home = () => {
   const { currentUser } = useUser();
@@ -54,6 +56,8 @@ const Home = () => {
 
   const [drawerStartY, setDrawerStartY] = useState(null);
   const [drawerDragY, setDrawerDragY] = useState(0);
+
+  const [profileStats, setProfileStats] = useState({});
 
   const getCurrentUserLocation = async () => {
     const { data: location } = await getProfileLocation(
@@ -201,6 +205,35 @@ const Home = () => {
     setRouteArchetypes(Object.fromEntries(result));
   };
 
+  const loadProfileStats = async () => {
+    if (!closeProfiles?.length) return;
+
+    const stats = await Promise.all(
+      closeProfiles.map(async (profile) => {
+        const profileId = profile.profile_id;
+
+        const { data: routes } = await getCompletedRoutesForUser(profileId);
+        const { data: challenges } = await getCompletedChallenges(profileId);
+        const { data: meetups } = await getConcludedMeetups(profileId);
+
+        return {
+          profile_id: profileId,
+          routes: routes?.length || 0,
+          challenges: challenges?.length || 0,
+          meetups: meetups?.length || 0,
+        };
+      }),
+    );
+
+    const statsByProfileId = {};
+
+    stats.forEach((stat) => {
+      statsByProfileId[stat.profile_id] = stat;
+    });
+
+    setProfileStats(statsByProfileId);
+  };
+
   const handleDrawerTouchStart = (e) => {
     setDrawerStartY(e.touches[0].clientY);
   };
@@ -276,6 +309,10 @@ const Home = () => {
       return () => clearInterval(groupingInterval);
     }
   }, [profiles]);
+
+  useEffect(() => {
+    loadProfileStats();
+  }, [closeProfiles]);
 
   const sendMeetRequest = async (receiverId) => {
     const { data: sentRequest, error } = await sendRequest(
@@ -1898,7 +1935,7 @@ const Home = () => {
                                   style={{
                                     color: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
                                   }}>
-                                  3
+                                  {profileStats[profile.profile_id]?.routes || 0}
                                 </p>
                                 <p className="stat__label">Routes</p>
                               </div>
@@ -1912,7 +1949,7 @@ const Home = () => {
                                   style={{
                                     color: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
                                   }}>
-                                  5
+                                  {profileStats[profile.profile_id]?.challenges || 0}
                                 </p>
                                 <p className="stat__label">Side Quests</p>
                               </div>
@@ -1926,7 +1963,7 @@ const Home = () => {
                                   style={{
                                     color: `#${profileArchetypes[profile?.primary_archetype]?.colour}`,
                                   }}>
-                                  1
+                                  {profileStats[profile.profile_id]?.meetups || 0}
                                 </p>
                                 <p className="stat__label">Meet Ups</p>
                               </div>
@@ -3892,7 +3929,7 @@ const Home = () => {
                 <button
                   className="tip__close"
                   onClick={() => setTipActive(false)}>
-                  Git it!
+                  Got it!
                 </button>
               </div>
             </div>
