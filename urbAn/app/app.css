@@ -214,6 +214,7 @@ button {
   font-family: "Antwerpen Regular";
   font-size: 20px;
   text-align: center;
+  margin-bottom: var(--space-m);
 }
 
 .search__bar {
@@ -313,7 +314,7 @@ button {
   background-blend-mode: color-dodge;
   max-width: 100dvw;
   min-height: 100dvh;
-    background-size: 150%;
+  background-size: 150%;
 }
 
 .landing::before {
