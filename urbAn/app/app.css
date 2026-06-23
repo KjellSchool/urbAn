@@ -167,7 +167,7 @@ button {
 
   width: 100%;
   height: 80dvh;
-  padding: var(--space-l) 0;
+  padding: var(--space-s) 0;
   padding-bottom: 6rem;
   border-radius: 40px 40px 0 0;
 
@@ -178,7 +178,7 @@ button {
   overflow-y: auto;
   overscroll-behavior: none;
 
-  transform: translateY(125%);
+  transform: translateY(calc(125% + var(--drag-y, 0px)));
   transition: all 200ms ease;
 
   z-index: +1;
@@ -188,11 +188,25 @@ button {
   gap: var(--space-xl);
 }
 
+.navigation__section--active {
+  transform: translateY(calc(25% + var(--drag-y, 0px)));
+}
+
+.drawer__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-s);
+}
+
+.drawer__slider {
+  width: 60px;
+}
+
 .drawer__title {
   color: var(--colour-white);
   font-family: "Antwerpen Regular";
   font-size: 32px;
-  text-align: center;
 }
 
 .drawer__description {
@@ -1484,6 +1498,7 @@ li {
   justify-content: center;
   align-items: center;
 }
+
 
 .user__avatar {
   width: 6rem;

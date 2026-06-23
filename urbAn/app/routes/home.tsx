@@ -28,6 +28,8 @@ import { getChallengeTip } from "../database/tips.js";
 
 import tumbleweed from "../assets/icons/tumbleweed.svg";
 
+import closePopup from "../assets/icons/close-popup.png";
+
 const Home = () => {
   const { currentUser } = useUser();
   const [profileLocation, setProfileLocation] = useState(
@@ -49,6 +51,9 @@ const Home = () => {
   const [senderProfile, setSenderProfile] = useState(null);
   const [senderArchetype, setSenderArchetype] = useState(null);
   const [meetinInterest, setMeetingInterest] = useState(false);
+
+  const [drawerStartY, setDrawerStartY] = useState(null);
+  const [drawerDragY, setDrawerDragY] = useState(0);
 
   const getCurrentUserLocation = async () => {
     const { data: location } = await getProfileLocation(
@@ -194,6 +199,30 @@ const Home = () => {
     );
 
     setRouteArchetypes(Object.fromEntries(result));
+  };
+
+  const handleDrawerTouchStart = (e) => {
+    setDrawerStartY(e.touches[0].clientY);
+  };
+
+  const handleDrawerTouchMove = (e) => {
+    if (drawerStartY === null) return;
+
+    const currentY = e.touches[0].clientY;
+    const dragDistance = currentY - drawerStartY;
+
+    if (dragDistance > 0) {
+      setDrawerDragY(dragDistance);
+    }
+  };
+
+  const handleDrawerTouchEnd = () => {
+    if (drawerDragY > 80) {
+      closeAllTabs();
+    }
+
+    setDrawerStartY(null);
+    setDrawerDragY(0);
   };
 
   const [profileArchetypes, setProfileArchetypes] = useState({});
@@ -1849,8 +1878,18 @@ const Home = () => {
             </>
           )}
         </div>
-        <div className="navigation__section drawer">
-          <h2 className="drawer__title">Exploring Routes</h2>
+        <div
+          className="navigation__section drawer"
+          onTouchStart={handleDrawerTouchStart}
+          onTouchMove={handleDrawerTouchMove}
+          onTouchEnd={handleDrawerTouchEnd}
+          style={{
+            "--drag-y": `${drawerDragY}px`,
+          }}
+        >
+          <div className="drawer__header">
+            <img className="drawer__slider" src={closePopup} alt="Close Popup" />
+            <h2 className="drawer__title">Exploring Routes</h2></div>
           <div className="drawer__section">
             <h3 className="drawer__subtitle">For you</h3>
             <ul className="routes__list">
