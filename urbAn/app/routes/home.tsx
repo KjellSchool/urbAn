@@ -1727,7 +1727,7 @@ const Home = () => {
               <Link
                 className=" empty__button--visibile"
                 to="/settings">
-                <button>Update Privacy Settings</button>
+                <button>Visibility Settings</button>
               </Link>
               <img className="empty__tumbleweed" src={tumbleweed} alt="tumbleweed" />
             </div>
