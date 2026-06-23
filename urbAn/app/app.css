@@ -109,7 +109,8 @@ body {
   overscroll-behavior: none;
 }
 
-html:has(.landing), body:has(.landing) {
+html:has(.landing),
+body:has(.landing) {
   overflow-y: scroll;
 }
 
@@ -1485,8 +1486,6 @@ li {
 }
 
 .user__avatar {
-  background-color: var(--colour-green-200);
-
   width: 6rem;
   height: auto;
   padding: var(--space-xs);

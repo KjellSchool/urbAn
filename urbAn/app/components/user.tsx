@@ -11,6 +11,17 @@ const User = () => {
   const [profiles, setProfiles] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
 
+  const avatarColors = [
+    "#ff8029",
+    "#cdff10",
+    "#00e081",
+    "#46a2ff",
+    "#b085ff",
+  ];
+
+  const randomColor =
+    avatarColors[Math.floor(Math.random() * avatarColors.length)];
+
   const loadProfiles = async () => {
     const { data: profiles, error } = await getProfiles();
     setProfiles(profiles);
@@ -42,7 +53,15 @@ const User = () => {
           {profiles.map((profile) => (
             <li className="users__item" key={profile.profile_id}>
               <button onClick={() => selectUser(profile.profile_id)}>
-                <img className="user__avatar" src={profile?.avatar} alt="avatar" />
+                <img
+                  className="user__avatar"
+                  src={profile?.avatar}
+                  alt="avatar"
+                  style={{
+                    backgroundColor:
+                      avatarColors[Math.floor(Math.random() * avatarColors.length)],
+                  }}
+                />
                 <p className="user__name">
                   {profile?.name ? profile?.name : "boring"}
                 </p>
