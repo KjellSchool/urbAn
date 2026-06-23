@@ -3286,12 +3286,6 @@ const Home = () => {
               ))}
             </ul>
           </div>
-          <Link to={`/home`}>
-            Cancel routes
-          </Link>
-          <button className="" onClick={revealRoutes}>
-            Close
-          </button>
         </div>
         {pendingMeetRequests
           .filter((request) => request.status === "pending")
